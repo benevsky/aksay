@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>ХБК Аксай — Хлебобулочный комбинат с 1988 года</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=Onest:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+/* reset */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Onest',sans-serif;background:#F5EFE6;color:#1A0A00;overflow-x:hidden}
+body.dk{background:#0D0500;color:#F5EFE6}
+::selection{background:#C8251A;color:#fff}
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-thumb{background:rgba(200,37,26,.4);border-radius:2px}
+
+/* tokens */
+:root{
+  --cr:#F5EFE6;--dk:#0D0500;
+  --card:#FBF7F2;--coal:#1A0A00;
+  --red:#C8251A;--org:#E8391A;
+  --b:rgba(26,10,0,.08);--b2:rgba(26,10,0,.05);
+  --t2:rgba(26,10,0,.55);--t3:rgba(26,10,0,.34)
+}
+body.dk{
+  --card:#1A0900;--b:rgba(245,239,230,.07);
+  --b2:rgba(245,239,230,.04);--t2:rgba(245,239,230,.55);--t3:rgba(245,239,230,.32)
+}
+
+/* animations */
+@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes mqr{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.rv.vis{opacity:1;transform:none}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all .3s}
+.nav.sc{background:rgba(245,239,230,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--b)}
+body.dk .nav.sc{background:rgba(13,5,0,.93)}
+.ni{max-width:1380px;margin:0 auto;padding:0 28px;height:66px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nlinks{display:flex;gap:2px;align-items:center;flex:1;justify-content:center}
+.nl{background:none;border:none;cursor:pointer;padding:7px 11px;border-radius:20px;font-size:.8rem;font-weight:500;font-family:'Onest',sans-serif;color:#1A0A00;opacity:.6;transition:all .2s;white-space:nowrap}
+body.dk .nl{color:#F5EFE6}
+.nl:hover,.nl.on{opacity:1;color:#C8251A}
+.lbar{display:flex;gap:2px;background:rgba(26,10,0,.06);border-radius:20px;padding:3px}
+body.dk .lbar{background:rgba(245,239,230,.07)}
+.lb{background:none;border:none;cursor:pointer;padding:4px 9px;border-radius:16px;font-size:.67rem;font-weight:800;font-family:'Onest',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:#1A0A00;transition:all .2s}
+body.dk .lb{color:#F5EFE6}
+.lb.on{background:#C8251A;color:#fff}
+.ib{background:rgba(26,10,0,.06);border:none;cursor:pointer;width:35px;height:35px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#1A0A00;transition:all .2s;flex-shrink:0}
+body.dk .ib{background:rgba(245,239,230,.07);color:#F5EFE6}
+.mob-menu-wrap{display:none;position:fixed;top:66px;left:0;right:0;background:var(--cr);border-bottom:1px solid var(--b);padding:14px 20px 18px;flex-direction:column;gap:4px;z-index:999}
+body.dk .mob-menu-wrap{background:#0D0500}
+.mob-menu-wrap.op{display:flex}
+.mnl{background:none;border:none;cursor:pointer;padding:10px 13px;border-radius:11px;font-size:.92rem;font-family:'Onest',sans-serif;color:#1A0A00;text-align:left;font-weight:500;transition:all .2s}
+body.dk .mnl{color:#F5EFE6}
+.mnl:hover{background:rgba(200,37,26,.08);color:#C8251A}
+@media(max-width:900px){.nlinks{display:none!important}}
+@media(min-width:901px){.mob-tog{display:none!important}}
+
+/* layout */
+.w{max-width:1380px;margin:0 auto;padding:0 28px}
+@media(max-width:640px){.w{padding:0 16px}}
+.sec{padding:104px 0}
+@media(max-width:768px){.sec{padding:60px 0}}
+
+/* section heading */
+.sh{margin-bottom:52px}
+.shl{display:block;font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#C8251A;margin-bottom:12px}
+.sht{font-family:'Playfair Display',serif;font-weight:900;letter-spacing:-.04em;line-height:.95;font-size:clamp(2rem,3.6vw,3.6rem);color:#1A0A00}
+body.dk .sht{color:#F5EFE6}
+.sht .em{color:#E8391A}
+.shs{color:var(--t2);font-size:.96rem;line-height:1.72;margin-top:15px;max-width:600px}
+.sdk .shl{color:rgba(232,57,26,.72)}
+.sdk .sht{color:#F5EFE6}
+.sdk .shs{color:rgba(245,239,230,.48)}
+
+/* typography */
+.dp{font-family:'Playfair Display',serif;font-weight:900;letter-spacing:-.04em;line-height:.93}
+.sf{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:-.025em}
+.num{font-family:'Playfair Display',serif;font-weight:900;letter-spacing:-.05em;line-height:1}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:7px;cursor:pointer;border:none;border-radius:50px;font-family:'Onest',sans-serif;font-weight:700;font-size:.84rem;transition:all .22s;white-space:nowrap;text-decoration:none}
+.br{background:#C8251A;color:#fff;padding:12px 26px}
+.br:hover{background:#A81E14;transform:translateY(-1px)}
+.bo{background:#E8391A;color:#fff;padding:12px 26px}
+.bo:hover{background:#C82D12;transform:translateY(-1px)}
+.bg{background:transparent;border:1.5px solid var(--b);color:#1A0A00;padding:11px 24px}
+body.dk .bg{border-color:rgba(245,239,230,.16);color:#F5EFE6}
+.bg:hover{border-color:#E8391A;color:#E8391A}
+.bgw{background:transparent;border:1.5px solid rgba(245,239,230,.25);color:#F5EFE6;padding:11px 24px}
+.bgw:hover{border-color:#F5EFE6}
+
+/* cards */
+.cd{background:var(--card);border-radius:18px;border:1px solid var(--b);transition:transform .28s,box-shadow .28s}
+.cd:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(26,10,0,.08)}
+body.dk .cd:hover{box-shadow:0 12px 36px rgba(0,0,0,.25)}
+
+/* bento */
+.bn{display:grid;grid-template-columns:repeat(12,1fr);gap:11px}
+.g3{grid-column:span 3}.g4{grid-column:span 4}.g5{grid-column:span 5}
+.g6{grid-column:span 6}.g7{grid-column:span 7}.g8{grid-column:span 8}
+@media(max-width:1100px){
+  .g3{grid-column:span 4!important}.g4{grid-column:span 6!important}
+  .g5{grid-column:span 6!important}.g7{grid-column:span 8!important}
+  .g8{grid-column:span 12!important}
+}
+@media(max-width:640px){
+  .bn{grid-template-columns:1fr 1fr!important;gap:8px!important}
+  .g3,.g4,.g5,.g6,.g7,.g8{grid-column:span 2!important}
+}
+
+/* bento cards */
+.bc{border-radius:22px;overflow:hidden;position:relative;transition:transform .32s cubic-bezier(.16,1,.3,1),box-shadow .32s}
+.bc:hover{transform:translateY(-3px) scale(1.005);box-shadow:0 16px 48px rgba(26,10,0,.11)}
+.bm{border-radius:22px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;min-height:192px;position:relative;overflow:hidden;transition:transform .32s cubic-bezier(.16,1,.3,1),box-shadow .32s}
+.bm:hover{transform:translateY(-3px) scale(1.005);box-shadow:0 16px 48px rgba(26,10,0,.11)}
+
+/* stores */
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:13px}
+@media(max-width:640px){.sg{grid-template-columns:1fr}}
+
+/* products */
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:12px}
+@media(max-width:640px){.pg{grid-template-columns:repeat(2,1fr)}}
+.pc{background:var(--card);border-radius:17px;border:1px solid var(--b);overflow:hidden;cursor:pointer;transition:transform .28s,box-shadow .28s}
+.pc:hover{transform:translateY(-5px);box-shadow:0 12px 36px rgba(26,10,0,.08)}
+
+/* category tabs */
+.ct{background:none;border:1.5px solid var(--b);cursor:pointer;padding:8px 17px;border-radius:50px;font-size:.8rem;font-weight:600;font-family:'Onest',sans-serif;color:#1A0A00;transition:all .2s;white-space:nowrap}
+body.dk .ct{color:#F5EFE6;border-color:rgba(245,239,230,.1)}
+.ct:hover,.ct.on{background:#C8251A;color:#fff;border-color:#C8251A}
+
+/* process 3x2 */
+.pf3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+@media(max-width:900px){.pf3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:540px){.pf3{grid-template-columns:1fr}}
+.pf-row{display:flex;align-items:center;gap:0;margin-bottom:44px;overflow-x:auto;padding-bottom:4px}
+.pf-node{width:32px;height:32px;border-radius:50%;border:2px solid #C8251A;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;color:#C8251A;flex-shrink:0;font-family:'Onest',sans-serif;background:var(--cr)}
+body.dk .pf-node{background:var(--dk)}
+.pf-line{flex:1;height:2px;background:linear-gradient(90deg,#C8251A,#E8391A);min-width:14px}
+
+/* history cards */
+.hc-grid{display:flex;flex-direction:column;gap:12px;max-width:800px}
+.hc{background:var(--card);border-radius:17px;border:1px solid var(--b);overflow:hidden;display:flex;align-items:stretch;transition:transform .28s,box-shadow .28s}
+.hc:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,10,0,.07)}
+body.dk .hc{background:#1C0A00}
+.hc-year{font-family:'Playfair Display',serif;font-weight:900;font-size:1.4rem;color:#C8251A;line-height:1;flex-shrink:0;width:64px;margin-bottom:8px}
+
+/* b2b adv 2x2 */
+.adv4{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:640px){.adv4{grid-template-columns:1fr}}
+
+/* marquee */
+.mqw{overflow:hidden;width:100%}
+.mqf{animation:mq 34s linear infinite;display:flex;gap:0;white-space:nowrap;align-items:center}
+.mqb{animation:mqr 40s linear infinite;display:flex;gap:0;white-space:nowrap;align-items:center}
+
+/* footer */
+.ft{background:#100600;padding:72px 0 30px}
+body.dk .ft{background:#080300}
+.ftg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:52px}
+@media(max-width:1024px){.ftg{grid-template-columns:1fr 1fr 1fr;gap:26px}}
+@media(max-width:560px){.ftg{grid-template-columns:1fr 1fr;gap:18px}}
+.ftl{display:block;color:rgba(245,239,230,.36);font-size:.8rem;margin-bottom:10px;cursor:pointer;transition:color .2s}
+.ftl:hover{color:#E8391A}
+
+/* tags */
+.tg{display:inline-flex;align-items:center;background:rgba(200,37,26,.1);color:#C8251A;font-size:.62rem;font-weight:800;padding:4px 10px;border-radius:14px;font-family:'Onest',sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.tglt{background:rgba(245,239,230,.14);color:rgba(245,239,230,.65)}
+.tggr{background:rgba(34,197,94,.1);color:#16a34a}
+
+/* form */
+input,textarea,select{width:100%;padding:11px 14px;border-radius:11px;border:1.5px solid var(--b);background:rgba(26,10,0,.025);color:#1A0A00;font-family:'Onest',sans-serif;font-size:.86rem;outline:none;transition:border .2s}
+body.dk input,body.dk textarea,body.dk select{background:rgba(245,239,230,.04);color:#F5EFE6;border-color:rgba(245,239,230,.1)}
+input:focus,textarea:focus{border-color:#E8391A}
+.fl{display:block;font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
+
+/* vacancy */
+.vc{background:var(--card);border-radius:17px;border:1px solid var(--b);padding:22px 24px;transition:transform .25s,box-shadow .25s}
+.vc:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(26,10,0,.07)}
+
+/* page transition */
+.page-wrap{animation:fadeUp .35s cubic-bezier(.16,1,.3,1) both}
+
+/* grain */
+.grain-ov::after{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
+
+.pulse{animation:pulse 2.2s ease infinite}
+
+/* info boxes on sub-pages */
+.info-box{background:var(--card);border-radius:18px;border:1px solid var(--b);padding:28px 24px}
+.info-row{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:640px){.info-row{grid-template-columns:1fr}}
+.info-row3{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+@media(max-width:900px){.info-row3{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.info-row3{grid-template-columns:1fr}}
+
+/* stat cards 4 col */
+.stat4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:48px}
+@media(max-width:900px){.stat4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.stat4{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useRef,useMemo}=React;
+
+/* ═══════ DATA ═══════ */
+const T={
+  RU:{
+    nav:{home:"Главная",about:"О нас",prod:"Производство",products:"Продукция",stores:"Магазины",partners:"Партнёрам",careers:"Карьера",news:"Новости",media:"Для СМИ"},
+    more:"Подробнее",
+    hero:{
+      badge:"ХБК Аксай · с 1988 года · Алматы",
+      h1:"Традиции качества,",h2:"проверенные временем",
+      sub:"Крупнейший хлебобулочный комбинат Казахстана. 400+ наименований. Почти 40 лет непрерывной работы.",
+      c1:"Каталог продукции",c2:"Стать партнёром",
+      k1t:"37 лет",k1s:"на рынке без перерыва",
+      k2t:"400+",k2s:"наименований продукции",
+      k3t:"Хлебная продукция и кондитерские изделия",k3s:"Производим свежее с 1988",
+      k4t:"2 000+",k4s:"оптовых клиентов и 16 магазинов"
+    },
+    stores:{
+      label:"Фирменная сеть",title:"16 магазинов",em:" по всему Алматы",
+      sub:"Свежая выпечка ежедневно с 07:00. Удобные точки в каждом микрорайоне.",
+      all:"Все",near:"У дома",mall:"В ТЦ",open:"Открыто",more:"Все магазины",
+      fullTitle:"Наши магазины",
+      fullSub:"16 фирменных точек продаж по всему городу. Работаем ежедневно, свежий хлеб завозится каждое утро прямо с производства.",
+      workHours:"Режим работы",address:"Адрес",type:"Формат"
+    },
+    products:{
+      label:"Ассортимент",title:"Свежая выпечка",em:" каждый день",
+      sub:"Более 300 наименований. Хлеб, кондитерские изделия, бараночные изделия, сезонные новинки.",
+      cats:{all:"Все",bread:"Хлеб",buns:"Булочные",bagels:"Бараночные",conf:"Кондитерские",easter:"Пасхальные",cookies:"Печенье"},
+      more:"Показать ещё",kg:"кг",tocat:"Весь каталог",
+      fullTitle:"Каталог продукции",
+      fullSub:"Ассортимент ХБК Аксай — более 300 наименований хлебобулочных, кондитерских и макаронных изделий. Производство без остановок с 1988 года."
+    },
+    trust:{label:"Партнёры",title:"Нам доверяют",em:" 2000+ клиентов",sub:"Ведущие торговые сети и розничные операторы Алматы — наши постоянные партнёры."},
+    about:{
+      label:"История",title:"Наша история",em:" с 1988 года",
+      sub:"37 лет без единого перерыва. Из государственного хлебозавода — в современный комбинат.",
+      quote:"\"Хлеб — это не просто продукт. Это ответственность перед людьми, которым мы служим каждый день.\"",
+      ceo:"Сарсенова З.К.",ceoRole:"Генеральный директор",more:"О нас подробнее",
+      fullTitle:"О компании",
+      fullSub:"ХБК Аксай — одно из крупнейших хлебопекарных предприятий Казахстана, работающее непрерывно с 1988 года. Мы производим свежий хлеб и кондитерские изделия для жителей Алматы и всего Казахстана.",
+      missTitle:"Миссия",
+      missText:"Обеспечивать казахстанские семьи свежим, вкусным и безопасным хлебом каждый день. Сочетая традиции хлебопекарной школы с современными технологиями.",
+      vals:[{t:"Качество",d:"Строгий контроль на каждом этапе производства — от сырья до прилавка"},{t:"Свежесть",d:"Выпечка поступает в магазины ежедневно прямо с производства"},{t:"Традиции",d:"37 лет рецептур и опыта, проверенных временем и миллионами покупателей"},{t:"Инновации",d:"Современное немецкое и итальянское оборудование, сертификаты HACCP и ISO"}],
+      certs:["HACCP","ISO 22000:2018","Халяль","ГОСТ РК","СТ РК"]
+    },
+    process:{
+      label:"Производство",title:"Как работает производство",
+      sub:"8 цехов, немецкое и итальянское оборудование, стандарты ГОСТ и HACCP.",
+      certTitle:"Сертификаты",certs:["HACCP","ISO 22000:2018","Халяль","ГОСТ РК","СТ РК"],
+      more:"Подробнее о производстве",
+      fullTitle:"Производство и инновации",
+      fullSub:"Современное предприятие полного цикла. 8 производственных цехов работают круглосуточно, обеспечивая свежую продукцию для тысяч семей Алматы.",
+      facts:[{n:"8",l:"производственных цехов"},{n:"40+",l:"единиц оборудования"},{n:"80+",l:"тонн продукции в сутки"},{n:"24/7",l:"без остановок"}],
+      steps:[
+        {n:"01",t:"Контроль сырья",d:"Лабораторный анализ каждой партии муки и ингредиентов перед производством",ico:"shield"},
+        {n:"02",t:"Замес теста",d:"Автоматизированные тестомесы нового поколения — стабильная рецептура круглосуточно",ico:"refresh"},
+        {n:"03",t:"Расстойка",d:"Климатические камеры обеспечивают идеальную структуру теста для каждого вида",ico:"thermometer"},
+        {n:"04",t:"Выпекание",d:"8 туннельных печей немецкого производства с точным температурным контролем",ico:"flame"},
+        {n:"05",t:"Охлаждение и упаковка",d:"Спиральные охладители и автоматическая линия упаковки сохраняют свежесть",ico:"package"},
+        {n:"06",t:"Выходной контроль",d:"Лаборатория проверяет каждую партию перед отгрузкой в магазины и партнёрам",ico:"check"}
+      ]
+    },
+    careers:{
+      label:"Команда",title:"Люди Аксая",
+      sub:"Более 1 000 сотрудников. Многие работают с нами по 15–20 лет. Стабильность, рост, забота.",
+      stats:[{n:"1 000+",l:"сотрудников"},{n:"15–20",l:"лет средний стаж"},{n:"37",l:"лет компании"},{n:"24/7",l:"работаем"}],
+      quote:"Наши сотрудники — наша главная ценность. Многие работают с нами более 20 лет, и это лучшее подтверждение того, что Аксай — место, где хочется быть.",
+      ceo:"Сарсенова З.К.",ceoRole:"Генеральный директор",
+      perks:[{t:"Официальное трудоустройство",d:"По ТК РК с первого дня"},{t:"Стабильная зарплата",d:"Выплаты дважды в месяц"},{t:"Горячее питание",d:"Бесплатные обеды на производстве"},{t:"Карьерный рост",d:"Обучение и повышение внутри компании"}],
+      vlabel:"Открытые вакансии",apply:"Откликнуться",more:"Все вакансии",
+      fullTitle:"Карьера в Аксай",
+      fullSub:"Присоединяйтесь к команде, которая кормит Алматы каждое утро. Мы предлагаем стабильные условия, возможности роста и дружный коллектив.",
+      benefits:[
+        {t:"Официальное трудоустройство",d:"Оформление по Трудовому кодексу РК с первого рабочего дня. Все социальные гарантии и отчисления."},
+        {t:"Стабильная зарплата",d:"Выплата заработной платы дважды в месяц без задержек. Регулярная индексация."},
+        {t:"Горячее питание",d:"Бесплатные обеды в столовой предприятия для всех сотрудников производства."},
+        {t:"Карьерный рост",d:"Внутренние программы обучения, наставничество, повышение квалификации и карьерная лестница."},
+        {t:"Медицинское страхование",d:"ДМС для сотрудников и частичная компенсация для членов семьи после испытательного срока."},
+        {t:"Транспорт",d:"Организованная доставка сотрудников производственных смен по основным маршрутам Алматы."}
+      ]
+    },
+    b2b:{
+      label:"Оптовым клиентам",title:"Для бизнеса",em:" и партнёров",
+      sub:"Надёжный поставщик для торговых сетей, HoReCa и дистрибьюторов Казахстана.",
+      adv:[
+        {t:"37 лет надёжности",d:"Стабильные поставки для 200+ корпоративных клиентов по всему Казахстану"},
+        {t:"Своя логистика",d:"Парк 40+ автомобилей, доставка по Алматы и Алматинской области"},
+        {t:"300+ наименований",d:"Полный ассортимент для любого формата — ритейл, HoReCa, дистрибьюция"},
+        {t:"Гибкие условия",d:"Индивидуальный прайс, отсрочка платежа, персональный менеджер"}
+      ],
+      ftitle:"Оставить заявку",fco:"Название компании",fnm:"Контактное лицо",fph:"Телефон",fem:"E-mail",fbz:"Тип бизнеса",fvl:"Примерный объём (кг/нед)",
+      fsend:"Отправить заявку",fok:"Заявка принята! Свяжемся в течение 2 часов.",
+      price:"Скачать прайс-лист",
+      fullTitle:"Партнёрам и оптовым клиентам",
+      fullSub:"ХБК Аксай — стратегический поставщик для ведущих торговых сетей, ресторанного бизнеса и дистрибьюторов Казахстана."
+    },
+    contacts:{
+      label:"Контакты",title:"Свяжитесь с нами",
+      sub:"Мы работаем без выходных. Наши специалисты готовы ответить на любой вопрос.",
+      addr:"г. Алматы, мкр. Аксай-2, ул. Б. Момышулы, 36а",
+      phone:"+7 (727) 221-68-16",email:"info@aksaynan.kz",
+      bphone:"+7 (727) 221-68-17",bemail:"partners@aksaynan.kz",
+      hours:"Пн–Пт: 08:00–18:00",
+      prod24:"Производство: 24/7",
+      shops:"Магазины: 07:00–22:00",
+      formTitle:"Написать нам",
+      fname:"Ваше имя",femail:"E-mail",fsubj:"Тема",fmsg:"Сообщение",
+      fsend:"Отправить",fok:"Сообщение отправлено!",
+      topics:["Вопрос о продукции","Оптовые поставки","Жалоба или предложение","Карьера","СМИ","Другое"]
+    },
+    footer:{
+      copy:"© 2026 ТОО «ХБК Аксай». Все права защищены.",tag:"Хлеб, которому доверяют 37 лет.",
+      addr:"г. Алматы, мкр. Аксай-2, ул. Б. Момышулы, 36а",phone:"+7 (727) 221-68-16",email:"info@aksaynan.kz",
+      cols:[
+        {t:"Продукция",l:["Свежий хлеб","Кондитерские изделия","Бараночные изделия","Пасхальная выпечка","Макаронные изделия"]},
+        {t:"Компания",l:["О нас","История с 1988","Производство","Сертификаты","Пресс-центр"]},
+        {t:"Сеть",l:["Магазины","Найти рядом","Партнёрам","Прайс-лист","Контакты"]},
+        {t:"Карьера",l:["Вакансии","Условия работы","О команде","Обучение"]}
+      ],
+      priv:"Политика конфиденциальности",terms:"Условия использования"
+    }
+  }
+};
+// KK and EN share same keys, just different values — abbreviated for size
+const KK={...T.RU};KK.nav={home:"Басты бет",about:"Біз туралы",prod:"Өндіріс",products:"Өнімдер",stores:"Дүкендер",partners:"Серіктестер",careers:"Мансап",news:"Жаңалықтар",media:"БАҚ үшін"};
+KK.hero={...T.RU.hero,badge:"НБК Аксай · 1988 жылдан · Алматы",h1:"Сапа дәстүрлері,",h2:"уақыт сынаған",sub:"Қазақстанның ірі нан комбинаты. 300+ атау. 37 жыл үздіксіз.",c1:"Өнімдер каталогы",c2:"Серіктес болу",k1s:"нарықта үздіксіз",k2s:"өнім атауы",k3t:"Нан мен кондитерлік",k3s:"1988 жылдан күн сайын",k4s:"көтерме клиент және 16 дүкен"};
+KK.more="Толығырақ";KK.stores={...T.RU.stores,label:"Фирмалық желі",title:"16 дүкен",em:" Алматы бойынша",sub:"Күн сайын 07:00-ден жаңа нан.",all:"Барлығы",near:"Үй жанында",mall:"Сауда орталығы",open:"Ашық",more:"Барлық дүкендер"};
+KK.products={...T.RU.products,label:"Ассортимент",title:"Жаңа тоқаш",em:" күн сайын",sub:"300-ден астам атау.",cats:{all:"Барлығы",bread:"Нан",buns:"Тоқаш",bagels:"Бөлке",conf:"Кондитерлік",easter:"Пасхалдық",cookies:"Печенье"},more:"Тағы көрсету",tocat:"Толық каталог"};
+KK.trust={...T.RU.trust,label:"Серіктестер",title:"Бізге сенеді",em:" 200+ клиент",sub:"Сауда желілері, мейрамханалар, HoReCa."};
+KK.about={...T.RU.about,label:"Тарих",title:"Біздің тарих",em:" 1988 жылдан",sub:"37 жыл үздіксіз.",quote:'"Нан — жай ғана өнім емес."',ceo:"Сарсенова З.Қ.",ceoRole:"Бас директор",more:"Толығырақ"};
+KK.process={...T.RU.process,label:"Өндіріс",title:"Нанды қалай пісіреміз",sub:"8 цех, неміс пен итальян жабдықтары."};
+KK.careers={...T.RU.careers,label:"Команда",title:"Аксай адамдары",sub:"1000-нан астам қызметкер.",vlabel:"Бос орындар",apply:"Жауап беру",more:"Барлық вакансиялар"};
+KK.b2b={...T.RU.b2b,label:"Көтерме клиенттерге",title:"Бизнес үшін",em:" және серіктестер",sub:"Тұрақты жеткізу, икемді шарттар.",ftitle:"Өтінім қалдыру",fsend:"Жіберу",fok:"Өтінім қабылданды!",price:"Баға тізімін жүктеу"};
+KK.contacts={...T.RU.contacts,label:"Байланыс",title:"Бізбен хабарласыңыз",sub:"Демалыссыз жұмыс істейміз.",formTitle:"Хабарлама жіберу",fname:"Атыңыз",femail:"E-mail",fsubj:"Тақырып",fmsg:"Хабарлама",fsend:"Жіберу",fok:"Жіберілді!"};
+KK.footer={...T.RU.footer,copy:"© 2026 ЖШС «НБК Аксай». Барлық құқықтар қорғалған.",tag:"37 жыл бойы сенімді нан."};
+
+const EN={...T.RU};EN.nav={home:"Home",about:"About",prod:"Production",products:"Products",stores:"Stores",partners:"Partners",careers:"Careers",news:"News",media:"Press"};
+EN.hero={...T.RU.hero,badge:"HBK Aksay · Since 1988 · Almaty",h1:"A tradition of quality,",h2:"baked through time",sub:"Kazakhstan's leading bakery. 300+ products. 37 years of uninterrupted work.",c1:"View Catalog",c2:"Become a Partner",k1s:"on market without a break",k2s:"product varieties",k3t:"Bread & confectionery",k3s:"Fresh every day since 1988",k4s:"wholesale clients & 16 stores"};
+EN.more="Learn More";EN.stores={...T.RU.stores,label:"Store Network",title:"16 stores",em:" across Almaty",sub:"Fresh baked goods from 07:00 daily.",all:"All",near:"Neighborhood",mall:"Mall",open:"Open",more:"All Stores"};
+EN.products={...T.RU.products,label:"Assortment",title:"Fresh baked goods",em:" every day",sub:"Over 300 varieties.",cats:{all:"All",bread:"Bread",buns:"Buns",bagels:"Bagels",conf:"Confectionery",easter:"Easter",cookies:"Cookies"},more:"Show more",tocat:"Full Catalog"};
+EN.trust={...T.RU.trust,label:"Partners",title:"Trusted by",em:" 200+ clients",sub:"Retail chains, restaurants, HoReCa and distributors across Kazakhstan."};
+EN.about={...T.RU.about,label:"History",title:"Our history",em:" since 1988",sub:"37 years without a break.",quote:'"Bread is not just a product. It is responsibility towards the people we serve every day."',ceo:"Sarsenova Z.K.",ceoRole:"General Director",more:"More About Us"};
+EN.process={...T.RU.process,label:"Production",title:"How we bake bread",sub:"8 workshops, German & Italian equipment, GOST and HACCP standards."};
+EN.careers={...T.RU.careers,label:"Team",title:"People of Aksay",sub:"Over 1,000 employees, many with 15–20 year tenure.",vlabel:"Open Positions",apply:"Apply Now",more:"All Vacancies"};
+EN.b2b={...T.RU.b2b,label:"Wholesale",title:"For business",em:" and partners",sub:"Reliable supplier for retail chains, HoReCa and distributors.",ftitle:"Submit Inquiry",fsend:"Send Inquiry",fok:"Inquiry received! We will contact you within 2 hours.",price:"Download Price List"};
+EN.contacts={...T.RU.contacts,label:"Contacts",title:"Get in touch",sub:"We work without days off.",formTitle:"Send us a message",fname:"Your name",femail:"Email",fsubj:"Subject",fmsg:"Message",fsend:"Send",fok:"Message sent!"};
+EN.footer={...T.RU.footer,copy:"© 2026 LLP HBK Aksay. All rights reserved.",tag:"Bread trusted for 37 years."};
+
+const ZH={...T.RU};
+ZH.nav={home:"首页",about:"关于我们",prod:"生产",products:"产品",stores:"门店",partners:"合作伙伴",careers:"招聘",news:"新闻",media:"媒体中心"};
+ZH.hero={...T.RU.hero,badge:"阿克赛面包厂 · 始于1988年 · 阿拉木图",h1:"品质传承，",h2:"经得起时间考验",sub:"哈萨克斯坦最大的面包糕点厂。400+品种。近40年不间断生产。",c1:"产品目录",c2:"成为合作伙伴",k1t:"37年",k1s:"持续运营",k2t:"400+",k2s:"产品品种",k3t:"面包与糕点",k3s:"自1988年每日新鲜出炉",k4t:"2 000+",k4s:"批发客户和16家门店"};
+ZH.more="了解更多";
+ZH.stores={...T.RU.stores,label:"连锁门店",title:"16家门店",em:"遍布阿拉木图",sub:"每日7:00起提供新鲜烘焙。",all:"全部",near:"社区店",mall:"商场店",open:"营业中",more:"全部门店",fullTitle:"我们的门店",fullSub:"16家品牌门店。每天清晨直接从工厂配送新鲜面包。"};
+ZH.products={...T.RU.products,label:"产品系列",title:"新鲜烘焙",em:"每一天",sub:"400+品种。",cats:{all:"全部",bread:"面包",buns:"面包卷",bagels:"面包圈",conf:"糕点",easter:"复活节",cookies:"饼干"},more:"显示更多",tocat:"完整目录",kg:"公斤",fullTitle:"产品目录",fullSub:"阿克赛面包厂产品系列——400+品种。"};
+ZH.trust={...T.RU.trust,label:"合作伙伴",title:"深受信赖",em:"200+客户",sub:"零售连锁、餐饮、经销商。"};
+ZH.about={...T.RU.about,label:"历史",title:"我们的历史",em:"始于1988年",sub:"37年不间断。",quote:"面包不仅仅是产品，更是我们每天对服务人民的责任。",ceo:"萨尔谢诺娃 Z.K.",ceoRole:"总经理",more:"了解更多",fullTitle:"关于公司",fullSub:"阿克赛面包糕点厂是哈萨克斯坦最大的面包企业之一，自1988年以来持续运营。",missTitle:"使命",missText:"我们致力于改善人民生活质量，每天为千家万户提供安全、美味、优质的面包和糕点产品。",vals:[{t:"品质",d:"从原料到柜台，每个环节严格把控"},{t:"新鲜",d:"每日直供，产品从工厂直达门店"},{t:"传统",d:"37年传承，经过时间和数百万顾客的检验"},{t:"创新",d:"德国和意大利先进设备，HACCP和ISO认证"}],certs:["HACCP","ISO 22000:2018","清真","ГОСТ РК","СТ РК"]};
+ZH.process={...T.RU.process,label:"生产",title:"面包的制作过程",sub:"8个车间，德国和意大利设备。",certTitle:"证书",certs:["HACCP","ISO 22000:2018","清真","ГОСТ РК","СТ РК"],fullTitle:"生产与创新",fullSub:"现代化全流程企业。",facts:[{n:"8",l:"生产车间"},{n:"40+",l:"设备台数"},{n:"80+",l:"日产吨数"},{n:"24/7",l:"不间断运营"}],steps:[{n:"01",t:"原料检验",d:"生产前对每批面粉和原料进行实验室分析",ico:"shield"},{n:"02",t:"和面",d:"新一代自动化和面机——全天候稳定配方",ico:"refresh"},{n:"03",t:"醒发",d:"恒温恒湿发酵室确保每种面包的理想结构",ico:"thermometer"},{n:"04",t:"烘焙",d:"8台德国制造隧道烤炉，精确温控",ico:"flame"},{n:"05",t:"冷却与包装",d:"螺旋冷却器和自动包装线保持新鲜",ico:"package"},{n:"06",t:"出厂检验",d:"实验室在发货前检验每一批产品",ico:"check"}]};
+ZH.careers={...T.RU.careers,label:"团队",title:"阿克赛的员工",sub:"1000+员工。",vlabel:"招聘职位",apply:"立即申请",more:"全部职位",fullTitle:"在阿克赛工作",fullSub:"加入我们的团队。",stats:[{n:"1 000+",l:"员工"},{n:"15–20",l:"年平均工龄"},{n:"37",l:"年历史"},{n:"24/7",l:"运营"}],perks:[{t:"正式雇用",d:"从第一天起按劳动法办理"},{t:"稳定薪资",d:"每月两次准时发放"},{t:"免费餐食",d:"工厂食堂免费午餐"},{t:"职业发展",d:"内部培训和晋升机会"}]};
+ZH.b2b={...T.RU.b2b,label:"批发客户",title:"企业合作",em:"与伙伴",sub:"稳定供应，灵活条件。",ftitle:"提交申请",fsend:"发送",fok:"申请已收到！",price:"下载价格表",fullTitle:"合作伙伴与批发",fullSub:"阿克赛——战略供应商。",adv:[{t:"37年可靠性",d:"为全哈萨克斯坦200+企业客户提供稳定供应"},{t:"自有物流",d:"40+辆车队，配送覆盖阿拉木图及周边地区"},{t:"400+品种",d:"适合各种业态——零售、餐饮、经销"},{t:"灵活条件",d:"个性化报价、延期付款、专属客户经理"}],fco:"公司名称",fnm:"联系人",fph:"电话",fem:"电子邮件",fbz:"业务类型",fvl:"预估数量（公斤/周）"};
+ZH.contacts={...T.RU.contacts,label:"联系方式",title:"联系我们",sub:"全年无休。",formTitle:"给我们留言",fname:"您的姓名",femail:"电子邮件",fsubj:"主题",fmsg:"消息",fsend:"发送",fok:"消息已发送！",topics:["产品咨询","批发供应","投诉或建议","招聘","媒体","其他"]};
+ZH.footer={...T.RU.footer,copy:"© 2026 阿克赛面包糕点厂有限公司。保留所有权利。",tag:"37年值得信赖的面包。",cols:[{t:"产品",l:["新鲜面包","糕点","面包圈","复活节糕点","面食"]},{t:"公司",l:["关于我们","1988年历史","生产","证书","新闻"]},{t:"网络",l:["门店","附近查找","合作伙伴","价格表","联系方式"]},{t:"招聘",l:["职位","工作条件","团队","培训"]}],priv:"隐私政策",terms:"使用条款"};
+KK.products.fullTitle="Өнімдер каталогы";KK.products.fullSub="Аксай НБК ассортименті — 400-ден астам атау.";
+KK.about.fullTitle="Компания туралы";KK.about.fullSub="ТОО «НБК «Аксай» — Қазақстанның ірі нан кәсіпорындарының бірі.";
+KK.process.fullTitle="Өндіріс және инновациялар";KK.process.fullSub="Толық циклді заманауи кәсіпорын.";
+KK.careers.fullTitle="Аксайдағы мансап";KK.careers.fullSub="Командаға қосылыңыз.";
+KK.b2b.fullTitle="Серіктестер мен көтерме клиенттерге";KK.b2b.fullSub="ХБК Аксай — стратегиялық жеткізуші.";
+EN.products.fullTitle="Product Catalog";EN.products.fullSub="HBK Aksay — over 400 varieties.";
+EN.about.fullTitle="About the Company";EN.about.fullSub="LLP HBK Aksay is one of the largest bakeries in Kazakhstan.";
+EN.process.fullTitle="Production & Innovation";EN.process.fullSub="A modern full-cycle enterprise.";
+EN.careers.fullTitle="Careers at Aksay";EN.careers.fullSub="Join our team.";
+EN.b2b.fullTitle="For Partners & Wholesale";EN.b2b.fullSub="HBK Aksay — strategic supplier.";
+
+const LANGS={RU:T.RU,KK,EN,ZH};
+
+const PRODUCTS=[
+  {id:1,n:{RU:"Хлеб «Формовой социальный»",KK:"Нан «Формалық»",EN:"Social Loaf"},c:"bread",w:.5,p:205},
+  {id:2,n:{RU:"Хлеб «Крестьянский»",KK:"Нан «Шаруа»",EN:"Peasant Bread"},c:"bread",w:.65,p:280},
+  {id:3,n:{RU:"Хлеб «Бородинский А»",KK:"«Бородино» нан",EN:"Borodinsky"},c:"bread",w:.4,p:197},
+  {id:4,n:{RU:"Хлеб «Президентский»",KK:"«Президенттік» нан",EN:"Presidential"},c:"bread",w:.4,p:243},
+  {id:5,n:{RU:"Хлеб «Алматинский»",KK:"«Алматылық» нан",EN:"Almaty Bread"},c:"bread",w:.48,p:238},
+  {id:6,n:{RU:"Хлеб «Аксайский»",KK:"«Аксайлық» нан",EN:"Aksay Bread"},c:"bread",w:.5,p:205},
+  {id:7,n:{RU:"Хлеб «Здоровье» с отрубями",KK:"«Денсаулық» нан",EN:"Health Bran"},c:"bread",w:.4,p:228},
+  {id:8,n:{RU:"Хлеб ржаной с изюмом",KK:"Мейізді нан",EN:"Rye Raisin"},c:"bread",w:.2,p:166},
+  {id:9,n:{RU:"Хлеб «Казахстан»",KK:"«Қазақстан» нан",EN:"Kazakhstan"},c:"bread",w:.2,p:161},
+  {id:10,n:{RU:"Хлеб «Гречишный»",KK:"«Қарақұмық» нан",EN:"Buckwheat"},c:"bread",w:.4,p:238},
+  {id:11,n:{RU:"Хлеб «Конопляный»",KK:"«Кендірлі» нан",EN:"Hemp Bread"},c:"bread",w:.25,p:371},
+  {id:12,n:{RU:"Хлеб бездрожжевой",KK:"Ашытқысыз нан",EN:"Yeast-Free"},c:"bread",w:.2,p:212},
+  {id:13,n:{RU:"Хлеб «Аччаролли»",KK:"«Аччаролли»",EN:"Accharoli"},c:"bread",w:.5,p:513},
+  {id:20,n:{RU:"Рогалик «Чешский»",KK:"«Чех» рогалигі",EN:"Czech Croissant"},c:"buns",w:.5,p:782},
+  {id:21,n:{RU:"Рогалик «Овсяный»",KK:"«Сұлы» рогалигі",EN:"Oat Croissant"},c:"buns",w:.35,p:415},
+  {id:22,n:{RU:"Плетёнка сдобная",KK:"Кесек тоқаш",EN:"Sweet Braid"},c:"buns",w:.35,p:485},
+  {id:23,n:{RU:"Батон нарезной",KK:"Тілімделген батон",EN:"Sliced Loaf"},c:"buns",w:.4,p:320},
+  {id:30,n:{RU:"Сушки «Чайные»",KK:"«Шайлық» сушки",EN:"Tea Rings"},c:"bagels",w:.3,p:378},
+  {id:31,n:{RU:"Сушки «Аксайские»",KK:"«Аксай» сушки",EN:"Aksay Rings"},c:"bagels",w:.3,p:378},
+  {id:32,n:{RU:"Мини-сушки с маком",KK:"Шағын сушки",EN:"Poppy Mini Rings"},c:"bagels",w:.4,p:570},
+  {id:33,n:{RU:"Баранки «Горчичные»",KK:"«Қыша» баранки",EN:"Mustard Rings"},c:"bagels",w:.25,p:390},
+  {id:40,n:{RU:"Торт «Подарочный»",KK:"«Сыйлық» торты",EN:"Gift Cake"},c:"conf",w:1,p:4930},
+  {id:41,n:{RU:"Торт «Прага»",KK:"«Прага» торты",EN:"Prague Cake"},c:"conf",w:.8,p:4065},
+  {id:42,n:{RU:"Торт «Молочная девочка»",KK:"«Сүтті қыз»",EN:"Milky Girl"},c:"conf",w:1,p:7920},
+  {id:43,n:{RU:"Торт «Ханшайым»",KK:"«Ханшайым»",EN:"Khanshaim Cake"},c:"conf",w:1,p:9780},
+  {id:44,n:{RU:"Торт «Панчо»",KK:"«Панчо»",EN:"Pancho Cake"},c:"conf",w:1,p:6545},
+  {id:45,n:{RU:"Торт «Чёрный бархат»",KK:"«Қара барқыт»",EN:"Black Velvet"},c:"conf",w:1,p:8695},
+  {id:46,n:{RU:"Пирожное «Макаронс»",KK:"Макаронс",EN:"Macarons"},c:"conf",w:.025,p:450},
+  {id:47,n:{RU:"Чизкейк «Дубайский»",KK:"«Дубай» чизкейк",EN:"Dubai Cheesecake"},c:"conf",w:.23,p:2830},
+  {id:50,n:{RU:"Кулич «Аксайский»",KK:"«Аксайлық» кулич",EN:"Aksay Easter Cake"},c:"easter",w:.5,p:1200},
+  {id:51,n:{RU:"Кулич «Традиционный»",KK:"«Дәстүрлі» кулич",EN:"Traditional Easter Cake"},c:"easter",w:.7,p:1600},
+  {id:60,n:{RU:"Печенье «Овсяное»",KK:"«Сұлы» печенье",EN:"Oat Cookies"},c:"cookies",w:.4,p:700},
+  {id:61,n:{RU:"Печенье «Кокосовое»",KK:"«Кокос» печенье",EN:"Coconut Cookies"},c:"cookies",w:.3,p:1580},
+  {id:62,n:{RU:"Пряники «Северные»",KK:"«Солтүстік»",EN:"Northern Gingerbread"},c:"cookies",w:.4,p:650},
+];
+
+const STORES=[
+  {id:1,n:"Аксай-2 (Головной)",a:"мкр. Аксай-2, ул. Б. Момышулы, 36а",h:"07:00–22:00",tp:"near"},
+  {id:2,n:"Аксай-3",a:"мкр. Аксай-3, ул. Толе би, 286",h:"07:00–22:00",tp:"near"},
+  {id:3,n:"Аксай-4",a:"мкр. Аксай-4, ул. Маречека, 12",h:"07:00–22:00",tp:"near"},
+  {id:4,n:"Орбита-1",a:"мкр. Орбита-1, ул. Навои, 70",h:"07:00–22:00",tp:"near"},
+  {id:5,n:"Орбита-2",a:"мкр. Орбита-2, ул. Аль-Фараби, 50",h:"07:00–22:00",tp:"near"},
+  {id:6,n:"Айнабулак",a:"мкр. Айнабулак-3, ул. Жандосова, 185",h:"07:00–21:00",tp:"near"},
+  {id:7,n:"Тастак",a:"мкр. Тастак-2, ул. Толе би, 189",h:"07:00–22:00",tp:"near"},
+  {id:8,n:"Алмагуль",a:"мкр. Алмагуль, ул. Утеген Батыра, 11",h:"07:00–21:00",tp:"near"},
+  {id:9,n:"Мамыр",a:"мкр. Мамыр-4, ул. Шаляпина, 25",h:"07:00–22:00",tp:"near"},
+  {id:10,n:"Жетысу",a:"мкр. Жетысу-2, ул. Абая, 109",h:"07:00–22:00",tp:"near"},
+  {id:11,n:"Саялы",a:"мкр. Саялы, ул. Сатпаева, 50",h:"07:00–21:00",tp:"near"},
+  {id:12,n:"Михайловка",a:"мкр. Михайловка, ул. Рыскулова, 200",h:"07:00–21:00",tp:"near"},
+  {id:13,n:"Коктем",a:"мкр. Коктем-1, ул. Байзакова, 280",h:"07:00–22:00",tp:"near"},
+  {id:14,n:"Шанырак",a:"мкр. Шанырак, ул. Жибек Жолы, 50",h:"07:00–21:00",tp:"near"},
+  {id:15,n:"ТРЦ «Мега Алматы»",a:"ул. Розыбакиева, 247а",h:"10:00–22:00",tp:"mall"},
+  {id:16,n:"ТРЦ «Апорт»",a:"ул. Райымбека, 514а",h:"10:00–22:00",tp:"mall"},
+];
+
+const JOBS=[
+  {id:1,t:{RU:"Технолог хлебопечения",KK:"Нан пісіру технологы",EN:"Bakery Technologist"},dept:{RU:"Производство",KK:"Өндіріс",EN:"Production"},sal:"от 320 000 ₸",isNew:true,icon:"⚗️",desc:{RU:"Контроль технологических процессов, разработка новых рецептур, взаимодействие с лабораторией",KK:"Технологиялық процестерді бақылау",EN:"Process control, recipe development, lab coordination"}},
+  {id:2,t:{RU:"Пекарь 4-го разряда",KK:"4-ші разряд пекарь",EN:"Baker 4th Grade"},dept:{RU:"Производство",KK:"Өндіріс",EN:"Production"},sal:"от 260 000 ₸",icon:"🍞",desc:{RU:"Работа на туннельных печах, соблюдение рецептур и технологических карт, контроль выхода продукции",KK:"Туннельді пештерде жұмыс",EN:"Operating tunnel ovens, following recipes and tech maps"}},
+  {id:3,t:{RU:"Кондитер-декоратор",KK:"Кондитер-декоратор",EN:"Pastry Decorator"},dept:{RU:"Кондитерский цех",KK:"Кондитерлік цех",EN:"Confectionery"},sal:"от 280 000 ₸",isNew:true,icon:"🎂",desc:{RU:"Декорирование тортов и пирожных, работа с шоколадом и мастикой, создание новых дизайнов",KK:"Торттар мен кекстерді безендіру",EN:"Cake & pastry decoration, chocolate and fondant work"}},
+  {id:4,t:{RU:"Водитель-экспедитор",KK:"Жүргізуші-экспедитор",EN:"Delivery Driver"},dept:{RU:"Логистика",KK:"Логистика",EN:"Logistics"},sal:"от 300 000 ₸",icon:"🚚",desc:{RU:"Доставка свежей продукции по маршрутам Алматы, работа с сопроводительными документами",KK:"Алматы бойынша жеткізу",EN:"Deliver fresh products across Almaty, handle delivery paperwork"}},
+  {id:5,t:{RU:"Продавец-консультант",KK:"Сатушы-кеңесші",EN:"Sales Consultant"},dept:{RU:"Розничная сеть",KK:"Бөлшек желі",EN:"Retail"},sal:"от 220 000 ₸",icon:"🏪",desc:{RU:"Обслуживание покупателей, выкладка товара и поддержание стандартов торговой точки",KK:"Сатып алушыларға қызмет",EN:"Customer service, product display, store standards maintenance"}},
+  {id:6,t:{RU:"Инженер по качеству",KK:"Сапа инженері",EN:"Quality Engineer"},dept:{RU:"Отдел качества",KK:"Сапа бөлімі",EN:"Quality Dept"},sal:"от 350 000 ₸",icon:"🔬",desc:{RU:"Контроль стандартов HACCP и ISO, проведение плановых проверок, взаимодействие с сертификационными органами",KK:"HACCP және ISO стандарттарын бақылау",EN:"HACCP & ISO compliance, audits, work with certification bodies"}},
+];
+
+const TIMELINE=[
+  {y:"1988",e:{RU:"Основан как государственный хлебозавод «Аксай»",KK:"«Аксай» мемлекеттік нан зауыты ашылды",EN:"Founded as the state-owned bakery «Aksay»"}},
+  {y:"1995",e:{RU:"Переход в частную собственность. Первая масштабная модернизация производственных линий",KK:"Жекеменшікке өту. Бірінші модернизация",EN:"Privatized. First major modernization of production lines"}},
+  {y:"2000",e:{RU:"Открытие первых 4 фирменных магазинов в Алматы. Запуск собственной логистики",KK:"Алғашқы 4 фирмалық дүкен. Логистика іске қосылды",EN:"First 4 branded stores opened in Almaty. Own logistics launched"}},
+  {y:"2005",e:{RU:"Запуск кондитерского цеха. Линия макаронных изделий. Расширение ассортимента до 200+ наименований",KK:"Кондитерлік цех пен макарон желісі іске қосылды",EN:"Confectionery workshop launched. Pasta line. Assortment expanded to 200+ items"}},
+  {y:"2010",e:{RU:"Масштабная реконструкция: 8 цехов, новые немецкие и итальянские печи, автоматизация упаковки",KK:"8 цех, жаңа немістік пен итальяндық пештер",EN:"Major reconstruction: 8 workshops, new German and Italian ovens, automated packaging"}},
+  {y:"2015",e:{RU:"Получение сертификатов HACCP и ISO 22000:2018. Сертификация «Халяль»",KK:"HACCP және ISO 22000:2018 сертификаттары алынды",EN:"HACCP and ISO 22000:2018 certificates obtained. Halal certification"}},
+  {y:"2020",e:{RU:"16 фирменных магазинов по всему Алматы. Более 2 000 оптовых партнёров",KK:"16 фирмалық дүкен. 2 000-нан астам серіктес",EN:"16 branded stores across Almaty. Over 2,000 wholesale partners"}},
+  {y:"2024",e:{RU:"Запуск новой линии бездрожжевого хлеба и премиальной линейки кондитерских изделий",KK:"Жаңа ашытқысыз нан желісі мен премиум кондитерлік сериясы",EN:"New yeast-free bread line and premium confectionery range launched"}},
+  {y:"2026",e:{RU:"37 лет работы · 1 000+ сотрудников · 300+ наименований · 80+ тонн продукции в сутки",KK:"37 жыл · 1 000+ қызметкер · 300+ атау · тәулігіне 80+ тонна",EN:"37 years of operation · 1,000+ employees · 300+ products · 80+ tons per day"}},
+];
+
+const AWARDS=[
+  {y:"2003",t:{RU:"Международная Звезда Качества International Star Award",KK:"Халықаралық сапа жұлдызы",EN:"International Quality Star Award",ZH:"国际质量之星奖"},loc:{RU:"Женева",KK:"Женева",EN:"Geneva",ZH:"日内瓦"}},
+  {y:"2004",t:{RU:"Золотая медаль за высокое качество в деловой практике",KK:"Іскерлік тәжірибедегі жоғары сапа үшін Алтын медаль",EN:"Gold Medal for High Quality in Business Practice",ZH:"商业实践高质量金奖"},loc:{RU:"Женева",KK:"Женева",EN:"Geneva",ZH:"日内瓦"}},
+  {y:"2006",t:{RU:"Гран-при, 2 золотые и серебряная медали — Продуктовый рынок Казахстана",KK:"Гран-при, 2 алтын, күміс медаль — Қазақстан азық-түлік нарығы",EN:"Grand Prix, 2 Gold & Silver — Food Market of Kazakhstan",ZH:"大奖赛，2金1银——哈萨克斯坦食品市场"},loc:{RU:"Алматы",KK:"Алматы",EN:"Almaty",ZH:"阿拉木图"}},
+  {y:"2008",t:{RU:"Премия Президента РК Алтын сапа — Лучшее предприятие",KK:"ҚР Президентінің Алтын сапа сыйлығы",EN:"Presidential Award Altyn Sapa — Best Enterprise",ZH:"总统奖'金质量'——最佳企业"},loc:{RU:"Астана",KK:"Астана",EN:"Astana",ZH:"阿斯塔纳"}},
+];
+const NEWS=[
+  {id:1,date:"2025-12-15",title:{RU:"В кругу семьи: как ХБК Аксай кормит Казахстан",KK:"Отбасы аясында: Аксай НБК",EN:"In the Family Circle: HBK Aksay",ZH:"家庭之中：阿克赛面包厂"},summary:{RU:"Журналисты NP.KZ побывали на производстве ХБК Аксай и рассказали о традициях качества.",KK:"NP.KZ журналистері Аксай НБК өндірісіне барды.",EN:"NP.KZ journalists visited HBK Aksay production.",ZH:"NP.KZ记者参观了阿克赛面包厂的生产。"},source:"NP.KZ",url:"https://np.kz/news/ekonomika/novosti-1/v-krugu-semi",tags:{RU:["Производство","Качество"],KK:["Өндіріс","Сапа"],EN:["Production","Quality"],ZH:["生产","品质"]}},
+];
+
+const PARTNERS=["Magnum","Small","Рамстор","Green","Galmart","METRO Cash & Carry","A-Store","Toimart","Arzan","Светофор","Silk Way","Yubileiny","Bekker & Co","Interfood","Almaty Nan","Fix Price","VkusVill","CU","My Mart","Carefood","Arbuz.kz","Wolt Market"];
+
+/* ═══════ SVG ICONS ═══════ */
+function Ico({n,s=18,c="currentColor"}){
+  const paths={
+    wheat:'<path d="M12 22V12"/><circle cx="12" cy="8" r="4"/><path d="m4.93 10.93 1.41 1.41M17.66 7.34l1.41-1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41M12 2v2"/>',
+    arr:'<path d="M5 12h14M12 5l7 7-7 7"/>',
+    aur:'<path d="M7 17L17 7M17 7H7M17 7v10"/>',
+    pin:'<path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+    clk:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
+    sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>',
+    moon:'<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>',
+    menu:'<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>',
+    x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+    check:'<path d="M20 6L9 17l-5-5"/>',
+    store:'<path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"/><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"/><path d="M2 7h20"/>',
+    pkg:'<path d="m7.5 4.27 9 5.15M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/>',
+    shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+    send:'<path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/>',
+    dl:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>',
+    award:'<circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/>',
+    truck:'<path d="M5 17H3a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>',
+    zap:'<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
+    leaf:'<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>',
+    phone:'<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>',
+    mail:'<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+    users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+    factory:'<path d="M2 20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8l-7 5V8l-7 5V4a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/>',
+    refresh:'<polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>',
+    thermometer:'<path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/>',
+    flame:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/>',
+    globe:'<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+    calendar:'<rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+    map:'<polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"/>',
+    news:'<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/>',
+    trophy:'<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',
+    info:'<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>',
+    grid:'<rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/>',
+    briefcase:'<rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+    image:'<rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>',
+    camera:'<path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/>',
+    video:'<path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/>',
+  };
+  return <span style={{display:'inline-flex',alignItems:'center',flexShrink:0}} dangerouslySetInnerHTML={{__html:`<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="${c}" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${paths[n]||''}</svg>`}}/>;
+}
+
+function WheatDeco({size=80,color="#F5EFE6",op=1}){
+  return <span style={{opacity:op,display:'inline-flex'}
+function AksayLogo({s=32}){
+  return <img src="AksayLogo.svg" alt="Aksay Nan" style={{width:s,height:Math.round(s*0.72),objectFit:"contain",display:"block"}}/>;
+}
+} dangerouslySetInnerHTML={{__html:`<svg width="${size}" height="${size*1.4}" viewBox="0 0 60 84" fill="none"><line x1="30" y1="82" x2="30" y2="8" stroke="${color}" stroke-width="2" stroke-linecap="round"/><ellipse cx="30" cy="20" rx="8" ry="12" fill="${color}" opacity=".92"/><ellipse cx="20" cy="35" rx="7" ry="11" fill="${color}" opacity=".72" transform="rotate(-22 20 35)"/><ellipse cx="40" cy="35" rx="7" ry="11" fill="${color}" opacity=".72" transform="rotate(22 40 35)"/><ellipse cx="18" cy="51" rx="6" ry="10" fill="${color}" opacity=".52" transform="rotate(-28 18 51)"/><ellipse cx="42" cy="51" rx="6" ry="10" fill="${color}" opacity=".52" transform="rotate(28 42 51)"/><line x1="28" y1="74" x2="20" y2="82" stroke="${color}" stroke-width="1.6" stroke-linecap="round"/></svg>`}}/>;
+}
+
+/* ═══════ REVEAL HOOK ═══════ */
+function useRv(){
+  const ref=useRef(null);
+  const[v,setV]=useState(false);
+  useEffect(()=>{
+    if(!ref.current)return;
+    const o=new IntersectionObserver(([e])=>{if(e.isIntersecting){setV(true);o.disconnect();}},{threshold:.06});
+    o.observe(ref.current);
+    return()=>o.disconnect();
+  },[]);
+  return[ref,v];
+}
+function Rv({children,d=0,style={}}){
+  const[ref,v]=useRv();
+  return <div ref={ref} className={`rv${v?' vis':''}`} style={{transitionDelay:`${d}s`,...style}}>{children}</div>;
+}
+
+/* ═══════ SECTION HEADING ═══════ */
+function SH({label,title,em,sub,light=false,center=false}){
+  const co=light?"#F5EFE6":"#1A0A00";
+  const t2=light?"rgba(245,239,230,.48)":"var(--t2)";
+  return(
+    <div className="sh" style={{textAlign:center?"center":undefined}}>
+      {label&&<span className="shl">{label}</span>}
+      <h2 className="sht" style={{color:co}}>{title}{em&&<span className="em">{em}</span>}</h2>
+      {sub&&<p className="shs" style={{color:t2,margin:center?"15px auto 0":"15px 0 0"}}>{sub}</p>}
+    </div>
+  );
+}
+
+/* ═══════ NAVBAR ═══════ */
+function NavBar({page,setPage,lang,setLang,dark,setDark}){
+  const t=LANGS[lang];
+  const[sc,setSc]=useState(false);
+  const[mob,setMob]=useState(false);
+  const co=dark?"#F5EFE6":"#1A0A00";
+
+  useEffect(()=>{
+    const h=()=>setSc(window.scrollY>36);
+    window.addEventListener("scroll",h,{passive:true});
+    return()=>window.removeEventListener("scroll",h);
+  },[]);
+
+  const go=(p)=>{setPage(p);setMob(false);window.scrollTo({top:0,behavior:"smooth"});};
+
+  const links=[["about",t.nav.about,"info"],["prod",t.nav.prod,"factory"],["products",t.nav.products,"grid"],["stores",t.nav.stores,"store"],["news",t.nav.news,"news"],["media",t.nav.media,"camera"],["partners",t.nav.partners,"briefcase"],["careers",t.nav.careers,"users"]];
+
+  return(
+    <>
+      <nav className={`nav${sc?" sc":""}`}>
+        <div className="ni">
+          <button onClick={()=>go("home")} style={{display:"flex",alignItems:"center",gap:9,background:"none",border:"none",cursor:"pointer",flexShrink:0}}>
+            <AksayLogo s={36}/>
+            <div style={{lineHeight:1}}>
+              <div style={{fontFamily:"'Playfair Display',serif",fontWeight:800,fontSize:".96rem",letterSpacing:"-.02em",color:co}}>ХБК Аксай</div>
+              <div style={{fontSize:".53rem",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:co,opacity:.34,marginTop:1}}>с 1988 года</div>
+            </div>
+          </button>
+
+          <nav className="nlinks">
+            {links.map(([k,l,ico])=>(
+              <button key={k} className={`nl${page===k?" on":""}`} onClick={()=>go(k)} style={{display:"flex",flexDirection:"column",alignItems:"center",gap:2,padding:"6px 10px"}}>
+                <Ico n={ico} s={15} c={page===k?"#C8251A":"currentColor"}/><span style={{fontSize:".55rem",fontWeight:700}}>{l}</span>
+              </button>
+            ))}
+          </nav>
+
+          <div style={{display:"flex",alignItems:"center",gap:8}}>
+            <div className="lbar">
+              {["RU","KK","EN","ZH"].map(l=>(
+                <button key={l} className={`lb${lang===l?" on":""}`} onClick={()=>setLang(l)}>{l}</button>
+              ))}
+            </div>
+            <button className="ib" onClick={()=>setDark(d=>!d)}>
+              {dark?<Ico n="sun" s={14} c={co}/>:<Ico n="moon" s={14} c={co}/>}
+            </button>
+            <button className="ib mob-tog" onClick={()=>setMob(m=>!m)}>
+              {mob?<Ico n="x" s={17} c={co}/>:<Ico n="menu" s={17} c={co}/>}
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <div className={`mob-menu-wrap${mob?" op":""}`}>
+        <div className="lbar" style={{marginBottom:10,width:"fit-content"}}>
+          {["RU","KK","EN","ZH"].map(l=>(
+            <button key={l} className={`lb${lang===l?" on":""}`} onClick={()=>setLang(l)}>{l}</button>
+          ))}
+        </div>
+        {links.map(([k,l,ico])=>(
+          <button key={k} className="mnl" onClick={()=>go(k)} style={{display:"flex",alignItems:"center",gap:10}}><Ico n={ico} s={16} c="currentColor"/> {l}</button>
+        ))}
+        <div style={{marginTop:8,paddingTop:12,borderTop:"1px solid var(--b)"}}>
+          <button className="btn br" style={{width:"100%",justifyContent:"center"}} onClick={()=>go("partners")}>
+            {LANGS[lang].hero.c2} <Ico n="arr" s={13} c="#fff"/>
+          </button>
+        </div>
+      </div>
+    </>
+  );
+}
+
+/* ═══════ HERO ═══════ */
+function Hero({setPage,lang,dark}){
+  const t=LANGS[lang];
+  const th=t.hero;
+  const co=dark?"#F5EFE6":"#1A0A00";
+  const cardCream=dark?"#1A0900":"#FBF7F2";
+
+  function MetCard({bg,titleText,subText,icoName,accent,delay,col,onClick,border}){
+    const[ref,v]=useRv();
+    return(
+      <div ref={ref} className={`bm ${col}`}
+        style={{background:bg,border:border?"1px solid var(--b)":"none",cursor:onClick?"pointer":"default",animation:v?`fadeUp .82s ${delay}s cubic-bezier(.16,1,.3,1) both`:""}}
+        onClick={onClick}>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start"}}>
+          <span style={{fontSize:".63rem",fontWeight:700,letterSpacing:".09em",textTransform:"uppercase",color:accent?"rgba(245,239,230,.4)":"var(--t3)",maxWidth:"75%",lineHeight:1.4}}>{subText}</span>
+          {onClick&&<span style={{opacity:.4}}><Ico n="aur" s={12} c={accent?"rgba(245,239,230,.5)":"var(--t3)"}/></span>}
+        </div>
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",marginTop:10}}>
+          <div className="num" style={{fontSize:"clamp(1.9rem,3.2vw,2.9rem)",color:accent?"#F5EFE6":co,lineHeight:1}}>{titleText}</div>
+          <span style={{opacity:accent?.5:.3,flexShrink:0}}>
+            <Ico n={icoName} s={24} c={accent?"#F5EFE6":co}/>
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  return(
+    <section style={{background:dark?"#0D0500":"#F5EFE6",paddingTop:68}}>
+      <div className="w" style={{paddingTop:26}}>
+        <div className="bn">
+          {/* Main card */}
+          <div className="bc g8" style={{background:"#1A0A00",padding:"48px 44px 52px",minHeight:450,gridRow:"span 2",animation:"fadeUp .88s cubic-bezier(.16,1,.3,1) both"}}>
+            <div style={{position:"relative",zIndex:1}}>
+              <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:24}}>
+                <span className="pulse" style={{display:"inline-block",width:7,height:7,borderRadius:"50%",background:"#E8391A",flexShrink:0}}/>
+                <span style={{fontSize:".63rem",fontWeight:700,letterSpacing:".09em",textTransform:"uppercase",color:"rgba(245,239,230,.38)"}}>{th.badge}</span>
+              </div>
+              <h1 className="dp" style={{fontSize:"clamp(2.4rem,4.6vw,5rem)",color:"#F5EFE6",lineHeight:.94}}>
+                {th.h1}<br/><span style={{color:"#E8391A"}}>{th.h2}</span>
+              </h1>
+              <p style={{color:"rgba(245,239,230,.47)",marginTop:26,fontSize:".94rem",lineHeight:1.7,maxWidth:440}}>{th.sub}</p>
+              <div style={{display:"flex",gap:10,marginTop:36,flexWrap:"wrap"}}>
+                <button className="btn bo" onClick={()=>{setPage("products");window.scrollTo({top:0});}}>{th.c1} <Ico n="arr" s={13} c="#fff"/></button>
+                <button className="btn bgw" onClick={()=>{setPage("partners");window.scrollTo({top:0});}}>{th.c2}</button>
+              </div>
+            </div>
+            <div style={{position:"absolute",right:0,bottom:0,opacity:.06,pointerEvents:"none"}}><WheatDeco size={190} color="#F5EFE6"/></div>
+          </div>
+
+          <div className="g4"><MetCard bg="#1A0A00" titleText={th.k1t} subText={th.k1s} icoName="award" accent delay={.08} col="" border={false}/></div>
+          <div className="g4"><MetCard bg={cardCream} titleText={th.k2t} subText={th.k2s} icoName="pkg" accent={false} delay={.13} col="" border={true}/></div>
+          <div className="g5"><MetCard bg="#C8251A" titleText={th.k3t} subText={th.k3s} icoName="wheat" accent delay={.18} col="" onClick={()=>{setPage("products");window.scrollTo({top:0});}}/></div>
+          <div className="g7"><MetCard bg="#E8391A" titleText={th.k4t} subText={th.k4s} icoName="store" accent delay={.23} col=""/></div>
+        </div>
+      </div>
+
+      {/* Ticker */}
+      <div style={{marginTop:44,borderTop:"1px solid var(--b)",borderBottom:"1px solid var(--b)",padding:"17px 0",overflow:"hidden"}}>
+        <div style={{display:"flex",opacity:.4}}>
+          <div className="mqf" style={{display:"flex",alignItems:"center",whiteSpace:"nowrap"}}>
+            {[0,1].map(k=><span key={k}>{["ХБК АКСАЙ","·","СВЕЖИЙ ХЛЕБ","·","С 1988 ГОДА","·","АЛМАТЫ","·","КАЗАХСТАН","·"].map((w,j)=>(
+              <span key={j} className="dp" style={{fontSize:"clamp(1.3rem,2.2vw,2rem)",color:dark?"#F5EFE6":"#1A0A00",margin:"0 1.5rem"}}>{w}</span>
+            ))}</span>)}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════ STORES (shared) ═══════ */
+function Stores({preview,setPage,lang,dark}){
+  const t=LANGS[lang];
+  const ts=t.stores;
+  const co=dark?"#F5EFE6":"#1A0A00";
+  const bg=dark?"#140800":"#FBF7F2";
+  const cBg=dark?"#1A0900":"#fff";
+  const[filter,setFilter]=useState("all");
+  const shown=STORES.filter(s=>filter==="all"||s.tp===filter).slice(0,preview?8:999);
+
+  return(
+    <section id="stores" style={{background:bg}} className="sec">
+      <div className="w">
+        <Rv>
+          <div className="sh">
+            <span className="shl">{ts.label}</span>
+            {/* Title + tabs on SEPARATE rows */}
+            <h2 className="sht">{preview?ts.title:(ts.fullTitle||ts.title)}<span className="em">{ts.em}</span></h2>
+            <p className="shs">{preview?ts.sub:ts.fullSub||ts.sub}</p>
+            {/* Filter tabs below heading — NOT inline */}
+            <div style={{display:"flex",gap:8,marginTop:24,flexWrap:"wrap"}}>
+              {[["all",ts.all],["near",ts.near],["mall",ts.mall]].map(([k,l])=>(
+                <button key={k} className={`ct${filter===k?" on":""}`} onClick={()=>setFilter(k)}>{l}</button>
+              ))}
+            </div>
+          </div>
+        </Rv>
+
+        <div className="sg">
+          {shown.map((s,i)=>(
+            <Rv key={s.id} d={i*.04}>
+              <div style={{background:cBg,borderRadius:17,border:"1px solid var(--b)",padding:"22px 20px",height:"100%",transition:"transform .28s,box-shadow .28s",cursor:"pointer"}}
+                onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-3px)";e.currentTarget.style.boxShadow="0 8px 24px rgba(26,10,0,.07)";}}
+                onMouseLeave={e=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
+                <div style={{display:"flex",gap:12,alignItems:"flex-start"}}>
+                  <div style={{width:36,height:36,borderRadius:9,background:"rgba(200,37,26,.09)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginTop:2}}>
+                    <Ico n="store" s={15} c="#C8251A"/>
+                  </div>
+                  <div style={{flex:1,minWidth:0}}>
+                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",gap:8,marginBottom:9}}>
+                      <div style={{fontWeight:700,fontSize:".86rem",color:co,lineHeight:1.3}}>{s.n}</div>
+                      <span className="tggr" style={{fontSize:".61rem",fontWeight:700,padding:"3px 8px",borderRadius:14,whiteSpace:"nowrap",flexShrink:0}}>{ts.open}</span>
+                    </div>
+                    <div style={{display:"flex",alignItems:"flex-start",gap:5,marginBottom:6,color:"var(--t2)"}}>
+                      <Ico n="pin" s={11} c="#C8251A"/><span style={{fontSize:".74rem",lineHeight:1.45}}>{s.a}</span>
+                    </div>
+                    <div style={{display:"flex",alignItems:"center",gap:5,color:"var(--t3)"}}>
+                      <Ico n="clk" s={11} c="var(--t3)"/><span style={{fontSize:".72rem"}}>{s.h}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Rv>
+          ))}
+        </div>
+
+        {preview&&<Rv d={.2}><div style={{textAlign:"center",marginTop:44}}>
+          <button className="btn bg" onClick={()=>{setPage("stores");window.scrollTo({top:0});}}>{ts.more} <Ico n="arr" s={13} c="#1A0A00"/></button>
+        </div></Rv>}
+      </div>
+    </section>
+  );
+}
+
+/* ═══════ FULL STORES PAGE ═══════ */
+function StoresPage({lang,dark}){
+  const t=LANGS[lang];
+  const ts=t.stores;
+  const co=dark?"#F5EFE6":"#1A0A00";
+  const bg=dark?"#140800":"#FBF7F2";
+  const cBg=dark?"#1A0900":"#fff";
+  const[filter,setFilter]=useState("all");
+  const shown=STORES.filter(s=>filter==="all"||s.tp===filter);
+
+  return(
+    <section style={{background:bg,paddingTop:68}} className="sec">
+      <div className="w">
+        <Rv>
+          <div className="sh">
+            <span className="shl">{ts.label}</span>
+            <h2 className="sht">Наши магазины<span className="em"> в Алматы</span></h2>
+            <p className="shs">16 фирменных точек продаж. Свежий хлеб завозится каждое утро прямо с производства. Работаем ежедневно.</p>
+            <div style={{display:"flex",gap:8,marginTop:24,flexWrap:"wrap"}}>
+              {[["all",ts.all],["near",ts.near],["mall",ts.mall]].map(([k,l])=>(
+                <button key={k} className={`ct${filter===k?" on":""}`} onClick={()=>setFilter(k)}>{l}</button>
+              ))}
+            </div>
+          </div>
+        </Rv>
+
+        {/* Stats */}
+        <Rv d={.05}>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(160px,1fr))",gap:12,marginBottom:52}}>
+            {[{n:"16",l:"фирменных магазинов"},{n:"07:00",l:"открываемся ежедневно"},{n:"24ч",l:"свежая выпечка"},{n:"Алматы",l:"весь город"}].map((s,i)=>(
+              <div key={i} style={{background:i===0?"#C8251A":cBg,borderRadius:16,border:i!==0?"1px solid var(--b)":"none",padding:"20px 18px"}}>
+                <div className="num" style={{fontSize:"1.8rem",color:i===0?"#F5EFE6":co,lineHeight:1,marginBottom:8}}>{s.n}</div>
+                <div style={{fontSize:".73rem",fontWeight:700,color:i===0?"rgba(245,239,230,.55)":"var(--t3)",textTransform:"uppercase",letterSpacing:".05em"}}>{s.l}</div>
+              </div>
+            ))}
+          </div>
+        </Rv>
+
+        <div className="sg">
+          {shown.map((s,i)=>(
+            <Rv key={s.id} d={i*.03}>
+              <div style={{background:cBg,borderRadius:17,border:"1px solid var(--b)",padding:"24px 22px",height:"100%",transition:"transform .28s,box-shadow .28s",cursor:"pointer"}}
+                onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-3px)";e.currentTarget.style.boxShadow="0 8px 28px rgba(26,10,0,.08)";}}
+                onMouseLeave={e=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:14}}>
+                  <div style={{display:"flex",gap:11,alignItems:"center"}}>
+                    <div style={{width:38,height:38,borderRadius:10,background:"rgba(200,37,26,.09)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                      <Ico n="store" s={17} c="#C8251A"/>
+                    </div>
+                    <div style={{fontWeight:700,fontSize:".9rem",color:co,lineHeight:1.3}}>{s.n}</div>
+                  </div>
+                  <span className="tggr" style={{fontSize:".62rem",fontWeight:700,padding:"4px 9px",borderRadius:14,flexShrink:0}}>{ts.open}</span>
+                </div>
+                <div style={{display:"flex",alignItems:"flex-start",gap:6,marginBottom:8,paddingLeft:2}}>
+                  <Ico n="pin" s={13} c="#C8251A"/>
+                  <span style={{fontSize:".78rem",color:"var(--t2)",lineHeight:1.45}}>{s.a}</span>
+                </div>
+                <div style={{display:"flex",alignItems:"center",gap:6,paddingLeft:2}}>
+                  <Ico n="clk" s={13} c="var(--t3)"/>
+                  <span style={{fontSize:".76rem",color:"var(--t3)"}}>{s.h}</span>
+                </div>
+                <div style={{marginTop:14,paddingTop:14,borderTop:"1px solid var(--b)"}}>
+                  <span style={{fontSize:".73rem",fontWeight:600,color:"#C8251A",display:"flex",alignItems:"center",gap:5}}>
+                    <Ico n="map" s={12} c="#C8251A"/> Построить маршрут
+                  </span>
+                </div>
+              </div>
+            </Rv>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════ PRODUCTS (shared) ═══════ */
+function Products({preview,setPage,lang,dark}){
+  const t=LANGS[lang];
+  const tp=t.products;
+  const co=dark?"#F5EFE6":"#1A0A00";
+  const bg=dark?"#0D0500":"#F5EFE6";
+  const catColors={bread:"#3D1800",buns:"#5C2800",bagels:"#1A3800",conf:"#C8251A",easter:"#7B4500",cookies:"#5C2500"};
+  const[cat,setCat]=useState("all");
+  const[show,setShow]=useState(12);
+  const catList=Object.entries(tp.cats);
+  const filtered=useMemo(()=>PRODUCTS.filter(p=>cat==="all"||p.c===cat),[cat]);
+
+  return(
+    <section id="products" style={{background:bg}} className="sec">
+      <div className="w">
+        <Rv>
+          <div className="sh">
+            <span className="shl">{tp.label}</span>
+            <h2 className="sht">{preview?tp.title:tp.fullTitle||tp.title}<span className="em">{tp.em}</span></h2>
+            <p className="shs">{preview?tp.sub:tp.fullSub||tp.sub}</p>
+          </div>
+        </Rv>
+
+        <div style={{position:"sticky",top:68,zIndex:9,padding:"11px 0 14px",background:dark?"rgba(13,5,0,.93)":"rgba(245,239,230,.93)",backdropFilter:"blur(16px)",marginBottom:36,borderBottom:"1px solid var(--b)"}}>
+          <div style={{display:"flex",gap:7,flexWrap:"wrap"}}>
+            {catList.map(([k,l])=>(
+              <button key={k} className={`ct${cat===k?" on":""}`} onClick={()=>{setCat(k);setShow(12);}}>{l}</button>
+            ))}
+          </div>
+        </div>
+
+        <div className="pg">
+          {filtered.slice(0,show).map((p,i)=>{
+            const cl=catColors[p.c]||"#3D1800";
+            const nm=p.n[lang]||p.n.RU;
+            const catLabel=catList.find(c=>c[0]===p.c)?.[1]||p.c;
+            return(
+              <Rv key={p.id} d={i<12?i*.03:0}>
+                <div className="pc">
+                  <div style={{height:138,background:`linear-gradient(140deg,${cl},${cl}cc)`,display:"flex",alignItems:"center",justifyContent:"center",position:"relative"}}>
+                    <div style={{opacity:.1,position:"absolute"}}><WheatDeco size={55} color="#F5EFE6"/></div>
+                    <div style={{position:"absolute",bottom:8,left:10}}>
+                      <span className="tglt" style={{fontSize:".58rem",padding:"3px 8px",borderRadius:14}}>{catLabel}</span>
+                    </div>
+                  </div>
+                  <div style={{padding:"13px 13px 15px"}}>
+                    <div style={{fontWeight:600,fontSize:".82rem",color:co,lineHeight:1.38,marginBottom:8}}>{nm}</div>
+                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                      <span style={{fontSize:".69rem",color:"var(--t3)",display:"flex",alignItems:"center",gap:3}}><Ico n="pkg" s={11} c="var(--t3)"/> {p.w} {tp.kg}</span>
+                      <span style={{fontWeight:800,fontSize:".88rem",color:"#C8251A"}}>{p.p.toLocaleString()} ₸</span>
+                    </div>
+                  </div>
+                </div>
+              </Rv>
+            );
+          })}
+        </div>
+
+        <Rv d={.12}>
+          <div style={{textAlign:"center",marginTop:44,display:"flex",gap:10,justifyContent:"center",flexWrap:"wrap"}}>
+            {show<filtered.length&&<button className="btn bg" onClick={()=>setShow(s=>s+12)}>{tp.more} ({filtered.length-show})</button>}
+            {preview&&<button className="btn br" onClick={()=>{setPage("products");window.scrollTo({top:0});}}>{tp.tocat} <Ico n="arr" s={13} c="#fff"/></button>}
+          </div>
+        </Rv>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════ TRUST MARQUEE ═══════ */
+function Trust({lang,dark}){
+  const t=LANGS[lang].trust;
+  return(
+    <section style={{background:"#1A0A00",padding:"88px 0",overflow:"hidden",position:"relative"}}>
+      <div className="grain-ov" style={{position:"absolute",inset:0,pointerEvents:"none"}}/>
+      <div className="w" style={{position:"relative",zIndex:1,marginBottom:48}}>
+        <Rv><SH label={t.label} title={t.title} em={t.em} sub={t.sub} light center/></Rv>
+      </div>
+      {[false,true].map((rev,ri)=>(
+        <div key={ri} className="mqw" style={{marginBottom:ri===0?16:0}}>
+          <div style={{display:"flex"}}>
+            <div className={rev?"mqb":"mqf"} style={{display:"flex",alignItems:"center"}}>
+              {[0,1].map(k=><span key={k} style={{display:"flex",alignItems:"center"}}>
+                {(rev?[...PARTNERS].reverse():PARTNERS).map((p,j)=>(
+                  <span key={j} style={{display:"inline-flex",alignItems:"center"}}>
+                    <span style={{color:ri===0?"rgba(245,239,230,.7)":"rgba(245,239,230,.34)",fontSize:ri===0?"clamp(1.15rem,1.9vw,1.65rem)":"clamp(.9rem,1.4vw,1.2rem)",fontWeight:ri===0?700:500,fontFamily:"'Onest',sans-serif",padding:ri===0?"0 36px":"0 26px",whiteSpace:"nowrap"}}>{p}</span>
+                    <span style={{color:"rgba(245,239,230,.12)",fontSize:".9rem"}}>·</span>
+                  </span>
+                ))}
+              </span>)}
+            </div>
+          </div>
+        </div>
+      ))}
+    </section>
+  );
+}
+
+/* ═══════ HISTORY CARDS ═══════ */
+function History({preview,setPage,lang,dark}){
+  const t=LANGS[lang];
+  const ta=t.about;
+  const bg=dark?"#0D0500":"#F5EFE6";
+  const co=dark?"#F5EFE6":"#1A0A00";
+  const cBg=dark?"#1A0900":"#fff";
+
+  return(
+    <section id="about" style={{background:bg}} className="sec">
+      <div className="w">
+        <Rv>
+          <SH label={ta.label} title={ta.title} em={ta.em} sub={ta.sub}/>
+        </Rv>
+
+        {/* History cards — chronological, with photos */}
+        <div className="hc-grid" style={{marginBottom:52}}>
+          {TIMELINE.map((item,i)=>{
+            const photos=[
+              "Media/Photo/Открытие завода.jpeg",
+              "Media/Photo/набор муки.jpeg",
+              "Media/Photo/розничная продажа продукции.jpeg",
+              "Media/Photo/сбор готовой продукции.jpeg",
+              "Media/Photo/здание завода.png",
+              "Media/Photo/лаборатория.png",
+              "Media/Photo/готовая продукция.jpeg",
+              "Media/Photo/пекари за работой.png",
+              "Media/Photo/установка оборудования.png"
+            ];
+            return(
+            <Rv key={item.y} d={i*.05}>
+              <div className="hc" style={{background:cBg,borderLeft:`4px solid ${i===TIMELINE.length-1?"#C8251A":i===0?"#E8391A":"var(--b2)"}`,paddingLeft:0,padding:0,overflow:"hidden",display:"flex",alignItems:"stretch"}}>
+                <div style={{width:4,background:i===TIMELINE.length-1?"#C8251A":i===0?"#E8391A":"var(--b2)",flexShrink:0}}/>
+                <div style={{width:140,flexShrink:0,overflow:"hidden",display:"flex"}}>
+                  <img src={photos[i]} alt={item.y} style={{width:"100%",height:"100%",objectFit:"cover",display:"block",minHeight:100}}
+                    onError={e=>{e.target.style.display="none";e.target.parentNode.style.background="rgba(200,37,26,.06)";}}/>
+                </div>
+                <div style={{padding:"20px 22px",flex:1}}>
+                  <div className="hc-year">{item.y}</div>
+                  <p style={{color:co,fontSize:i===TIMELINE.length-1?".95rem":".88rem",lineHeight:1.6,fontWeight:i===TIMELINE.length-1?600:400,opacity:i===TIMELINE.length-1?1:.8}}>{item.e[lang]||item.e.RU}</p>
+                </div>
+              </div>
+            </Rv>
+          );})}
+        </div>
+
+        {preview&&<Rv d={.25}><div style={{marginTop:36}}>
+          <button className="btn bg" onClick={()=>{setPage("about");window.scrollTo({top:0});}}>{ta.more} <Ico n="arr" s={13} c="#1A0A00"/></button>
+        </div></Rv>}
+      </div>
+    </section>
+  );
+}
+
+/* ═══════ FULL ABOUT PAGE ═══════ */
+function AboutPage({lang,dark}){
+  const t=LANGS[lang];
+  const ta=t.about;
+  const co=dark?"#F5EFE6":"#1A0A00";
+  const bg=dark?"#0D0500":"#F5EFE6";
+  const cBg=dark?"#1A0900":"#fff";
+
+  return(
+    <div style={{background:bg,paddingTop:68}}>
+      {/* Mission section */}
+      <section style={{background:dark?"#140800":"#1A0A00",padding:"88px 0",position:"relative",overflow:"hidden"}}>
+        <div className="grain-ov" style={{position:"absolute",inset:0,pointerEvents:"none"}}/>
+        <div className="w" style={{position:"relative",zIndex:1}}>
+          <Rv>
+            <SH label="О компании" title={ta.fullTitle||"О нас"} em="" sub={ta.fullSub} light/>
+          </Rv>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(220px,1fr))",gap:12,marginBottom:52}}>
+            {[{n:"1988",l:"год основания"},{n:"37",l:"лет на рынке"},{n:"1 000+",l:"сотрудников"},{n:"300+",l:"наименований"}].map((s,i)=>(
+              <Rv key={i} d={i*.07}>
+                <div style={{background:"rgba(245,239,230,.05)",border:"1px solid rgba(245,239,230,.08)",borderRadius:16,padding:"22px 20px"}}>
+                  <div className="num" style={{fontSize:"2rem",color:i===0?"#E8391A":"#F5EFE6",lineHeight:1,marginBottom:8}}>{s.n}</div>
+                  <div style={{fontSize:".72rem",fontWeight:700,color:"rgba(245,239,230,.45)",textTransform:"uppercase",letterSpacing:".05em"}}>{s.l}</div>
+                </div>
+              </Rv>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Values */}
+      <section className="sec">
+        <div className="w">
+          <Rv><SH label="Миссия и ценности" title="Наши принципы" em=""/></Rv>
+          <Rv d={.05}>
+            <div style={{background:cBg,borderRadius:18,border:"1px solid var(--b)",padding:"28px 26px",marginBottom:48}}>
+              <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,fontSize:"1.15rem",color:co,marginBottom:12}}>Миссия</div>
+              <p style={{color:"var(--t2)",fontSize:".95rem",lineHeight:1.75}}>{ta.missText}</p>
+            </div>
+          </Rv>
+          <div className="info-row">
+            {(ta.vals||[]).map((v,i)=>(
+              <Rv key={i} d={i*.07}>
+                <div style={{background:cBg,borderRadius:17,border:"1px solid var(--b)",padding:"24px 22px",height:"100%"}}>
+                  <div style={{width:36,height:36,borderRadius:9,background:"rgba(200,37,26,.08)",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:14}}>
+                    <Ico n={["award","zap","leaf","shield"][i]} s={16} c="#C8251A"/>
+                  </div>
+                  <div style={{fontWeight:700,fontSize:".9rem",color:co,marginBottom:8}}>{v.t}</div>
+                  <p style={{color:"var(--t2)",fontSize:".82rem",lineHeight:1.6}}>{v.d}</p>
+                </div>
+              </Rv>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* History section */}
+      <section style={{background:dark?"#140800":"#FBF7F2"}} className="sec">
+        <div className="w">
+          <Rv><SH label="История компании" title="37 лет без перерыва" em=""/></Rv>
+          <div className="hc-grid" style={{marginBottom:48}}>
+            {TIMELINE.map((item,i)=>(
+              <Rv key={item.y} d={i*.04}>
+                <div className="hc" style={{background:cBg,borderLeft:`4px solid ${i===TIMELINE.length-1?"#C8251A":i===0?"#E8391A":"var(--b2)"}`,paddingLeft:22}}>
+                  <div className="hc-year">{item.y}</div>
+                  <p style={{color:dark?"#F5EFE6":"#1A0A00",fontSize:i===TIMELINE.length-1?".95rem":".88rem",lineHeight:1.6,fontWeight:i===TIMELINE.length-1?600:400,opacity:i===TIMELINE.length-1?1:.8}}>{item.e[lang]||item.e.RU}</p>
+                </div>
+              </Rv>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Awards */}
+      <section style={{background:dark?"#0D0500":"#F5EFE6"}} className="sec">
+        <div className="w">
+          <Rv><SH label={lang==="ZH"?"奖项":lang==="KK"?"Марапаттар":lang==="EN"?"Awards":"Награды"} title={lang==="ZH"?"国际认可":lang==="KK"?"Халықаралық мойындау":lang==="EN"?"International Recognition":"Международное признание"} em=""/></Rv>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))",gap:13}}>
+            {AWARDS.map((aw,i)=>(
+              <Rv key={i} d={i*.08}>
+                <div style={{background:cBg,borderRadius:18,border:"1px solid var(--b)",padding:"24px 20px",height:"100%"}}>
+                  <div style={{display:"flex",gap:12,marginBottom:12}}>
+                    <div style={{width:44,height:44,borderRadius:12,background:"rgba(200,37,26,.1)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><Ico n="trophy" s={20} c="#C8251A"/></div>
+                    <div><div className="num" style={{fontSize:"1.5rem",color:"#C8251A"}}>{aw.y}</div><div style={{fontSize:".66rem",color:"var(--t3)",fontWeight:600}}>{aw.loc[lang]||aw.loc.RU}</div></div>
+                  </div>
+                  <p style={{color:co,fontSize:".82rem",lineHeight:1.5}}>{aw.t[lang]||aw.t.RU}</p>
+                </div>
+              </Rv>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Certs */}
+      <section className="sec">
+        <div className="w">
+          <Rv><SH label="Качество" title="Сертификаты и стандарты" em=""/></Rv>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))",gap:12}}>
+            {(ta.certs||["HACCP","ISO 22000:2018","Халяль","ГОСТ РК","СТ РК"]).map((c,i)=>(
+              <Rv key={i} d={i*.07}>
+                <div style={{background:cBg,borderRadius:16,border:"1px solid var(--b)",padding:"22px 20px",display:"flex",gap:14,alignItems:"center"}}>
+                  <div style={{width:40,height:40,borderRadius:10,background:"rgba(200,37,26,.08)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                    <Ico n="shield" s={18} c="#C8251A"/>
+                  </div>
+                  <div style={{fontWeight:700,fontSize:".9rem",color:dark?"#F5EFE6":"#1A0A00"}}>{c}</div>
+                </div>
+              </Rv>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+/* ═══════ PRODUCTION (shared + full) ═══════ */
+function Production({preview,setPage,lang,dark}){
+  const t=LANGS[lang];
+  const tp=t.process;
+  const co=dark?"#F5EFE6":"#1A0A00";
+  const bg=dark?"#140800":"#FBF7F2";
+  const cBg=dark?"#1A0900":"#fff";
+
+  return(
+    <section id="production" style={{background:bg}} className="sec">
+      <div className="w">
+        <Rv><SH label={tp.label} title={tp.title} em=""/></Rv>
+        <Rv d={.05}>
+          <p style={{color:"var(--t2)",fontSize:".96rem",lineHeight:1.72,marginBottom:44,maxWidth:620}}>{tp.sub}</p>
+        </Rv>
+
+        {/* Flow arrow */}
+        <Rv d={.08}>
+          <div className="pf-row">
+            {tp.steps.map((s,i)=>(
+              <React.Fragment key={i}>
+                <div className="pf-node">{s.n}</div>
+                {i<tp.steps.length-1&&<div className="pf-line"/>}
+              </React.Fragment>
+            ))}
+          </div>
+        </Rv>
+
+        <div className="pf3" style={{marginBottom:56}}>
+          {tp.steps.map((s,i)=>(
+            <Rv key={i} d={i*.07}>
+              <div style={{background:cBg,borderRadius:17,border:"1px solid var(--b)",padding:"24px 20px",height:"100%",transition:"transform .28s,box-shadow .28s"}}
+                onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-4px)";e.currentTarget.style.boxShadow="0 10px 30px rgba(26,10,0,.07)";}}
+                onMouseLeave={e=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:16}}>
+                  <span className="dp" style={{fontSize:"2rem",color:i%2===0?"#C8251A":"#E8391A",opacity:.2,lineHeight:1}}>{s.n}</span>
+                  <div style={{width:36,height:36,borderRadius:9,background:i%2===0?"rgba(200,37,26,.09)":"rgba(232,57,26,.09)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                    <Ico n={s.ico||"shield"} s={15} c={i%2===0?"#C8251A":"#E8391A"}/>
+                  </div>
+                </div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1rem",marginBottom:9}}>{s.t}</div>
+                <p style={{color:"var(--t2)",fontSize:".8rem",lineHeight:1.62}}>{s.d}</p>
+              </div>
+            </Rv>
+          ))}
+        </div>
+
+        {/* Certs — white card */}
+        <Rv d={.2}>
+          <div style={{background:cBg,borderRadius:20,border:"1px solid var(--b)",padding:"34px 38px",display:"flex",gap:22,flexWrap:"wrap",alignItems:"center",justifyContent:"space-between"}}>
+            <div>
+              <span className="shl">{tp.certTitle}</span>
+              <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.3rem"}}>Соответствуем мировым стандартам</div>
+            </div>
+            <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+              {tp.certs.map((c,i)=>(
+                <div key={i} style={{background:"rgba(200,37,26,.08)",borderRadius:50,padding:"8px 14px",display:"flex",alignItems:"center",gap:6}}>
+                  <Ico n="shield" s={12} c="#C8251A"/>
+                  <span style={{color:co,fontSize:".76rem",fontWeight:700,fontFamily:"'Onest',sans-serif"}}>{c}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Rv>
+
+        {preview&&<Rv d={.25}><div style={{textAlign:"center",marginTop:44}}>
+          <button className="btn bg" onClick={()=>{setPage("prod");window.scrollTo({top:0});}}>{tp.more} <Ico n="arr" s={13} c="#1A0A00"/></button>
+        </div></Rv>}
+      </div>
+    </section>
+  );
+}
+
+/* ═══════ FULL PRODUCTION PAGE ═══════ */
+function ProductionPage({lang,dark}){
+  const t=LANGS[lang];
+  const tp=t.process;
+  const co=dark?"#F5EFE6":"#1A0A00";
+  const bg=dark?"#0D0500":"#F5EFE6";
+  const cBg=dark?"#1A0900":"#fff";
+
+  return(
+    <div style={{background:bg,paddingTop:68}}>
+      {/* Hero */}
+      <section style={{background:dark?"#140800":"#1A0A00",padding:"88px 0",position:"relative",overflow:"hidden"}}>
+        <div className="grain-ov" style={{position:"absolute",inset:0,pointerEvents:"none"}}/>
+        <div className="w" style={{position:"relative",zIndex:1}}>
+          <Rv><SH label={tp.label} title={tp.fullTitle||tp.title} em="" sub={tp.fullSub||tp.sub} light/></Rv>
+          <div className="stat4">
+            {(tp.facts||[{n:"8",l:"цехов"},{n:"40+",l:"оборудования"},{n:"80+",l:"тонн/сутки"},{n:"24/7",l:"работаем"}]).map((f,i)=>(
+              <Rv key={i} d={i*.07}>
+                <div style={{background:"rgba(245,239,230,.05)",border:"1px solid rgba(245,239,230,.08)",borderRadius:16,padding:"22px 18px"}}>
+                  <div className="num" style={{fontSize:"2rem",color:i===0?"#E8391A":"#F5EFE6",lineHeight:1,marginBottom:8}}>{f.n}</div>
+                  <div style={{fontSize:".72rem",fontWeight:700,color:"rgba(245,239,230,.45)",textTransform:"uppercase",letterSpacing:".05em"}}>{f.l}</div>
+                </div>
+              </Rv>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="sec">
+        <div className="w">
+          <Rv><SH label="Технология" title="Процесс производства" em=""/></Rv>
+          <Rv d={.05}>
+            <div className="pf-row">
+              {tp.steps.map((s,i)=>(
+                <React.Fragment key={i}>
+                  <div className="pf-node">{s.n}</div>
+                  {i<tp.steps.length-1&&<div className="pf-line"/>}
+                </React.Fragment>
+              ))}
+            </div>
+          </Rv>
+          <div className="pf3" style={{marginBottom:60}}>
+            {tp.steps.map((s,i)=>(
+              <Rv key={i} d={i*.07}>
+                <div style={{background:cBg,borderRadius:17,border:"1px solid var(--b)",padding:"28px 22px",height:"100%"}}>
+                  <span className="dp" style={{fontSize:"2rem",color:i%2===0?"#C8251A":"#E8391A",opacity:.2,lineHeight:1,display:"block",marginBottom:16}}>{s.n}</span>
+                  <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.02rem",marginBottom:10}}>{s.t}</div>
+                  <p style={{color:"var(--t2)",fontSize:".83rem",lineHeight:1.65}}>{s.d}</p>
+                </div>
+              </Rv>
+            ))}
+          </div>
+
+          {/* Awards */}
+      <section style={{background:dark?"#0D0500":"#F5EFE6"}} className="sec">
+        <div className="w">
+          <Rv><SH label={lang==="ZH"?"奖项":lang==="KK"?"Марапаттар":lang==="EN"?"Awards":"Награды"} title={lang==="ZH"?"国际认可":lang==="KK"?"Халықаралық мойындау":lang==="EN"?"International Recognition":"Международное признание"} em=""/></Rv>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))",gap:13}}>
+            {AWARDS.map((aw,i)=>(
+              <Rv key={i} d={i*.08}>
+                <div style={{background:cBg,borderRadius:18,border:"1px solid var(--b)",padding:"24px 20px",height:"100%"}}>
+                  <div style={{display:"flex",gap:12,marginBottom:12}}>
+                    <div style={{width:44,height:44,borderRadius:12,background:"rgba(200,37,26,.1)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}><Ico n="trophy" s={20} c="#C8251A"/></div>
+                    <div><div className="num" style={{fontSize:"1.5rem",color:"#C8251A"}}>{aw.y}</div><div style={{fontSize:".66rem",color:"var(--t3)",fontWeight:600}}>{aw.loc[lang]||aw.loc.RU}</div></div>
+                  </div>
+                  <p style={{color:co,fontSize:".82rem",lineHeight:1.5}}>{aw.t[lang]||aw.t.RU}</p>
+                </div>
+              </Rv>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Certs */}
+          <Rv d={.2}>
+            <div style={{background:cBg,borderRadius:20,border:"1px solid var(--b)",padding:"36px 40px",display:"flex",gap:22,flexWrap:"wrap",alignItems:"center",justifyContent:"space-between"}}>
+              <div><span className="shl">{tp.certTitle}</span><div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.3rem"}}>Соответствуем мировым стандартам</div></div>
+              <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
+                {tp.certs.map((c,i)=>(
+                  <div key={i} style={{background:"rgba(200,37,26,.08)",borderRadius:50,padding:"8px 14px",display:"flex",alignItems:"center",gap:6}}>
+                    <Ico n="shield" s={12} c="#C8251A"/>
+                    <span style={{color:co,fontSize:".77rem",fontWeight:700,fontFamily:"'Onest',sans-serif"}}>{c}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </Rv>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+/* ═══════ CAREERS (shared + full) ═══════ */
+function Careers({preview,setPage,lang,dark}){
+  const t=LANGS[lang];
+  const tc=t.careers;
+  const co=dark?"#F5EFE6":"#1A0A00";
+  const bg=dark?"#140800":"#FBF7F2";
+  const cBg=dark?"#1A0900":"#fff";
+  const icons=["award","shield","leaf","zap","phone","factory"];
+  const colors=["#C8251A","#C8251A","#E8391A","#E8391A","#C8251A","#E8391A"];
+
+  return(
+    <section id="careers" style={{background:bg}} className="sec">
+      <div className="w">
+        <Rv><SH label={tc.label} title={tc.title} em=""/></Rv>
+
+        {/* Stats */}
+        <div className="stat4" style={{marginBottom:52}}>
+          {tc.stats.map((s,i)=>(
+            <Rv key={i} d={i*.07}>
+              <div style={{background:i===0?"#C8251A":i===1?"#1A0A00":cBg,borderRadius:16,border:i>1?"1px solid var(--b)":"none",padding:"22px 18px"}}>
+                <div className="num" style={{fontSize:"clamp(1.7rem,2.6vw,2.3rem)",color:i<2?"#F5EFE6":co,lineHeight:1,marginBottom:9}}>{s.n}</div>
+                <div style={{fontSize:".71rem",fontWeight:700,color:i<2?"rgba(245,239,230,.5)":"var(--t3)",textTransform:"uppercase",letterSpacing:".05em",lineHeight:1.4}}>{s.l}</div>
+              </div>
+            </Rv>
+          ))}
+        </div>
+
+        {/* Perks — full width, no quote */}
+        <Rv d={.05}>
+          <div style={{marginBottom:60}}>
+            <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.25rem",marginBottom:24}}>Почему выбирают Аксай</div>
+            <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(220px,1fr))",gap:13}}>
+              {tc.perks.map((p,i)=>(
+                <div key={i} style={{background:cBg,borderRadius:16,border:"1px solid var(--b)",padding:"24px 20px",display:"flex",gap:16,alignItems:"flex-start"}}>
+                  <div style={{width:40,height:40,borderRadius:10,background:i%2===0?"rgba(200,37,26,.09)":"rgba(232,57,26,.09)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                    <Ico n={icons[i%icons.length]} s={16} c={colors[i%colors.length]}/>
+                  </div>
+                  <div>
+                    <div style={{fontWeight:700,fontSize:".88rem",color:co,marginBottom:6}}>{p.t}</div>
+                    <div style={{color:"var(--t2)",fontSize:".79rem",lineHeight:1.55}}>{p.d}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </Rv>
+
+        {/* Vacancies — more presentable */}
+        <Rv d={.1}><span className="shl">{tc.vlabel}</span></Rv>
+        <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(340px,1fr))",gap:14,marginTop:16}}>
+          {(preview?JOBS.slice(0,4):JOBS).map((j,i)=>(
+            <Rv key={j.id} d={i*.06}>
+              <div style={{background:cBg,borderRadius:18,border:"1px solid var(--b)",padding:"24px 22px",display:"flex",flexDirection:"column",gap:0,transition:"transform .28s,box-shadow .28s"}}
+                onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-3px)";e.currentTarget.style.boxShadow="0 8px 28px rgba(26,10,0,.08)";}}
+                onMouseLeave={e=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
+                <div style={{display:"flex",alignItems:"flex-start",gap:14,marginBottom:14}}>
+                  <div style={{width:50,height:50,borderRadius:14,background:i%2===0?"rgba(200,37,26,.09)":"rgba(232,57,26,.09)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:"1.5rem"}}>{j.icon}</div>
+                  <div style={{flex:1}}>
+                    <div style={{display:"flex",alignItems:"center",gap:7,flexWrap:"wrap",marginBottom:5}}>
+                      <span style={{fontWeight:700,fontSize:".9rem",color:co}}>{j.t[lang]||j.t.RU}</span>
+                      {j.isNew&&<span className="tg" style={{fontSize:".59rem",padding:"3px 8px"}}>Новая</span>}
+                    </div>
+                    <span style={{fontSize:".74rem",color:"var(--t3)"}}>{j.dept[lang]||j.dept.RU}</span>
+                  </div>
+                </div>
+                <p style={{fontSize:".8rem",color:"var(--t2)",lineHeight:1.58,marginBottom:16,flex:1}}>{j.desc[lang]||j.desc.RU}</p>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",paddingTop:14,borderTop:"1px solid var(--b)"}}>
+                  <span style={{fontWeight:800,fontSize:".92rem",color:"#C8251A"}}>{j.sal}</span>
+                  <button className="btn br" style={{padding:"9px 20px",fontSize:".8rem"}}>{tc.apply} <Ico n="arr" s={12} c="#fff"/></button>
+                </div>
+              </div>
+            </Rv>
+          ))}
+        </div>
+
+        {preview&&<Rv d={.2}><div style={{textAlign:"center",marginTop:36}}>
+          <button className="btn br" onClick={()=>{setPage("careers");window.scrollTo({top:0});}}>{tc.more} <Ico n="arr" s={13} c="#fff"/></button>
+        </div></Rv>}
+      </div>
+    </section>
+  );
+}
+
+/* ═══════ FULL CAREERS PAGE ═══════ */
+function CareersPage({lang,dark}){
+  const t=LANGS[lang];
+  const tc=t.careers;
+  const co=dark?"#F5EFE6":"#1A0A00";
+  const bg=dark?"#0D0500":"#F5EFE6";
+  const cBg=dark?"#1A0900":"#fff";
+
+  return(
+    <div style={{background:bg,paddingTop:68}}>
+      {/* Hero banner */}
+      <section style={{background:dark?"#140800":"#1A0A00",padding:"88px 0",position:"relative",overflow:"hidden"}}>
+        <div className="grain-ov" style={{position:"absolute",inset:0,pointerEvents:"none"}}/>
+        <div className="w" style={{position:"relative",zIndex:1}}>
+          <Rv><SH label={tc.label} title={tc.fullTitle||tc.title} em="" sub={tc.fullSub||tc.sub} light/></Rv>
+          <div className="stat4">
+            {tc.stats.map((s,i)=>(
+              <Rv key={i} d={i*.07}>
+                <div style={{background:"rgba(245,239,230,.05)",border:"1px solid rgba(245,239,230,.08)",borderRadius:16,padding:"22px 18px"}}>
+                  <div className="num" style={{fontSize:"2rem",color:i===0?"#E8391A":"#F5EFE6",lineHeight:1,marginBottom:8}}>{s.n}</div>
+                  <div style={{fontSize:".72rem",fontWeight:700,color:"rgba(245,239,230,.45)",textTransform:"uppercase",letterSpacing:".05em"}}>{s.l}</div>
+                </div>
+              </Rv>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits */}
+      <section className="sec">
+        <div className="w">
+          <Rv><SH label="Условия работы" title="Льготы и преимущества" em=""/></Rv>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(240px,1fr))",gap:13,marginBottom:60}}>
+            {(tc.benefits||tc.perks).map((b,i)=>(
+              <Rv key={i} d={i*.06}>
+                <div style={{background:cBg,borderRadius:17,border:"1px solid var(--b)",padding:"24px 20px",height:"100%"}}>
+                  <div style={{width:38,height:38,borderRadius:9,background:"rgba(200,37,26,.08)",display:"flex",alignItems:"center",justifyContent:"center",marginBottom:14}}>
+                    <Ico n={["shield","award","leaf","zap","phone","factory"][i%6]} s={15} c="#C8251A"/>
+                  </div>
+                  <div style={{fontWeight:700,fontSize:".9rem",color:co,marginBottom:8}}>{b.t}</div>
+                  <p style={{color:"var(--t2)",fontSize:".82rem",lineHeight:1.62}}>{b.d||b.d}</p>
+                </div>
+              </Rv>
+            ))}
+          </div>
+
+          {/* All vacancies */}
+          <Rv><span className="shl">{tc.vlabel}</span></Rv>
+          <div style={{display:"flex",flexDirection:"column",gap:13,marginTop:18}}>
+            {JOBS.map((j,i)=>(
+              <Rv key={j.id} d={i*.05}>
+                <div className="vc">
+                  <div style={{display:"flex",gap:0,alignItems:"flex-start",flexWrap:"wrap"}}>
+                    <div style={{width:50,height:50,borderRadius:14,background:"rgba(200,37,26,.08)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginRight:16,fontSize:"1.4rem"}}>{j.icon}</div>
+                    <div style={{flex:1,minWidth:180}}>
+                      <div style={{display:"flex",alignItems:"center",gap:7,flexWrap:"wrap",marginBottom:6}}>
+                        <span style={{fontWeight:700,fontSize:".9rem",color:co}}>{j.t[lang]||j.t.RU}</span>
+                        {j.isNew&&<span className="tg" style={{fontSize:".6rem",padding:"3px 9px"}}>Новая</span>}
+                      </div>
+                      <div style={{display:"flex",gap:14,marginBottom:8,flexWrap:"wrap"}}>
+                        <span style={{fontSize:".74rem",color:"var(--t3)"}}>{j.dept[lang]||j.dept.RU}</span>
+                        <span style={{fontSize:".82rem",fontWeight:800,color:"#C8251A"}}>{j.sal}</span>
+                      </div>
+                      <p style={{fontSize:".82rem",color:"var(--t2)",lineHeight:1.6}}>{j.desc[lang]||j.desc.RU}</p>
+                    </div>
+                    <button className="btn br" style={{padding:"10px 20px",fontSize:".82rem",marginLeft:"auto",flexShrink:0,alignSelf:"center",marginTop:4}}>{tc.apply} <Ico n="arr" s={12} c="#fff"/></button>
+                  </div>
+                </div>
+              </Rv>
+            ))}
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+/* ═══════ B2B SECTION (landing preview) ═══════ */
+function B2B({preview,setPage,lang,dark}){
+  const t=LANGS[lang];
+  const tb=t.b2b;
+  const co=dark?"#F5EFE6":"#1A0A00";
+  const bg=dark?"#140800":"#FBF7F2";
+  const cBg=dark?"#1A0900":"#fff";
+  const[sent,setSent]=useState(false);
+  const[form,setForm]=useState({co:"",nm:"",ph:"",em:"",bz:"",vl:""});
+  const icoNames=["award","truck","pkg","zap"];
+  const icoColors=["#C8251A","#E8391A","#C8251A","#E8391A"];
+
+  return(
+    <section id="partners" style={{background:bg,padding:"104px 0",overflow:"hidden",position:"relative"}}>
+      <div className="w" style={{position:"relative",zIndex:1}}>
+        <Rv><SH label={tb.label} title={tb.title} em={tb.em} sub={tb.sub}/></Rv>
+
+        {/* 2x2 advantages grid — equal sizes, light cards */}
+        <div className="adv4" style={{marginBottom:64}}>
+          {tb.adv.map((a,i)=>(
+            <Rv key={i} d={i*.08}>
+              <div style={{background:cBg,border:"1px solid var(--b)",borderRadius:18,padding:"28px 24px",height:"100%"}}>
+                <div style={{width:44,height:44,borderRadius:12,background:`rgba(${i%2===0?"200,37,26":"232,57,26"},.09)`,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:16}}>
+                  <Ico n={icoNames[i]} s={20} c={icoColors[i]}/>
+                </div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.02rem",marginBottom:9}}>{a.t}</div>
+                <p style={{color:"var(--t2)",fontSize:".82rem",lineHeight:1.62}}>{a.d}</p>
+              </div>
+            </Rv>
+          ))}
+        </div>
+
+        {/* Form + contacts — light */}
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1.1fr",gap:44,alignItems:"start"}}>
+          <Rv>
+            <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.25rem",marginBottom:20}}>Контакты для партнёров</div>
+            {[{i:"phone",l:"Телефон B2B",v:"+7 (727) 221-68-17"},{i:"mail",l:"Email",v:"partners@aksaynan.kz"},{i:"truck",l:"Доставка",v:"Алматы и Алматинская область"}].map((c,i)=>(
+              <div key={i} style={{display:"flex",gap:12,alignItems:"flex-start",padding:"13px 0",borderBottom:"1px solid var(--b)"}}>
+                <div style={{width:36,height:36,borderRadius:9,background:"rgba(200,37,26,.09)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                  <Ico n={c.i} s={14} c="#C8251A"/>
+                </div>
+                <div>
+                  <div style={{color:"var(--t3)",fontSize:".65rem",fontWeight:700,letterSpacing:".09em",textTransform:"uppercase",marginBottom:3}}>{c.l}</div>
+                  <div style={{color:co,fontWeight:600,fontSize:".85rem"}}>{c.v}</div>
+                </div>
+              </div>
+            ))}
+            <button className="btn bg" style={{marginTop:24}}><Ico n="dl" s={13} c={co}/> {tb.price}</button>
+          </Rv>
+
+          <Rv d={.1}>
+            <div style={{background:cBg,border:"1px solid var(--b)",borderRadius:20,padding:"30px"}}>
+              {sent?(
+                <div style={{textAlign:"center",padding:"44px 0"}}>
+                  <div style={{width:56,height:56,borderRadius:"50%",background:"rgba(34,197,94,.1)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 16px"}}>
+                    <Ico n="check" s={24} c="#16a34a"/>
+                  </div>
+                  <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:9}}>{tb.fok}</div>
+                  <button style={{background:"none",border:"none",color:"#C8251A",cursor:"pointer",fontFamily:"'Onest',sans-serif",fontWeight:700,fontSize:".84rem",marginTop:8}} onClick={()=>setSent(false)}>Отправить ещё</button>
+                </div>
+              ):(
+                <>
+                  <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:22}}>{tb.ftitle}</div>
+                  {[[tb.fco,"co","text"],[tb.fnm,"nm","text"],[tb.fph,"ph","tel"],[tb.fem,"em","email"]].map(([l,k,tp2])=>(
+                    <div key={k} style={{marginBottom:11}}>
+                      <label className="fl">{l}</label>
+                      <input type={tp2} value={form[k]} onChange={e=>setForm(f=>({...f,[k]:e.target.value}))}/>
+                    </div>
+                  ))}
+                  <div style={{marginBottom:11}}>
+                    <label className="fl">{tb.fbz}</label>
+                    <select value={form.bz} onChange={e=>setForm(f=>({...f,bz:e.target.value}))}>
+                      <option value="">—</option>
+                      {["Торговая сеть","HoReCa","Дистрибьютор","Другое"].map((o,i)=><option key={i}>{o}</option>)}
+                    </select>
+                  </div>
+                  <div style={{marginBottom:11}}>
+                    <label className="fl">{tb.fvl}</label>
+                    <input value={form.vl} onChange={e=>setForm(f=>({...f,vl:e.target.value}))} placeholder="напр. 500 кг / нед"/>
+                  </div>
+                  <button className="btn br" style={{width:"100%",justifyContent:"center",padding:"12px",marginTop:6}} onClick={()=>setSent(true)}>
+                    <Ico n="send" s={13} c="#fff"/> {tb.fsend}
+                  </button>
+                </>
+              )}
+            </div>
+          </Rv>
+        </div>
+      </div>
+    </section>
+  );
+}
+/* ═══════ FULL PARTNERS PAGE ═══════ */
+function PartnersPage({lang,dark}){
+  const t=LANGS[lang];
+  const tb=t.b2b;
+  const co=dark?"#F5EFE6":"#1A0A00";
+  const bg=dark?"#0D0500":"#F5EFE6";
+  const cBg=dark?"#1A0900":"#fff";
+  const[sent,setSent]=useState(false);
+  const[form,setForm]=useState({co:"",nm:"",ph:"",em:"",bz:"",vl:""});
+  const icoNames=["award","truck","pkg","zap"];
+  const icoColors=["#C8251A","#E8391A","#C8251A","#E8391A"];
+
+  return(
+    <div style={{background:bg,paddingTop:68}}>
+      {/* Hero banner */}
+      <section style={{background:dark?"#140800":"#1A0A00",padding:"88px 0",position:"relative",overflow:"hidden"}}>
+        <div className="grain-ov" style={{position:"absolute",inset:0,pointerEvents:"none"}}/>
+        <div className="w" style={{position:"relative",zIndex:1}}>
+          <Rv><SH label={tb.label} title={tb.fullTitle||tb.title} em="" sub={tb.fullSub||tb.sub} light/></Rv>
+        </div>
+      </section>
+
+      {/* Advantages 2x2 */}
+      <section className="sec">
+        <div className="w">
+          <Rv><SH label="Преимущества" title="Почему выбирают ХБК Аксай" em=""/></Rv>
+          <div className="adv4" style={{marginBottom:60}}>
+            {tb.adv.map((a,i)=>(
+              <Rv key={i} d={i*.08}>
+                <div style={{background:cBg,borderRadius:18,border:"1px solid var(--b)",padding:"28px 24px",height:"100%"}}>
+                  <div style={{width:44,height:44,borderRadius:12,background:`rgba(${i%2===0?"200,37,26":"232,57,26"},.08)`,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:18}}>
+                    <Ico n={icoNames[i]} s={20} c={icoColors[i]}/>
+                  </div>
+                  <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.05rem",marginBottom:10}}>{a.t}</div>
+                  <p style={{color:"var(--t2)",fontSize:".83rem",lineHeight:1.65}}>{a.d}</p>
+                </div>
+              </Rv>
+            ))}
+          </div>
+
+          {/* Partners list */}
+          <Rv d={.1}>
+            <div style={{background:cBg,borderRadius:18,border:"1px solid var(--b)",padding:"32px 28px",marginBottom:60}}>
+              <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:20}}>Нам доверяют крупнейшие компании Казахстана</div>
+              <div style={{display:"flex",flexWrap:"wrap",gap:10}}>
+                {PARTNERS.map((p,i)=>(
+                  <span key={i} style={{background:"rgba(200,37,26,.07)",borderRadius:50,padding:"7px 16px",fontSize:".83rem",fontWeight:600,color:"#C8251A",fontFamily:"'Onest',sans-serif"}}>{p}</span>
+                ))}
+              </div>
+            </div>
+          </Rv>
+
+          {/* Form */}
+          <Rv d={.15}>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:44,alignItems:"start"}}>
+              <div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.25rem",marginBottom:20}}>Контакты</div>
+                {[{i:"phone",l:"Телефон общий",v:"+7 (727) 221-68-16"},{i:"phone",l:"Телефон B2B",v:"+7 (727) 221-68-17"},{i:"mail",l:"Email общий",v:"info@aksaynan.kz"},{i:"mail",l:"Email B2B",v:"partners@aksaynan.kz"},{i:"pin",l:"Адрес",v:"г. Алматы, мкр. Аксай-2, ул. Б. Момышулы, 36а"},{i:"clk",l:"Режим работы",v:"Пн–Пт: 08:00–18:00"}].map((c,i)=>(
+                  <div key={i} style={{display:"flex",gap:12,alignItems:"flex-start",padding:"12px 0",borderBottom:"1px solid var(--b)"}}>
+                    <div style={{width:34,height:34,borderRadius:8,background:"rgba(200,37,26,.08)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                      <Ico n={c.i} s={13} c="#C8251A"/>
+                    </div>
+                    <div>
+                      <div style={{fontSize:".64rem",fontWeight:700,color:"var(--t3)",textTransform:"uppercase",letterSpacing:".08em",marginBottom:2}}>{c.l}</div>
+                      <div style={{fontWeight:600,fontSize:".85rem",color:co}}>{c.v}</div>
+                    </div>
+                  </div>
+                ))}
+                <button className="btn bg" style={{marginTop:20}}><Ico n="dl" s={13} c="#1A0A00"/> {tb.price}</button>
+              </div>
+
+              <div style={{background:cBg,borderRadius:20,border:"1px solid var(--b)",padding:"30px"}}>
+                {sent?(
+                  <div style={{textAlign:"center",padding:"44px 0"}}>
+                    <div style={{width:56,height:56,borderRadius:"50%",background:"rgba(34,197,94,.1)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 16px"}}>
+                      <Ico n="check" s={24} c="#16a34a"/>
+                    </div>
+                    <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:9}}>{tb.fok}</div>
+                    <button style={{background:"none",border:"none",color:"#C8251A",cursor:"pointer",fontFamily:"'Onest',sans-serif",fontWeight:700,fontSize:".84rem"}} onClick={()=>setSent(false)}>Отправить ещё</button>
+                  </div>
+                ):(
+                  <>
+                    <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:22}}>{tb.ftitle}</div>
+                    {[[tb.fco,"co","text"],[tb.fnm,"nm","text"],[tb.fph,"ph","tel"],[tb.fem,"em","email"]].map(([l,k,tp2])=>(
+                      <div key={k} style={{marginBottom:12}}>
+                        <label className="fl">{l}</label>
+                        <input type={tp2} value={form[k]} onChange={e=>setForm(f=>({...f,[k]:e.target.value}))}/>
+                      </div>
+                    ))}
+                    <div style={{marginBottom:12}}>
+                      <label className="fl">{tb.fbz}</label>
+                      <select value={form.bz} onChange={e=>setForm(f=>({...f,bz:e.target.value}))}>
+                        <option value="">—</option>
+                        {["Торговая сеть","HoReCa","Дистрибьютор","Другое"].map((o,i)=><option key={i}>{o}</option>)}
+                      </select>
+                    </div>
+                    <div style={{marginBottom:12}}>
+                      <label className="fl">{tb.fvl}</label>
+                      <input value={form.vl} onChange={e=>setForm(f=>({...f,vl:e.target.value}))} placeholder="напр. 500 кг / нед"/>
+                    </div>
+                    <button className="btn br" style={{width:"100%",justifyContent:"center",padding:"12px",marginTop:6}} onClick={()=>setSent(true)}>
+                      <Ico n="send" s={13} c="#fff"/> {tb.fsend}
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          </Rv>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+/* ═══════ CONTACTS SECTION ═══════ */
+function Contacts({lang,dark}){
+  const t=LANGS[lang];
+  const tc=t.contacts;
+  const co=dark?"#F5EFE6":"#1A0A00";
+  const bg=dark?"#140800":"#FBF7F2";
+  const cBg=dark?"#1A0900":"#fff";
+  const[sent,setSent]=useState(false);
+
+  return(
+    <section style={{background:bg}} className="sec">
+      <div className="w">
+        <Rv><SH label={tc.label} title={tc.title} em="" sub={tc.sub}/></Rv>
+
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:44,alignItems:"start"}}>
+          {/* Contact info */}
+          <div>
+            <Rv>
+              {[{i:"pin",l:"Адрес",v:tc.addr},{i:"phone",l:"Телефон",v:tc.phone},{i:"phone",l:"Телефон B2B",v:tc.bphone||"+7 (727) 221-68-17"},{i:"mail",l:"Email",v:tc.email},{i:"mail",l:"Email B2B",v:tc.bemail||"partners@aksaynan.kz"},{i:"clk",l:"Приёмная",v:tc.hours},{i:"factory",l:"Производство",v:tc.prod24},{i:"store",l:"Магазины",v:tc.shops}].map((c,i)=>(
+                <div key={i} style={{display:"flex",gap:13,alignItems:"flex-start",padding:"13px 0",borderBottom:"1px solid var(--b)"}}>
+                  <div style={{width:36,height:36,borderRadius:9,background:"rgba(200,37,26,.08)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                    <Ico n={c.i} s={15} c="#C8251A"/>
+                  </div>
+                  <div>
+                    <div style={{fontSize:".65rem",fontWeight:700,color:"var(--t3)",textTransform:"uppercase",letterSpacing:".09em",marginBottom:3}}>{c.l}</div>
+                    <div style={{fontWeight:600,fontSize:".86rem",color:co}}>{c.v}</div>
+                  </div>
+                </div>
+              ))}
+            </Rv>
+          </div>
+
+          {/* Contact form */}
+          <Rv d={.1}>
+            <div style={{background:cBg,borderRadius:20,border:"1px solid var(--b)",padding:"30px"}}>
+              {sent?(
+                <div style={{textAlign:"center",padding:"44px 0"}}>
+                  <div style={{width:56,height:56,borderRadius:"50%",background:"rgba(34,197,94,.1)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 16px"}}>
+                    <Ico n="check" s={24} c="#16a34a"/>
+                  </div>
+                  <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:9}}>{tc.fok}</div>
+                  <button style={{background:"none",border:"none",color:"#C8251A",cursor:"pointer",fontFamily:"'Onest',sans-serif",fontWeight:700,fontSize:".84rem"}} onClick={()=>setSent(false)}>Написать ещё</button>
+                </div>
+              ):(
+                <>
+                  <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:22}}>{tc.formTitle}</div>
+                  <div style={{marginBottom:12}}>
+                    <label className="fl">{tc.fname}</label>
+                    <input type="text"/>
+                  </div>
+                  <div style={{marginBottom:12}}>
+                    <label className="fl">{tc.femail}</label>
+                    <input type="email"/>
+                  </div>
+                  <div style={{marginBottom:12}}>
+                    <label className="fl">{tc.fsubj}</label>
+                    <select>
+                      <option value="">—</option>
+                      {(tc.topics||[]).map((o,i)=><option key={i}>{o}</option>)}
+                    </select>
+                  </div>
+                  <div style={{marginBottom:12}}>
+                    <label className="fl">{tc.fmsg}</label>
+                    <textarea rows={4} style={{resize:"vertical"}}/>
+                  </div>
+                  <button className="btn br" style={{width:"100%",justifyContent:"center",padding:"12px",marginTop:6}} onClick={()=>setSent(true)}>
+                    <Ico n="send" s={13} c="#fff"/> {tc.fsend}
+                  </button>
+                </>
+              )}
+            </div>
+          </Rv>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════ FOOTER ═══════ */
+function Footer({setPage,lang,setLang,dark,setDark}){
+  const t=LANGS[lang].footer;
+  const co=dark?"#F5EFE6":"#1A0A00";
+  const pageMap={0:"stores",1:"products",2:"about",3:"prod",4:"partners",5:"careers"};
+
+  return(
+    <footer className="ft">
+      <div className="w">
+        <div className="ftg">
+          <div>
+            <div style={{display:"flex",alignItems:"center",gap:9,marginBottom:15}}>
+              <AksayLogo s={32}/>
+              <div>
+                <div style={{fontFamily:"'Playfair Display',serif",fontWeight:800,fontSize:".95rem",color:"#F5EFE6",letterSpacing:"-.02em"}}>ХБК Аксай</div>
+                <div style={{fontSize:".52rem",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:"rgba(245,239,230,.26)",marginTop:1}}>с 1988 года</div>
+              </div>
+            </div>
+            <p style={{color:"rgba(245,239,230,.32)",fontSize:".8rem",lineHeight:1.62,marginBottom:20,maxWidth:240}}>{t.tag}</p>
+            {[{i:"pin",v:t.addr},{i:"phone",v:t.phone},{i:"mail",v:t.email}].map((c,i)=>(
+              <div key={i} style={{display:"flex",gap:8,alignItems:"flex-start",marginBottom:8}}>
+                <span style={{marginTop:1,opacity:.36}}><Ico n={c.i} s={12} c="rgba(245,239,230,.55)"/></span>
+                <span style={{color:"rgba(245,239,230,.35)",fontSize:".78rem",lineHeight:1.45}}>{c.v}</span>
+              </div>
+            ))}
+          </div>
+          {t.cols.map(({t:title,l:links},ci)=>(
+            <div key={ci}>
+              <div style={{color:"rgba(245,239,230,.2)",fontSize:".63rem",fontWeight:800,letterSpacing:".1em",textTransform:"uppercase",marginBottom:13}}>{title}</div>
+              {links.map((link,li)=>(
+                <a key={li} className="ftl" onClick={()=>{setPage(pageMap[ci]||"home");window.scrollTo({top:0});}}>{link}</a>
+              ))}
+            </div>
+          ))}
+        </div>
+        <div style={{borderTop:"1px solid rgba(245,239,230,.06)",paddingTop:22,display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:13}}>
+          <div style={{color:"rgba(245,239,230,.2)",fontSize:".73rem"}}>{t.copy}</div>
+          <div style={{display:"flex",alignItems:"center",gap:12,flexWrap:"wrap"}}>
+            <div className="lbar" style={{background:"rgba(245,239,230,.06)"}}>
+              {["RU","KK","EN","ZH"].map(l=>(
+                <button key={l} className={`lb${lang===l?" on":""}`} onClick={()=>setLang(l)} style={{color:lang===l?"#fff":"rgba(245,239,230,.36)"}}>{l}</button>
+              ))}
+            </div>
+            <button className="ib" style={{background:"rgba(245,239,230,.06)"}} onClick={()=>setDark(d=>!d)}>
+              {dark?<Ico n="sun" s={13} c="rgba(245,239,230,.55)"/>:<Ico n="moon" s={13} c="rgba(245,239,230,.55)"/>}
+            </button>
+            <div style={{display:"flex",gap:16}}>
+              {[t.priv,t.terms].map((l,i)=>(
+                <span key={i} style={{color:"rgba(245,239,230,.18)",fontSize:".72rem",cursor:"pointer"}}
+                  onMouseEnter={e=>e.currentTarget.style.color="rgba(232,57,26,.65)"}
+                  onMouseLeave={e=>e.currentTarget.style.color="rgba(245,239,230,.18)"}>{l}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ═══════ MAIN APP ═══════ */
+function App(){
+  const[lang,setLang]=useState("RU");
+  const[dark,setDark]=useState(false);
+  const[page,setPage]=useState("home");
+
+  useEffect(()=>{document.body.className=dark?"dk":"";},[dark]);
+
+  const sharedProps={setPage,lang,dark};
+
+  const landing=(
+    <div className="page-wrap">
+      <Hero {...sharedProps}/>
+      <Stores preview={true} {...sharedProps}/>
+      <Products preview={true} {...sharedProps}/>
+      <Trust lang={lang} dark={dark}/>
+      <History preview={true} {...sharedProps}/>
+      <Production preview={true} {...sharedProps}/>
+      <Careers preview={true} {...sharedProps}/>
+      <B2B preview={true} {...sharedProps}/>
+      <NewsPreview setPage={setPage} lang={lang} dark={dark}/>
+      <Contacts lang={lang} dark={dark}/>
+    </div>
+  );
+
+  const subPage=(content)=>(
+    <div className="page-wrap" style={{paddingTop:68}}>{content}</div>
+  );
+
+  const pages={
+    home: landing,
+    about: subPage(<AboutPage lang={lang} dark={dark}/>),
+    prod: subPage(<ProductionPage lang={lang} dark={dark}/>),
+    products: subPage(<Products preview={false} {...sharedProps}/>),
+    stores: subPage(<StoresPage lang={lang} dark={dark}/>),
+    partners: subPage(<PartnersPage lang={lang} dark={dark}/>),
+    careers: subPage(<CareersPage lang={lang} dark={dark}/>),
+    news: subPage(<NewsPage lang={lang} dark={dark}/>),
+    media: subPage(<MediaPage lang={lang} dark={dark}/>),
+  };
+
+  return(
+    <>
+      <NavBar page={page} setPage={setPage} lang={lang} setLang={setLang} dark={dark} setDark={setDark}/>
+      {pages[page]||pages.home}
+      <Footer setPage={setPage} lang={lang} setLang={setLang} dark={dark} setDark={setDark}/>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
+</script>
+</body>
+</html>
