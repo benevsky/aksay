@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>ХБК Аксай — Хлебобулочный комбинат с 1988 года</title>
-<link rel="icon" href="AksayLogo.svg"/>
+<style>@font-face{font-family:"Gilroy";font-weight:400;font-style:normal;src:url("https://cdn.jsdelivr.net/gh/nicholasgasior/gilroy-free-font@main/web/Gilroy-Regular.woff2") format("woff2")}@font-face{font-family:"Gilroy";font-weight:600;font-style:normal;src:url("https://cdn.jsdelivr.net/gh/nicholasgasior/gilroy-free-font@main/web/Gilroy-SemiBold.woff2") format("woff2")}@font-face{font-family:"Gilroy";font-weight:700;font-style:normal;src:url("https://cdn.jsdelivr.net/gh/nicholasgasior/gilroy-free-font@main/web/Gilroy-Bold.woff2") format("woff2")}</style>
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -12,22 +12,25 @@
 /* reset */
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:'Onest',sans-serif;background:#F5EFE6;color:#1A0A00;overflow-x:hidden}
-body.dk{background:#0D0500;color:#F5EFE6}
+body{font-family:'Gilroy',sans-serif;background:#F5EFE6;color:var(--coal,#1A0A00);overflow-x:hidden}
+body.dk{background:#050505;color:#F5EFE6}
+body.dk *{--t2:rgba(245,239,230,.55);--t3:rgba(245,239,230,.34);--coal:#F5EFE6}
 ::selection{background:#C8251A;color:#fff}
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-thumb{background:rgba(200,37,26,.4);border-radius:2px}
+img{image-rendering:auto;-webkit-image-rendering:auto}
+@media(max-width:640px){.hide-mob{display:none!important}}
 
 /* tokens */
 :root{
-  --cr:#F5EFE6;--dk:#0D0500;
+  --cr:#F5EFE6;--dk:#050505;
   --card:#FBF7F2;--coal:#1A0A00;
   --red:#C8251A;--org:#E8391A;
   --b:rgba(26,10,0,.08);--b2:rgba(26,10,0,.05);
   --t2:rgba(26,10,0,.55);--t3:rgba(26,10,0,.34)
 }
 body.dk{
-  --card:#1A0900;--b:rgba(245,239,230,.07);
+  --card:#111;--b:rgba(245,239,230,.07);--coal:#F5EFE6;
   --b2:rgba(245,239,230,.04);--t2:rgba(245,239,230,.55);--t3:rgba(245,239,230,.32)
 }
 
@@ -43,23 +46,23 @@ body.dk{
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:1000;transition:all .3s}
 .nav.sc{background:rgba(245,239,230,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--b)}
-body.dk .nav.sc{background:rgba(13,5,0,.93)}
+body.dk .nav.sc{background:rgba(5,5,5,.95)}
 .ni{max-width:1380px;margin:0 auto;padding:0 28px;height:66px;display:flex;align-items:center;justify-content:space-between;gap:16px}
 .nlinks{display:flex;gap:2px;align-items:center;flex:1;justify-content:center}
-.nl{background:none;border:none;cursor:pointer;padding:7px 11px;border-radius:20px;font-size:.8rem;font-weight:500;font-family:'Onest',sans-serif;color:#1A0A00;opacity:.6;transition:all .2s;white-space:nowrap}
+.nl{background:none;border:none;cursor:pointer;padding:7px 11px;border-radius:20px;font-size:.8rem;font-weight:500;font-family:'Gilroy',sans-serif;color:var(--coal,#1A0A00);opacity:.6;transition:all .2s;white-space:nowrap}
 body.dk .nl{color:#F5EFE6}
 .nl:hover,.nl.on{opacity:1;color:#C8251A}
 .lbar{display:flex;gap:2px;background:rgba(26,10,0,.06);border-radius:20px;padding:3px}
 body.dk .lbar{background:rgba(245,239,230,.07)}
-.lb{background:none;border:none;cursor:pointer;padding:4px 9px;border-radius:16px;font-size:.67rem;font-weight:800;font-family:'Onest',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:#1A0A00;transition:all .2s}
+.lb{background:none;border:none;cursor:pointer;padding:4px 9px;border-radius:16px;font-size:.67rem;font-weight:800;font-family:'Gilroy',sans-serif;letter-spacing:.07em;text-transform:uppercase;color:var(--coal,#1A0A00);transition:all .2s}
 body.dk .lb{color:#F5EFE6}
 .lb.on{background:#C8251A;color:#fff}
-.ib{background:rgba(26,10,0,.06);border:none;cursor:pointer;width:35px;height:35px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#1A0A00;transition:all .2s;flex-shrink:0}
+.ib{background:rgba(26,10,0,.06);border:none;cursor:pointer;width:35px;height:35px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--coal,#1A0A00);transition:all .2s;flex-shrink:0}
 body.dk .ib{background:rgba(245,239,230,.07);color:#F5EFE6}
 .mob-menu-wrap{display:none;position:fixed;top:66px;left:0;right:0;background:var(--cr);border-bottom:1px solid var(--b);padding:14px 20px 18px;flex-direction:column;gap:4px;z-index:999}
-body.dk .mob-menu-wrap{background:#0D0500}
+body.dk .mob-menu-wrap{background:#050505}
 .mob-menu-wrap.op{display:flex}
-.mnl{background:none;border:none;cursor:pointer;padding:10px 13px;border-radius:11px;font-size:.92rem;font-family:'Onest',sans-serif;color:#1A0A00;text-align:left;font-weight:500;transition:all .2s}
+.mnl{background:none;border:none;cursor:pointer;padding:10px 13px;border-radius:11px;font-size:.92rem;font-family:'Gilroy',sans-serif;color:var(--coal,#1A0A00);text-align:left;font-weight:500;transition:all .2s}
 body.dk .mnl{color:#F5EFE6}
 .mnl:hover{background:rgba(200,37,26,.08);color:#C8251A}
 @media(max-width:900px){.nlinks{display:none!important}}
@@ -74,8 +77,15 @@ body.dk .mnl{color:#F5EFE6}
 /* section heading */
 .sh{margin-bottom:52px}
 .shl{display:block;font-size:.66rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#C8251A;margin-bottom:12px}
-.sht{font-family:'Playfair Display',serif;font-weight:900;letter-spacing:-.04em;line-height:.95;font-size:clamp(2rem,3.6vw,3.6rem);color:#1A0A00}
-body.dk .sht{color:#F5EFE6}
+.sht{font-family:'Gilroy',sans-serif;font-weight:900;letter-spacing:-.04em;line-height:.95;font-size:clamp(2rem,3.6vw,3.6rem);color:var(--coal,#1A0A00)}
+body.dk .sht{color:#F5EFE6!important}
+body.dk .num{color:#F5EFE6}
+body.dk .dp{color:#F5EFE6}
+body.dk h2,body.dk h3{color:#F5EFE6}
+body.dk .sh *{color:#F5EFE6}
+body.dk .sh .shl{color:#C8251A}
+body.dk .sh .em{color:#E8391A}
+body.dk .sh .shs{color:rgba(245,239,230,.55)!important}
 .sht .em{color:#E8391A}
 .shs{color:var(--t2);font-size:.96rem;line-height:1.72;margin-top:15px;max-width:600px}
 .sdk .shl{color:rgba(232,57,26,.72)}
@@ -83,17 +93,17 @@ body.dk .sht{color:#F5EFE6}
 .sdk .shs{color:rgba(245,239,230,.48)}
 
 /* typography */
-.dp{font-family:'Playfair Display',serif;font-weight:900;letter-spacing:-.04em;line-height:.93}
-.sf{font-family:'Playfair Display',serif;font-weight:700;letter-spacing:-.025em}
-.num{font-family:'Playfair Display',serif;font-weight:900;letter-spacing:-.05em;line-height:1}
+.dp{font-family:'Gilroy',sans-serif;font-weight:900;letter-spacing:-.04em;line-height:.93}
+.sf{font-family:'Gilroy',sans-serif;font-weight:700;letter-spacing:-.025em}
+.num{font-family:'Gilroy',sans-serif;font-weight:900;letter-spacing:-.05em;line-height:1}
 
 /* buttons */
-.btn{display:inline-flex;align-items:center;gap:7px;cursor:pointer;border:none;border-radius:50px;font-family:'Onest',sans-serif;font-weight:700;font-size:.84rem;transition:all .22s;white-space:nowrap;text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:7px;cursor:pointer;border:none;border-radius:50px;font-family:'Gilroy',sans-serif;font-weight:700;font-size:.84rem;transition:all .22s;white-space:nowrap;text-decoration:none}
 .br{background:#C8251A;color:#fff;padding:12px 26px}
 .br:hover{background:#A81E14;transform:translateY(-1px)}
 .bo{background:#E8391A;color:#fff;padding:12px 26px}
 .bo:hover{background:#C82D12;transform:translateY(-1px)}
-.bg{background:transparent;border:1.5px solid var(--b);color:#1A0A00;padding:11px 24px}
+.bg{background:transparent;border:1.5px solid var(--b);color:var(--coal,#1A0A00);padding:11px 24px}
 body.dk .bg{border-color:rgba(245,239,230,.16);color:#F5EFE6}
 .bg:hover{border-color:#E8391A;color:#E8391A}
 .bgw{background:transparent;border:1.5px solid rgba(245,239,230,.25);color:#F5EFE6;padding:11px 24px}
@@ -105,9 +115,9 @@ body.dk .bg{border-color:rgba(245,239,230,.16);color:#F5EFE6}
 body.dk .cd:hover{box-shadow:0 12px 36px rgba(0,0,0,.25)}
 
 /* bento */
-.bn{display:grid;grid-template-columns:repeat(12,1fr);gap:11px}
-.g3{grid-column:span 3}.g4{grid-column:span 4}.g5{grid-column:span 5}
-.g6{grid-column:span 6}.g7{grid-column:span 7}.g8{grid-column:span 8}
+.bn{display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:1fr 1fr;gap:11px}
+.g3{grid-column:span 3}.g4{grid-column:span 4;display:flex;flex-direction:column}.g5{grid-column:span 5;display:flex;flex-direction:column}
+.g6{grid-column:span 6}.g7{grid-column:span 7;display:flex;flex-direction:column}.g8{grid-column:span 8}
 @media(max-width:1100px){
   .g3{grid-column:span 4!important}.g4{grid-column:span 6!important}
   .g5{grid-column:span 6!important}.g7{grid-column:span 8!important}
@@ -121,7 +131,7 @@ body.dk .cd:hover{box-shadow:0 12px 36px rgba(0,0,0,.25)}
 /* bento cards */
 .bc{border-radius:22px;overflow:hidden;position:relative;transition:transform .32s cubic-bezier(.16,1,.3,1),box-shadow .32s}
 .bc:hover{transform:translateY(-3px) scale(1.005);box-shadow:0 16px 48px rgba(26,10,0,.11)}
-.bm{border-radius:22px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;min-height:192px;position:relative;overflow:hidden;transition:transform .32s cubic-bezier(.16,1,.3,1),box-shadow .32s}
+.bm{border-radius:22px;padding:26px;display:flex;flex-direction:column;justify-content:space-between;min-height:0;height:100%;position:relative;overflow:hidden;transition:transform .32s cubic-bezier(.16,1,.3,1),box-shadow .32s}
 .bm:hover{transform:translateY(-3px) scale(1.005);box-shadow:0 16px 48px rgba(26,10,0,.11)}
 
 /* stores */
@@ -135,7 +145,7 @@ body.dk .cd:hover{box-shadow:0 12px 36px rgba(0,0,0,.25)}
 .pc:hover{transform:translateY(-5px);box-shadow:0 12px 36px rgba(26,10,0,.08)}
 
 /* category tabs */
-.ct{background:none;border:1.5px solid var(--b);cursor:pointer;padding:8px 17px;border-radius:50px;font-size:.8rem;font-weight:600;font-family:'Onest',sans-serif;color:#1A0A00;transition:all .2s;white-space:nowrap}
+.ct{background:none;border:1.5px solid var(--b);cursor:pointer;padding:8px 17px;border-radius:50px;font-size:.8rem;font-weight:600;font-family:'Gilroy',sans-serif;color:var(--coal,#1A0A00);transition:all .2s;white-space:nowrap}
 body.dk .ct{color:#F5EFE6;border-color:rgba(245,239,230,.1)}
 .ct:hover,.ct.on{background:#C8251A;color:#fff;border-color:#C8251A}
 
@@ -144,7 +154,7 @@ body.dk .ct{color:#F5EFE6;border-color:rgba(245,239,230,.1)}
 @media(max-width:900px){.pf3{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:540px){.pf3{grid-template-columns:1fr}}
 .pf-row{display:flex;align-items:center;gap:0;margin-bottom:44px;overflow-x:auto;padding-bottom:4px}
-.pf-node{width:32px;height:32px;border-radius:50%;border:2px solid #C8251A;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;color:#C8251A;flex-shrink:0;font-family:'Onest',sans-serif;background:var(--cr)}
+.pf-node{width:32px;height:32px;border-radius:50%;border:2px solid #C8251A;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:800;color:#C8251A;flex-shrink:0;font-family:'Gilroy',sans-serif;background:var(--cr)}
 body.dk .pf-node{background:var(--dk)}
 .pf-line{flex:1;height:2px;background:linear-gradient(90deg,#C8251A,#E8391A);min-width:14px}
 
@@ -152,8 +162,8 @@ body.dk .pf-node{background:var(--dk)}
 .hc-grid{display:flex;flex-direction:column;gap:12px;max-width:800px}
 .hc{background:var(--card);border-radius:17px;border:1px solid var(--b);overflow:hidden;display:flex;align-items:stretch;transition:transform .28s,box-shadow .28s}
 .hc:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,10,0,.07)}
-body.dk .hc{background:#1C0A00}
-.hc-year{font-family:'Playfair Display',serif;font-weight:900;font-size:1.4rem;color:#C8251A;line-height:1;flex-shrink:0;width:64px;margin-bottom:8px}
+body.dk .hc{background:#111}
+.hc-year{font-family:'Gilroy',sans-serif;font-weight:900;font-size:1.4rem;color:#C8251A;line-height:1;flex-shrink:0;width:64px;margin-bottom:8px}
 
 /* gallery */
 .gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
@@ -166,7 +176,7 @@ body.dk .hc{background:#1C0A00}
 .gal-placeholder{width:100%;height:100%;background:var(--b2);display:flex;align-items:center;justify-content:center}
 .gal-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.65) 0%,rgba(0,0,0,.1) 50%,transparent 100%);display:flex;align-items:flex-end;padding:16px 18px;transition:background .3s}
 .gal-card:hover .gal-overlay{background:linear-gradient(to top,rgba(0,0,0,.78) 0%,rgba(0,0,0,.2) 60%,transparent 100%)}
-.gal-year{font-family:'Playfair Display',serif;font-weight:900;font-size:1.8rem;color:#F5EFE6;letter-spacing:-.03em;line-height:1;text-shadow:0 2px 12px rgba(0,0,0,.3)}
+.gal-year{font-family:'Gilroy',sans-serif;font-weight:900;font-size:1.8rem;color:#F5EFE6;letter-spacing:-.03em;line-height:1;text-shadow:0 2px 12px rgba(0,0,0,.3)}
 .gal-caption{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.82);backdrop-filter:blur(12px);padding:0 18px;max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1),padding .4s}
 .gal-caption.open{max-height:120px;padding:14px 18px}
 
@@ -191,19 +201,24 @@ body.dk .hc{background:#1C0A00}
 .cert-card{border-radius:16px;border:1px solid var(--b);overflow:hidden;flex-shrink:0;width:180px;cursor:pointer;transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s;scroll-snap-align:start}
 .cert-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(26,10,0,.1)}
 .cert-card:hover img{transform:scale(1.05)}
+@media(max-width:640px){.cert-dots{display:flex!important}.cert-arrow{display:none!important}}
 .cert-arrow{position:absolute;top:50%;transform:translateY(-50%);z-index:5;background:var(--card);border:1px solid var(--b);border-radius:50%;width:38px;height:38px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;box-shadow:0 4px 12px rgba(0,0,0,.08)}
 .cert-arrow:hover{background:#C8251A;border-color:#C8251A}
 .cert-arrow:hover svg{stroke:#fff!important}
 .cert-arrow-l{left:-16px;transform:translateY(-50%) rotate(180deg)}
 .cert-arrow-r{right:-16px}
 @media(max-width:640px){.cert-arrow{display:none}}
+.cert-dots{display:none;justify-content:center;gap:6px;margin-top:14px}
+@media(max-width:640px){.cert-dots{display:flex}}
+.cert-dot{width:8px;height:8px;border-radius:50%;background:var(--b2);transition:background .2s}
+.cert-dot.on{background:#C8251A}
 .hide-scrollbar{-ms-overflow-style:none;scrollbar-width:none}
 .hide-scrollbar::-webkit-scrollbar{display:none}
 
 /* cart */
-.cart-badge{position:absolute;top:-4px;right:-6px;background:#C8251A;color:#fff;font-size:.55rem;font-weight:900;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Onest',sans-serif;line-height:1;pointer-events:none}
+.cart-badge{position:absolute;top:-4px;right:-6px;background:#C8251A;color:#fff;font-size:.55rem;font-weight:900;width:17px;height:17px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Gilroy',sans-serif;line-height:1;pointer-events:none}
 .cart-panel{position:fixed;top:0;right:-420px;width:400px;max-width:92vw;height:100vh;background:var(--cr);z-index:1100;transition:right .35s cubic-bezier(.16,1,.3,1);box-shadow:-8px 0 40px rgba(0,0,0,.12);display:flex;flex-direction:column}
-body.dk .cart-panel{background:#0D0500}
+body.dk .cart-panel{background:#0A0A0A}
 .cart-panel.open{right:0}
 .cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:1099;opacity:0;pointer-events:none;transition:opacity .3s}
 .cart-overlay.open{opacity:1;pointer-events:auto}
@@ -213,21 +228,27 @@ body.dk .cart-panel{background:#0D0500}
 .cart-qty button{background:none;border:none;cursor:pointer;width:30px;height:30px;display:flex;align-items:center;justify-content:center;transition:background .15s}
 .cart-qty button:hover{background:rgba(200,37,26,.1)}
 .cart-qty span{font-size:.82rem;font-weight:700;min-width:28px;text-align:center}
-.add-cart-btn{background:#C8251A;color:#fff;border:none;cursor:pointer;padding:7px 14px;border-radius:50px;font-size:.72rem;font-weight:700;font-family:'Onest',sans-serif;display:flex;align-items:center;gap:5px;transition:all .2s;white-space:nowrap}
+.add-cart-btn{background:#C8251A;color:#fff;border:none;cursor:pointer;padding:7px 14px;border-radius:50px;font-size:.72rem;font-weight:700;font-family:'Gilroy',sans-serif;display:flex;align-items:center;gap:5px;transition:all .2s;white-space:nowrap}
 .add-cart-btn:hover{background:#A81E14;transform:scale(1.03)}
 .add-cart-btn.in{background:transparent;border:1.5px solid #C8251A;color:#C8251A;padding:6px 13px}
 .checkout-form{display:flex;flex-direction:column;gap:14px}
 .checkout-form label{font-size:.78rem;font-weight:600;display:flex;flex-direction:column;gap:5px}
-.checkout-form input,.checkout-form textarea,.checkout-form select{padding:11px 14px;border-radius:12px;border:1px solid var(--b);font-family:'Onest',sans-serif;font-size:.88rem;background:var(--card);color:inherit;outline:none;transition:border-color .2s}
+.checkout-form input,.checkout-form textarea,.checkout-form select{padding:11px 14px;border-radius:12px;border:1px solid var(--b);font-family:'Gilroy',sans-serif;font-size:.88rem;background:var(--card);color:inherit;outline:none;transition:border-color .2s}
 .checkout-form input:focus,.checkout-form textarea:focus{border-color:#C8251A}
-body.dk .checkout-form input,body.dk .checkout-form textarea,body.dk .checkout-form select{background:#1A0900;border-color:rgba(245,239,230,.1)}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1A0A00;color:#F5EFE6;padding:12px 24px;border-radius:50px;font-size:.82rem;font-weight:600;z-index:1200;transition:transform .4s cubic-bezier(.16,1,.3,1);pointer-events:none;white-space:nowrap;font-family:'Onest',sans-serif}
-body.dk .toast{background:#F5EFE6;color:#1A0A00}
+body.dk .checkout-form input,body.dk .checkout-form textarea,body.dk .checkout-form select{background:#111;border-color:rgba(245,239,230,.1)}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--coal,#1A0A00);color:#F5EFE6;padding:12px 24px;border-radius:50px;font-size:.82rem;font-weight:600;z-index:1200;transition:transform .4s cubic-bezier(.16,1,.3,1);pointer-events:none;white-space:nowrap;font-family:'Gilroy',sans-serif}
+body.dk .toast{background:#fff;color:#050505}
 .toast.show{transform:translateX(-50%) translateY(0)}
+
+/* contacts mobile */
+@media(max-width:640px){.contacts-grid{grid-template-columns:1fr!important}}
+
+/* news mobile */
+@media(max-width:640px){.news-grid{grid-template-columns:1fr!important}}
 
 /* footer */
 .ft{background:#100600;padding:72px 0 30px}
-body.dk .ft{background:#080300}
+body.dk .ft{background:#020202}
 .ftg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:52px}
 @media(max-width:1024px){.ftg{grid-template-columns:1fr 1fr 1fr;gap:26px}}
 @media(max-width:560px){.ftg{grid-template-columns:1fr 1fr;gap:18px}}
@@ -235,13 +256,13 @@ body.dk .ft{background:#080300}
 .ftl:hover{color:#E8391A}
 
 /* tags */
-.tg{display:inline-flex;align-items:center;background:rgba(200,37,26,.1);color:#C8251A;font-size:.62rem;font-weight:800;padding:4px 10px;border-radius:14px;font-family:'Onest',sans-serif;letter-spacing:.06em;text-transform:uppercase}
+.tg{display:inline-flex;align-items:center;background:rgba(200,37,26,.1);color:#C8251A;font-size:.62rem;font-weight:800;padding:4px 10px;border-radius:14px;font-family:'Gilroy',sans-serif;letter-spacing:.06em;text-transform:uppercase}
 .tglt{background:rgba(245,239,230,.14);color:rgba(245,239,230,.65)}
 .tggr{background:rgba(34,197,94,.1);color:#16a34a}
 
 /* form */
-input,textarea,select{width:100%;padding:11px 14px;border-radius:11px;border:1.5px solid var(--b);background:rgba(26,10,0,.025);color:#1A0A00;font-family:'Onest',sans-serif;font-size:.86rem;outline:none;transition:border .2s}
-body.dk input,body.dk textarea,body.dk select{background:rgba(245,239,230,.04);color:#F5EFE6;border-color:rgba(245,239,230,.1)}
+input,textarea,select{width:100%;padding:11px 14px;border-radius:11px;border:1.5px solid var(--b);background:rgba(26,10,0,.025);color:var(--coal,#1A0A00);font-family:'Gilroy',sans-serif;font-size:.86rem;outline:none;transition:border .2s}
+body.dk input,body.dk textarea,body.dk select{background:rgba(255,255,255,.06);color:#F5EFE6;border-color:rgba(245,239,230,.1)}
 input:focus,textarea:focus{border-color:#E8391A}
 .fl{display:block;font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
 
@@ -274,9 +295,9 @@ input:focus,textarea:focus{border-color:#E8391A}
 <body>
 <div id="root"></div>
 <script>
-
 /* Image data - separate from Babel for performance */
 var IMG={
+"store_pattern":"img/stores/store_pattern.jpg",
 "arch_bakery_shop":"img/archive/arch_bakery_shop.jpg",
 "arch_bread_workshop":"img/archive/arch_bread_workshop.jpg",
 "arch_canteen":"img/archive/arch_canteen.jpg",
@@ -319,10 +340,8 @@ var CERT_IMG={
 var CERT_NAMES=['Блины Кулинарные полуфабрикаты замароженные','Изделия сухарные','Изделия хлебобулочные бараночные','Изделия хлебобулочные','Кулинарные изделия','Макаронные изделия','Мучные кондитерские изделия','Полуфабрикаты замароженные и охлажденные','Полуфабрикаты мясные замароженные','Хлеб формовой'];
 
 var PROD_PHOTOS={"p1":"img/products/p1.jpg","p2":"img/products/p2.jpg","p3":"img/products/p3.jpg","p4":"img/products/p4.jpg","p5":"img/products/p5.jpg","p6":"img/products/p6.jpg","p7":"img/products/p7.jpg","p8":"img/products/p8.jpg","p9":"img/products/p9.jpg","p10":"img/products/p10.jpg","p11":"img/products/p11.jpg","p12":"img/products/p12.jpg","p13":"img/products/p13.jpg","p20":"img/products/p20.jpg","p21":"img/products/p21.jpg","p22":"img/products/p22.jpg","p23":"img/products/p23.jpg","p30":"img/products/p30.jpg","p31":"img/products/p31.jpg","p32":"img/products/p32.jpg","p33":"img/products/p33.jpg","p40":"img/products/p40.jpg","p41":"img/products/p41.jpg","p42":"img/products/p42.jpg","p43":"img/products/p43.jpg","p44":"img/products/p44.jpg","p45":"img/products/p45.jpg","p46":"img/products/p46.jpg","p47":"img/products/p47.jpg","p50":"img/products/p50.jpg","p51":"img/products/p51.jpg","p60":"img/products/p60.jpg","p61":"img/products/p61.jpg","p62":"img/products/p62.jpg"};
-
 </script>
 <script type="text/babel">
-
 const {useState,useEffect,useRef,useMemo}=React;
 
 /* ═══════ DATA ═══════ */
@@ -402,14 +421,14 @@ const T={
       stats:[{n:"1 000+",l:"сотрудников"},{n:"15–20",l:"лет средний стаж"},{n:"37",l:"лет компании"},{n:"24/7",l:"работаем"}],
       quote:"Наши сотрудники — наша главная ценность. Многие работают с нами более 20 лет, и это лучшее подтверждение того, что Аксай — место, где хочется быть.",
       ceo:"Сарсенова З.К.",ceoRole:"Генеральный директор",
-      perks:[{t:"Официальное трудоустройство",d:"По ТК РК с первого дня"},{t:"Стабильная зарплата",d:"Выплаты дважды в месяц"},{t:"Горячее питание",d:"Бесплатные обеды на производстве"},{t:"Карьерный рост",d:"Обучение и повышение внутри компании"}],
+      perks:[{t:"Официальное трудоустройство",d:"Оформление по Трудовому кодексу РК с первого рабочего дня, полный социальный пакет и все отчисления"},{t:"Стабильная зарплата",d:"Выплата заработной платы дважды в месяц строго без задержек, регулярная индексация"},{t:"Льготное питание",d:"Субсидированные горячие обеды в столовой предприятия за 100–200 ₸"},{t:"Карьерный рост",d:"Внутренние программы обучения, наставничество и реальная карьерная лестница"}],
       vlabel:"Открытые вакансии",apply:"Откликнуться",more:"Все вакансии",
       fullTitle:"Карьера в Аксай",
       fullSub:"Присоединяйтесь к команде, которая кормит Алматы каждое утро. Мы предлагаем стабильные условия, возможности роста и дружный коллектив.",
       benefits:[
         {t:"Официальное трудоустройство",d:"Оформление по Трудовому кодексу РК с первого рабочего дня. Все социальные гарантии и отчисления."},
         {t:"Стабильная зарплата",d:"Выплата заработной платы дважды в месяц без задержек. Регулярная индексация."},
-        {t:"Горячее питание",d:"Бесплатные обеды в столовой предприятия для всех сотрудников производства."},
+        {t:"Льготное питание",d:"Субсидированные горячие обеды в столовой предприятия за 100–200 ₸ для всех сотрудников производства."},
         {t:"Карьерный рост",d:"Внутренние программы обучения, наставничество, повышение квалификации и карьерная лестница."},
         {t:"Медицинское страхование",d:"ДМС для сотрудников и частичная компенсация для членов семьи после испытательного срока."},
         {t:"Транспорт",d:"Организованная доставка сотрудников производственных смен по основным маршрутам Алматы."}
@@ -556,24 +575,24 @@ const STORES=[
   {id:2,n:"Триумф",a:"ул. Гоголя, 75",h:"08:00–20:00",tp:"near",img:IMG["store_triumph"],gis:"https://2gis.kz/almaty/firm/70000001060862849"},
   {id:3,n:"Орбита-1",a:"мкр. Орбита-1, 6",h:"08:00–20:00",tp:"near",img:IMG["store_orbita"],gis:"https://2gis.kz/almaty/firm/70000001044586577"},
   {id:4,n:"Достык",a:"пр. Достык, 109Б",h:"08:00–20:00",tp:"near",img:IMG["store_dostyk"],gis:"https://2gis.kz/almaty/firm/70000001017647690"},
-  {id:5,n:"Назарбаева 148",a:"пр. Назарбаева, 148",h:"08:00–20:00",tp:"near",img:IMG["store_placeholder"],gis:"https://2gis.kz/almaty/firm/9429940000836798"},
+  {id:5,n:"Назарбаева 148",a:"пр. Назарбаева, 148",h:"08:00–20:00",tp:"near",img:IMG["store_pattern"],gis:"https://2gis.kz/almaty/firm/9429940000836798"},
   {id:6,n:"Алма-Ата",a:"пр. Назарбаева, 223 (ТРЦ Алма-Ата)",h:"08:00–20:00",tp:"mall",img:IMG["store_alma_ata"],gis:"https://2gis.kz/almaty/firm/70000001044571001"},
-  {id:7,n:"Толе би 125",a:"ул. Толе би, 125",h:"08:00–20:00",tp:"near",img:IMG["store_placeholder"],gis:"https://2gis.kz/almaty/firm/9429940000836798"},
+  {id:7,n:"Толе би 125",a:"ул. Толе би, 125",h:"08:00–20:00",tp:"near",img:IMG["store_pattern"],gis:"https://2gis.kz/almaty/firm/9429940000836798"},
   {id:8,n:"Сайран",a:"ул. Толе би, 279",h:"08:00–20:00",tp:"near",img:IMG["store_sairan"],gis:"https://2gis.kz/almaty/firm/70000001044571014"},
   {id:9,n:"Алма Сити",a:"ул. Жунисова, 2/13 к7",h:"08:00–20:00",tp:"near",img:IMG["store_alma_city"],gis:"https://2gis.kz/almaty/firm/70000001088610405"},
   {id:10,n:"Б. Момышулы",a:"ст. метро Б. Момышулы",h:"08:00–20:00",tp:"near",img:IMG["store_momyshuly"],gis:"https://2gis.kz/almaty/firm/70000001087505044"},
-  {id:11,n:"Промзона",a:"Первомайская промышленная зона, 21",h:"08:00–20:00",tp:"near",img:IMG["store_placeholder"],gis:"https://2gis.kz/almaty/firm/9429940000836798"},
-  {id:12,n:"Сары Арка",a:"мкр. 4-й, 27Б/1 (рынок Сары Арка)",h:"08:00–20:00",tp:"mall",img:IMG["store_placeholder"],gis:"https://2gis.kz/almaty/firm/9429940000836798"},
-  {id:13,n:"Сарыарка (метро)",a:"ст. метро Сарыарка",h:"08:00–20:00",tp:"near",img:IMG["store_placeholder"],gis:"https://2gis.kz/almaty/firm/9429940000836798"},
+  {id:11,n:"Промзона",a:"Первомайская промышленная зона, 21",h:"08:00–20:00",tp:"near",img:IMG["store_pattern"],gis:"https://2gis.kz/almaty/firm/9429940000836798"},
+  {id:12,n:"Сары Арка",a:"мкр. 4-й, 27Б/1 (рынок Сары Арка)",h:"08:00–20:00",tp:"mall",img:IMG["store_pattern"],gis:"https://2gis.kz/almaty/firm/9429940000836798"},
+  {id:13,n:"Сарыарка (метро)",a:"ст. метро Сарыарка",h:"08:00–20:00",tp:"near",img:IMG["store_pattern"],gis:"https://2gis.kz/almaty/firm/9429940000836798"},
 ]
 
 const JOBS=[
-  {id:1,t:{RU:"Технолог хлебопечения",KK:"Нан пісіру технологы",EN:"Bakery Technologist"},dept:{RU:"Производство",KK:"Өндіріс",EN:"Production"},sal:"от 320 000 ₸",isNew:true,icon:"⚗️",desc:{RU:"Контроль технологических процессов, разработка новых рецептур, взаимодействие с лабораторией",KK:"Технологиялық процестерді бақылау",EN:"Process control, recipe development, lab coordination"}},
-  {id:2,t:{RU:"Пекарь 4-го разряда",KK:"4-ші разряд пекарь",EN:"Baker 4th Grade"},dept:{RU:"Производство",KK:"Өндіріс",EN:"Production"},sal:"от 260 000 ₸",icon:"🍞",desc:{RU:"Работа на туннельных печах, соблюдение рецептур и технологических карт, контроль выхода продукции",KK:"Туннельді пештерде жұмыс",EN:"Operating tunnel ovens, following recipes and tech maps"}},
-  {id:3,t:{RU:"Кондитер-декоратор",KK:"Кондитер-декоратор",EN:"Pastry Decorator"},dept:{RU:"Кондитерский цех",KK:"Кондитерлік цех",EN:"Confectionery"},sal:"от 280 000 ₸",isNew:true,icon:"🎂",desc:{RU:"Декорирование тортов и пирожных, работа с шоколадом и мастикой, создание новых дизайнов",KK:"Торттар мен кекстерді безендіру",EN:"Cake & pastry decoration, chocolate and fondant work"}},
-  {id:4,t:{RU:"Водитель-экспедитор",KK:"Жүргізуші-экспедитор",EN:"Delivery Driver"},dept:{RU:"Логистика",KK:"Логистика",EN:"Logistics"},sal:"от 300 000 ₸",icon:"🚚",desc:{RU:"Доставка свежей продукции по маршрутам Алматы, работа с сопроводительными документами",KK:"Алматы бойынша жеткізу",EN:"Deliver fresh products across Almaty, handle delivery paperwork"}},
-  {id:5,t:{RU:"Продавец-консультант",KK:"Сатушы-кеңесші",EN:"Sales Consultant"},dept:{RU:"Розничная сеть",KK:"Бөлшек желі",EN:"Retail"},sal:"от 220 000 ₸",icon:"🏪",desc:{RU:"Обслуживание покупателей, выкладка товара и поддержание стандартов торговой точки",KK:"Сатып алушыларға қызмет",EN:"Customer service, product display, store standards maintenance"}},
-  {id:6,t:{RU:"Инженер по качеству",KK:"Сапа инженері",EN:"Quality Engineer"},dept:{RU:"Отдел качества",KK:"Сапа бөлімі",EN:"Quality Dept"},sal:"от 350 000 ₸",icon:"🔬",desc:{RU:"Контроль стандартов HACCP и ISO, проведение плановых проверок, взаимодействие с сертификационными органами",KK:"HACCP және ISO стандарттарын бақылау",EN:"HACCP & ISO compliance, audits, work with certification bodies"}},
+  {id:1,t:{RU:"Технолог хлебопечения",KK:"Нан пісіру технологы",EN:"Bakery Technologist"},dept:{RU:"Производство",KK:"Өндіріс",EN:"Production"},sal:"от 320 000 ₸",isNew:true,icon:"shield",desc:{RU:"Контроль технологических процессов, разработка новых рецептур, взаимодействие с лабораторией",KK:"Технологиялық процестерді бақылау",EN:"Process control, recipe development, lab coordination"}},
+  {id:2,t:{RU:"Пекарь 4-го разряда",KK:"4-ші разряд пекарь",EN:"Baker 4th Grade"},dept:{RU:"Производство",KK:"Өндіріс",EN:"Production"},sal:"от 260 000 ₸",icon:"wheat",desc:{RU:"Работа на туннельных печах, соблюдение рецептур и технологических карт, контроль выхода продукции",KK:"Туннельді пештерде жұмыс",EN:"Operating tunnel ovens, following recipes and tech maps"}},
+  {id:3,t:{RU:"Кондитер-декоратор",KK:"Кондитер-декоратор",EN:"Pastry Decorator"},dept:{RU:"Кондитерский цех",KK:"Кондитерлік цех",EN:"Confectionery"},sal:"от 280 000 ₸",isNew:true,icon:"award",desc:{RU:"Декорирование тортов и пирожных, работа с шоколадом и мастикой, создание новых дизайнов",KK:"Торттар мен кекстерді безендіру",EN:"Cake & pastry decoration, chocolate and fondant work"}},
+  {id:4,t:{RU:"Водитель-экспедитор",KK:"Жүргізуші-экспедитор",EN:"Delivery Driver"},dept:{RU:"Логистика",KK:"Логистика",EN:"Logistics"},sal:"от 300 000 ₸",icon:"truck",desc:{RU:"Доставка свежей продукции по маршрутам Алматы, работа с сопроводительными документами",KK:"Алматы бойынша жеткізу",EN:"Deliver fresh products across Almaty, handle delivery paperwork"}},
+  {id:5,t:{RU:"Продавец-консультант",KK:"Сатушы-кеңесші",EN:"Sales Consultant"},dept:{RU:"Розничная сеть",KK:"Бөлшек желі",EN:"Retail"},sal:"от 220 000 ₸",icon:"store",desc:{RU:"Обслуживание покупателей, выкладка товара и поддержание стандартов торговой точки",KK:"Сатып алушыларға қызмет",EN:"Customer service, product display, store standards maintenance"}},
+  {id:6,t:{RU:"Инженер по качеству",KK:"Сапа инженері",EN:"Quality Engineer"},dept:{RU:"Отдел качества",KK:"Сапа бөлімі",EN:"Quality Dept"},sal:"от 350 000 ₸",icon:"shield",desc:{RU:"Контроль стандартов HACCP и ISO, проведение плановых проверок, взаимодействие с сертификационными органами",KK:"HACCP және ISO стандарттарын бақылау",EN:"HACCP & ISO compliance, audits, work with certification bodies"}},
 ];
 
 const REVIEWS=[
@@ -615,6 +634,8 @@ function Ico({n,s=18,c="currentColor"}){
   const paths={
     wheat:'<path d="M12 22V12"/><circle cx="12" cy="8" r="4"/><path d="m4.93 10.93 1.41 1.41M17.66 7.34l1.41-1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41M12 2v2"/>',
     arr:'<path d="M5 12h14M12 5l7 7-7 7"/>',
+    truck:'<rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>',
+    store:'<path d="M3 9l1.5-5h15L21 9"/><path d="M3 9h18v12H3z"/><path d="M9 21V14h6v7"/>',
     aur:'<path d="M7 17L17 7M17 7H7M17 7v10"/>',
     pin:'<path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
     clk:'<circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>',
@@ -686,7 +707,7 @@ function Rv({children,d=0,style={}}){
 
 /* ═══════ SECTION HEADING ═══════ */
 function SH({label,title,em,sub,light=false,center=false}){
-  const co=light?"#F5EFE6":"#1A0A00";
+  const co=light?"#F5EFE6":"var(--coal,#1A0A00)";
   const t2=light?"rgba(245,239,230,.48)":"var(--t2)";
   return(
     <div className="sh" style={{textAlign:center?"center":undefined}}>
@@ -707,7 +728,7 @@ function LangDropdown({lang,setLang,dark,footer=false}){
   const ref=useRef(null);
   const co=footer?"rgba(245,239,230,.55)":dark?"#F5EFE6":"#1A0A00";
   const bg2=footer?"rgba(245,239,230,.06)":dark?"rgba(245,239,230,.07)":"rgba(26,10,0,.06)";
-  const ddBg=footer?"#1A0900":dark?"#1A0900":"#fff";
+  const ddBg=footer?"#0A0A0A":dark?"#111":"#fff";
   const ddBorder=footer?"rgba(245,239,230,.1)":"var(--b)";
 
   useEffect(()=>{
@@ -718,14 +739,14 @@ function LangDropdown({lang,setLang,dark,footer=false}){
 
   return(
     <div ref={ref} style={{position:"relative"}}>
-      <button onClick={()=>setOpen(o=>!o)} style={{display:"flex",alignItems:"center",gap:6,background:bg2,border:"none",cursor:"pointer",padding:"6px 14px",borderRadius:20,transition:"all .2s",fontFamily:"'Onest',sans-serif"}}>
+      <button onClick={()=>setOpen(o=>!o)} style={{display:"flex",alignItems:"center",gap:6,background:bg2,border:"none",cursor:"pointer",padding:"6px 14px",borderRadius:20,transition:"all .2s",fontFamily:"'Gilroy',sans-serif"}}>
         <Ico n="globe" s={14} c={co}/>
         <span style={{fontSize:".76rem",fontWeight:700,color:co,letterSpacing:".04em"}}>{lang}</span>
         <span style={{transition:"transform .2s",transform:open?"rotate(180deg)":"none",display:"flex"}}><Ico n="chev" s={12} c={co}/></span>
       </button>
       {open&&<div style={{position:"absolute",top:"calc(100% + 6px)",right:0,background:ddBg,border:`1px solid ${ddBorder}`,borderRadius:14,padding:"6px",minWidth:160,boxShadow:"0 12px 36px rgba(0,0,0,.15)",zIndex:1100,animation:"fadeUp .15s"}}>
         {["RU","KK","EN","ZH"].map(l=>(
-          <button key={l} onClick={()=>{setLang(l);setOpen(false);}} style={{display:"flex",alignItems:"center",gap:10,width:"100%",padding:"9px 12px",border:"none",background:lang===l?(footer?"rgba(200,37,26,.15)":"rgba(200,37,26,.08)"):"transparent",borderRadius:10,cursor:"pointer",transition:"background .15s",fontFamily:"'Onest',sans-serif"}}
+          <button key={l} onClick={()=>{setLang(l);setOpen(false);}} style={{display:"flex",alignItems:"center",gap:10,width:"100%",padding:"9px 12px",border:"none",background:lang===l?(footer?"rgba(200,37,26,.15)":"rgba(200,37,26,.08)"):"transparent",borderRadius:10,cursor:"pointer",transition:"background .15s",fontFamily:"'Gilroy',sans-serif"}}
             onMouseEnter={e=>{if(lang!==l)e.currentTarget.style.background=footer?"rgba(245,239,230,.05)":"rgba(26,10,0,.04)";}}
             onMouseLeave={e=>{if(lang!==l)e.currentTarget.style.background="transparent";}}>
             <span style={{fontSize:".72rem",fontWeight:700,color:lang===l?"#C8251A":(footer?"rgba(245,239,230,.35)":dark?"rgba(245,239,230,.35)":"rgba(26,10,0,.3)"),letterSpacing:".05em",minWidth:24}}>{l}</span>
@@ -761,7 +782,7 @@ function NavBar({page,setPage,lang,setLang,dark,setDark,cartCount=0,onCartClick}
           <button onClick={()=>go("home")} style={{display:"flex",alignItems:"center",gap:9,background:"none",border:"none",cursor:"pointer",flexShrink:0}}>
             <AksayLogo s={36}/>
             <div style={{lineHeight:1}}>
-              <div style={{fontFamily:"'Playfair Display',serif",fontWeight:800,fontSize:".96rem",letterSpacing:"-.02em",color:co}}>ХБК Аксай</div>
+              <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:800,fontSize:".96rem",letterSpacing:"-.02em",color:co}}>ХБК Аксай</div>
               <div style={{fontSize:".53rem",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:co,opacity:.34,marginTop:1}}>с 1988 года</div>
             </div>
           </button>
@@ -810,7 +831,7 @@ function Hero({setPage,lang,dark}){
   const t=LANGS[lang];
   const th=t.hero;
   const co=dark?"#F5EFE6":"#1A0A00";
-  const cardCream=dark?"#1A0900":"#FBF7F2";
+  const cardCream=dark?"#111":"#FBF7F2";
 
   function MetCard({bg,titleText,subText,icoName,accent,delay,col,onClick,border}){
     const[ref,v]=useRv();
@@ -833,7 +854,7 @@ function Hero({setPage,lang,dark}){
   }
 
   return(
-    <section style={{background:dark?"#0D0500":"#F5EFE6",paddingTop:68}}>
+    <section style={{background:dark?"#050505":"#F5EFE6",paddingTop:68}}>
       <div className="w" style={{paddingTop:26}}>
         <div className="bn">
           {/* Main card */}
@@ -855,10 +876,10 @@ function Hero({setPage,lang,dark}){
             <div style={{position:"absolute",right:0,bottom:0,opacity:.06,pointerEvents:"none"}}><WheatDeco size={190} color="#F5EFE6"/></div>
           </div>
 
-          <div className="g4"><MetCard bg="#1A0A00" titleText={th.k1t} subText={th.k1s} icoName="award" accent delay={.08} col="" border={false}/></div>
-          <div className="g4"><MetCard bg={cardCream} titleText={th.k2t} subText={th.k2s} icoName="pkg" accent={false} delay={.13} col="" border={true}/></div>
+          <div className="g4"><MetCard bg="#1A0A00" titleText={th.k1t} subText={th.k1s} icoName="award" accent delay={.08} col="" border={false} onClick={()=>{setPage("about");window.scrollTo(0,0);}}/></div>
+          <div className="g4"><MetCard bg="#E8391A" titleText={th.k2t} subText={th.k2s} icoName="pkg" accent delay={.13} col="" border={false} onClick={()=>{setPage("products");window.scrollTo(0,0);}}/></div>
           <div className="g5"><MetCard bg="#C8251A" titleText={th.k3t} subText={th.k3s} icoName="wheat" accent delay={.18} col="" onClick={()=>{setPage("products");window.scrollTo({top:0});}}/></div>
-          <div className="g7"><MetCard bg="#E8391A" titleText={th.k4t} subText={th.k4s} icoName="store" accent delay={.23} col=""/></div>
+          <div className="g7"><MetCard bg="#E8391A" titleText={th.k4t} subText={th.k4s} icoName="store" accent delay={.23} col="" onClick={()=>{setPage("partners");window.scrollTo(0,0);}}/></div>
         </div>
       </div>
 
@@ -881,8 +902,8 @@ function Stores({preview,setPage,lang,dark}){
   const t=LANGS[lang];
   const ts=t.stores;
   const co=dark?"#F5EFE6":"#1A0A00";
-  const bg=dark?"#140800":"#FBF7F2";
-  const cBg=dark?"#1A0900":"#fff";
+  const bg=dark?"#0A0A0A":"#FBF7F2";
+  const cBg=dark?"#111":"#fff";
   const[filter,setFilter]=useState("all");
   const shown=STORES.filter(s=>filter==="all"||s.tp===filter).slice(0,preview?8:999);
 
@@ -914,7 +935,7 @@ function Stores({preview,setPage,lang,dark}){
                 {s.img?<div style={{height:170,overflow:"hidden",position:"relative"}}>
                   <img src={s.img} alt={s.n} style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
                   <span className="tggr" style={{position:"absolute",top:10,right:10,fontSize:".61rem",fontWeight:700,padding:"4px 9px",borderRadius:14,backdropFilter:"blur(8px)"}}>{ts.open}</span>
-                </div>:<div style={{height:170,background:"linear-gradient(135deg,#3D1800,#1A0A00)",display:"flex",alignItems:"center",justifyContent:"center",position:"relative"}}>
+                </div>:<div style={{height:170,background:"#1A0A00",display:"flex",alignItems:"center",justifyContent:"center",position:"relative"}}>
                   <Ico n="store" s={40} c="rgba(245,239,230,.15)"/>
                   <span className="tggr" style={{position:"absolute",top:10,right:10,fontSize:".61rem",fontWeight:700,padding:"4px 9px",borderRadius:14}}>{ts.open}</span>
                 </div>}
@@ -953,8 +974,8 @@ function StoresPage({lang,dark}){
   const t=LANGS[lang];
   const ts=t.stores;
   const co=dark?"#F5EFE6":"#1A0A00";
-  const bg=dark?"#140800":"#FBF7F2";
-  const cBg=dark?"#1A0900":"#fff";
+  const bg=dark?"#0A0A0A":"#FBF7F2";
+  const cBg=dark?"#111":"#fff";
   const[filter,setFilter]=useState("all");
   const shown=STORES.filter(s=>filter==="all"||s.tp===filter);
 
@@ -998,7 +1019,7 @@ function StoresPage({lang,dark}){
                     onMouseEnter={e=>{e.target.style.transform="scale(1.04)";}}
                     onMouseLeave={e=>{e.target.style.transform="none";}}/>
                   <span className="tggr" style={{position:"absolute",top:10,right:10,fontSize:".62rem",fontWeight:700,padding:"4px 10px",borderRadius:14,backdropFilter:"blur(8px)"}}>{ts.open}</span>
-                </div>:<div style={{height:190,background:"linear-gradient(135deg,#3D1800,#1A0A00)",display:"flex",alignItems:"center",justifyContent:"center",position:"relative"}}>
+                </div>:<div style={{height:190,background:"#1A0A00",display:"flex",alignItems:"center",justifyContent:"center",position:"relative"}}>
                   <Ico n="store" s={44} c="rgba(245,239,230,.12)"/>
                   <span className="tggr" style={{position:"absolute",top:10,right:10,fontSize:".62rem",fontWeight:700,padding:"4px 10px",borderRadius:14}}>{ts.open}</span>
                 </div>}
@@ -1036,7 +1057,7 @@ function Products({preview,setPage,lang,dark,cart,addToCart}){
   const tp=t.products;
   const tc=t.cart||{};
   const co=dark?"#F5EFE6":"#1A0A00";
-  const bg=dark?"#0D0500":"#F5EFE6";
+  const bg=dark?"#050505":"#F5EFE6";
   const catColors={bread:"#3D1800",buns:"#5C2800",bagels:"#1A3800",conf:"#C8251A",easter:"#7B4500",cookies:"#5C2500"};
   const[cat,setCat]=useState("all");
   const[show,setShow]=useState(12);
@@ -1057,9 +1078,12 @@ function Products({preview,setPage,lang,dark,cart,addToCart}){
 
         <div style={{position:"sticky",top:68,zIndex:9,padding:"11px 0 14px",background:dark?"rgba(13,5,0,.93)":"rgba(245,239,230,.93)",backdropFilter:"blur(16px)",marginBottom:36,borderBottom:"1px solid var(--b)"}}>
           <div style={{display:"flex",gap:7,flexWrap:"wrap"}}>
-            {catList.map(([k,l])=>(
-              <button key={k} className={`ct${cat===k?" on":""}`} onClick={()=>{setCat(k);setShow(12);}}>{l}</button>
-            ))}
+            {catList.map(([k,l])=>{
+              const catIcos={all:"grid",bread:"wheat",buns:"pkg",bagels:"refresh",conf:"award",easter:"zap",cookies:"leaf"};
+              return <button key={k} className={`ct${cat===k?" on":""}`} onClick={()=>{setCat(k);setShow(12);}} style={{display:"flex",alignItems:"center",gap:5}}>
+                <Ico n={catIcos[k]||"grid"} s={13} c={cat===k?"#fff":"currentColor"}/>{l}
+              </button>;
+            })}
           </div>
         </div>
 
@@ -1070,20 +1094,24 @@ function Products({preview,setPage,lang,dark,cart,addToCart}){
             const catLabel=catList.find(c=>c[0]===p.c)?.[1]||p.c;
             return(
               <Rv key={p.id} d={i<12?i*.03:0}>
-                <div className="pc">
+                <div className="pc" style={{height:"100%",display:"flex",flexDirection:"column"}}>
                   <div style={{height:138,background:PROD_PHOTOS["p"+p.id]?"#f5efe6":`linear-gradient(140deg,${cl},${cl}cc)`,display:"flex",alignItems:"center",justifyContent:"center",position:"relative",overflow:"hidden"}}>
                     {PROD_PHOTOS["p"+p.id]?<img src={PROD_PHOTOS["p"+p.id]} alt={nm} style={{width:"100%",height:"100%",objectFit:"cover"}}/>:<div style={{opacity:.1,position:"absolute"}}><WheatDeco size={55} color="#F5EFE6"/></div>}
                     <div style={{position:"absolute",bottom:8,left:10}}>
                       <span className="tglt" style={{fontSize:".58rem",padding:"3px 8px",borderRadius:14}}>{catLabel}</span>
                     </div>
                   </div>
-                  <div style={{padding:"13px 13px 15px"}}>
-                    <div style={{fontWeight:600,fontSize:".82rem",color:co,lineHeight:1.38,marginBottom:4}}>{nm}</div>
-                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:8}}>
-                      <span style={{fontSize:".69rem",color:"var(--t3)",display:"flex",alignItems:"center",gap:3}}><Ico n="pkg" s={11} c="var(--t3)"/> {p.w} {tp.kg}</span>
-                      <span style={{fontWeight:800,fontSize:".88rem",color:"#C8251A"}}>{p.p.toLocaleString()} ₸</span>
+                  <div style={{padding:"13px 13px 15px",flex:1,display:"flex",flexDirection:"column",justifyContent:"space-between"}}>
+                    <div style={{fontWeight:600,fontSize:".82rem",color:co,lineHeight:1.38,marginBottom:4,minHeight:"2.7em"}}>{nm}</div>
+                    <div>
+                      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                        <span style={{fontSize:".69rem",color:"var(--t3)",display:"flex",alignItems:"center",gap:3}}><Ico n="pkg" s={11} c="var(--t3)"/> {p.w} {tp.kg}</span>
+                        <div style={{display:"flex",alignItems:"center",gap:8}}>
+                          <span style={{fontWeight:800,fontSize:".88rem",color:"#C8251A"}}>{p.p.toLocaleString()} ₸</span>
+                          {addToCart&&<button style={{width:32,height:32,borderRadius:"50%",background:inCart(p.id)?"transparent":"#C8251A",border:inCart(p.id)?"1.5px solid #C8251A":"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"all .2s",flexShrink:0}} onClick={(e)=>{e.stopPropagation();addToCart(p);}}><Ico n={inCart(p.id)?"check":"cart"} s={14} c={inCart(p.id)?"#C8251A":"#fff"}/></button>}
+                        </div>
+                      </div>
                     </div>
-                    {addToCart&&<button className={`add-cart-btn${inCart(p.id)?" in":""}`} onClick={(e)=>{e.stopPropagation();addToCart(p);}}>{inCart(p.id)?<><Ico n="check" s={12} c="#C8251A"/> {tc.added}</>:<><Ico n="cart" s={12} c="#fff"/> {tc.add}</>}</button>}
                   </div>
                 </div>
               </Rv>
@@ -1120,7 +1148,7 @@ function Trust({lang,dark}){
               {[0,1].map(k=><span key={k} style={{display:"flex",alignItems:"center"}}>
                 {RETAIL_PARTNERS.map((p,j)=>(
                   <span key={j} style={{display:"inline-flex",alignItems:"center"}}>
-                    <span style={{color:"rgba(245,239,230,.7)",fontSize:"clamp(1.15rem,1.9vw,1.65rem)",fontWeight:700,fontFamily:"'Onest',sans-serif",padding:"0 36px",whiteSpace:"nowrap"}}>{p}</span>
+                    <span style={{color:"rgba(245,239,230,.7)",fontSize:"clamp(1.15rem,1.9vw,1.65rem)",fontWeight:700,fontFamily:"'Gilroy',sans-serif",padding:"0 36px",whiteSpace:"nowrap"}}>{p}</span>
                     <span style={{color:"rgba(245,239,230,.12)",fontSize:".9rem"}}>·</span>
                   </span>
                 ))}
@@ -1138,7 +1166,7 @@ function Trust({lang,dark}){
               {[0,1].map(k=><span key={k} style={{display:"flex",alignItems:"center"}}>
                 {CORP_PARTNERS.map((p,j)=>(
                   <span key={j} style={{display:"inline-flex",alignItems:"center"}}>
-                    <span style={{color:"rgba(245,239,230,.34)",fontSize:"clamp(.9rem,1.4vw,1.2rem)",fontWeight:500,fontFamily:"'Onest',sans-serif",padding:"0 26px",whiteSpace:"nowrap"}}>{p}</span>
+                    <span style={{color:"rgba(245,239,230,.34)",fontSize:"clamp(.9rem,1.4vw,1.2rem)",fontWeight:500,fontFamily:"'Gilroy',sans-serif",padding:"0 26px",whiteSpace:"nowrap"}}>{p}</span>
                     <span style={{color:"rgba(245,239,230,.12)",fontSize:".9rem"}}>·</span>
                   </span>
                 ))}
@@ -1177,7 +1205,7 @@ function HistoryGallery({lang,dark}){
 function History({preview,setPage,lang,dark}){
   const t=LANGS[lang];
   const ta=t.about;
-  const bg=dark?"#0D0500":"#F5EFE6";
+  const bg=dark?"#050505":"#F5EFE6";
   const co=dark?"#F5EFE6":"#1A0A00";
   const[activeIdx,setActiveIdx]=useState(null);
   const items=TIMELINE.map((item,i)=>({...item,img:ARCH_IMG[i]?IMG[ARCH_IMG[i]]:null}));
@@ -1224,13 +1252,13 @@ function AboutPage({lang,dark}){
   const t=LANGS[lang];
   const ta=t.about;
   const co=dark?"#F5EFE6":"#1A0A00";
-  const bg=dark?"#0D0500":"#F5EFE6";
-  const cBg=dark?"#1A0900":"#fff";
+  const bg=dark?"#050505":"#F5EFE6";
+  const cBg=dark?"#111":"#fff";
 
   return(
     <div style={{background:bg,paddingTop:68}}>
       {/* Mission section */}
-      <section style={{background:dark?"#140800":"#1A0A00",padding:"88px 0",position:"relative",overflow:"hidden"}}>
+      <section style={{background:dark?"#0A0A0A":"#1A0A00",padding:"88px 0",position:"relative",overflow:"hidden"}}>
         <div className="grain-ov" style={{position:"absolute",inset:0,pointerEvents:"none"}}/>
         <div className="w" style={{position:"relative",zIndex:1}}>
           <Rv>
@@ -1255,7 +1283,7 @@ function AboutPage({lang,dark}){
           <Rv><SH label="Миссия и ценности" title="Наши принципы" em=""/></Rv>
           <Rv d={.05}>
             <div style={{background:cBg,borderRadius:18,border:"1px solid var(--b)",padding:"28px 26px",marginBottom:48}}>
-              <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,fontSize:"1.15rem",color:co,marginBottom:12}}>Миссия</div>
+              <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,fontSize:"1.15rem",color:co,marginBottom:12}}>Миссия</div>
               <p style={{color:"var(--t2)",fontSize:".95rem",lineHeight:1.75}}>{ta.missText}</p>
             </div>
           </Rv>
@@ -1276,7 +1304,7 @@ function AboutPage({lang,dark}){
       </section>
 
       {/* History gallery */}
-      <section style={{background:dark?"#140800":"#FBF7F2"}} className="sec">
+      <section style={{background:dark?"#0A0A0A":"#FBF7F2"}} className="sec">
         <div className="w">
           <Rv><SH label={lang==="EN"?"Company History":lang==="KK"?"Компания тарихы":lang==="ZH"?"公司历史":"История компании"} title={lang==="EN"?"37 Years Without a Break":lang==="KK"?"37 жыл үздіксіз":lang==="ZH"?"37年不间断":"37 лет без перерыва"} em=""/></Rv>
           <HistoryGallery lang={lang} dark={dark}/>
@@ -1284,7 +1312,7 @@ function AboutPage({lang,dark}){
       </section>
 
       {/* Awards */}
-      <section style={{background:dark?"#0D0500":"#F5EFE6"}} className="sec">
+      <section style={{background:dark?"#050505":"#F5EFE6"}} className="sec">
         <div className="w">
           <Rv><SH label={lang==="ZH"?"奖项":lang==="KK"?"Марапаттар":lang==="EN"?"Awards":"Награды"} title={lang==="ZH"?"国际认可":lang==="KK"?"Халықаралық мойындау":lang==="EN"?"International Recognition":"Международное признание"} em=""/></Rv>
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))",gap:13}}>
@@ -1303,24 +1331,8 @@ function AboutPage({lang,dark}){
         </div>
       </section>
 
-      {/* Certs */}
-      <section className="sec">
-        <div className="w">
-          <Rv><SH label="Качество" title="Сертификаты и стандарты" em=""/></Rv>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fit,minmax(200px,1fr))",gap:12}}>
-            {(ta.certs||["HACCP","ISO 22000:2018","Халяль","ГОСТ РК","СТ РК"]).map((c,i)=>(
-              <Rv key={i} d={i*.07}>
-                <div style={{background:cBg,borderRadius:16,border:"1px solid var(--b)",padding:"22px 20px",display:"flex",gap:14,alignItems:"center"}}>
-                  <div style={{width:40,height:40,borderRadius:10,background:"rgba(200,37,26,.08)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
-                    <Ico n="shield" s={18} c="#C8251A"/>
-                  </div>
-                  <div style={{fontWeight:700,fontSize:".9rem",color:dark?"#F5EFE6":"#1A0A00"}}>{c}</div>
-                </div>
-              </Rv>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Certs — reuse CertSlider from landing */}
+      <CertSlider lang={lang} dark={dark}/>
     </div>
   );
 }
@@ -1330,8 +1342,8 @@ function Production({preview,setPage,lang,dark}){
   const t=LANGS[lang];
   const tp=t.process;
   const co=dark?"#F5EFE6":"#1A0A00";
-  const bg=dark?"#140800":"#FBF7F2";
-  const cBg=dark?"#1A0900":"#fff";
+  const bg=dark?"#0A0A0A":"#FBF7F2";
+  const cBg=dark?"#111":"#fff";
 
   return(
     <section id="production" style={{background:bg}} className="sec">
@@ -1370,7 +1382,7 @@ function Production({preview,setPage,lang,dark}){
                 </div>}
                 <div style={{padding:"18px 18px 20px",flex:1}}>
                   <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:10}}>
-                    <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1rem",lineHeight:1.3}}>{s.t}</div>
+                    <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1rem",lineHeight:1.3}}>{s.t}</div>
                     <div style={{width:30,height:30,borderRadius:8,background:i%2===0?"rgba(200,37,26,.09)":"rgba(232,57,26,.09)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
                       <Ico n={s.ico||"shield"} s={13} c={i%2===0?"#C8251A":"#E8391A"}/>
                     </div>
@@ -1381,24 +1393,6 @@ function Production({preview,setPage,lang,dark}){
             </Rv>
           );})}
         </div>
-
-        {/* Certs — white card */}
-        <Rv d={.2}>
-          <div style={{background:cBg,borderRadius:20,border:"1px solid var(--b)",padding:"34px 38px",display:"flex",gap:22,flexWrap:"wrap",alignItems:"center",justifyContent:"space-between"}}>
-            <div>
-              <span className="shl">{tp.certTitle}</span>
-              <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.3rem"}}>Соответствуем мировым стандартам</div>
-            </div>
-            <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-              {tp.certs.map((c,i)=>(
-                <div key={i} style={{background:"rgba(200,37,26,.08)",borderRadius:50,padding:"8px 14px",display:"flex",alignItems:"center",gap:6}}>
-                  <Ico n="shield" s={12} c="#C8251A"/>
-                  <span style={{color:co,fontSize:".76rem",fontWeight:700,fontFamily:"'Onest',sans-serif"}}>{c}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </Rv>
 
         {preview&&<Rv d={.25}><div style={{textAlign:"center",marginTop:44}}>
           <button className="btn bg" onClick={()=>{setPage("prod");window.scrollTo({top:0});}}>{tp.more} <Ico n="arr" s={13} c="#1A0A00"/></button>
@@ -1413,13 +1407,13 @@ function ProductionPage({lang,dark}){
   const t=LANGS[lang];
   const tp=t.process;
   const co=dark?"#F5EFE6":"#1A0A00";
-  const bg=dark?"#0D0500":"#F5EFE6";
-  const cBg=dark?"#1A0900":"#fff";
+  const bg=dark?"#050505":"#F5EFE6";
+  const cBg=dark?"#111":"#fff";
 
   return(
     <div style={{background:bg,paddingTop:68}}>
       {/* Hero */}
-      <section style={{background:dark?"#140800":"#1A0A00",padding:"88px 0",position:"relative",overflow:"hidden"}}>
+      <section style={{background:dark?"#0A0A0A":"#1A0A00",padding:"88px 0",position:"relative",overflow:"hidden"}}>
         <div className="grain-ov" style={{position:"absolute",inset:0,pointerEvents:"none"}}/>
         <div className="w" style={{position:"relative",zIndex:1}}>
           <Rv><SH label={tp.label} title={tp.fullTitle||tp.title} em="" sub={tp.fullSub||tp.sub} light/></Rv>
@@ -1466,7 +1460,7 @@ function ProductionPage({lang,dark}){
                   </div>}
                   <div style={{padding:"20px 22px 24px",flex:1}}>
                     <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-start",marginBottom:12}}>
-                      <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.05rem",lineHeight:1.3}}>{s.t}</div>
+                      <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.05rem",lineHeight:1.3}}>{s.t}</div>
                       <div style={{width:32,height:32,borderRadius:9,background:i%2===0?"rgba(200,37,26,.09)":"rgba(232,57,26,.09)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
                         <Ico n={s.ico||"shield"} s={14} c={i%2===0?"#C8251A":"#E8391A"}/>
                       </div>
@@ -1479,7 +1473,7 @@ function ProductionPage({lang,dark}){
           </div>
 
           {/* Awards */}
-      <section style={{background:dark?"#0D0500":"#F5EFE6"}} className="sec">
+      <section style={{background:dark?"#050505":"#F5EFE6"}} className="sec">
         <div className="w">
           <Rv><SH label={lang==="ZH"?"奖项":lang==="KK"?"Марапаттар":lang==="EN"?"Awards":"Награды"} title={lang==="ZH"?"国际认可":lang==="KK"?"Халықаралық мойындау":lang==="EN"?"International Recognition":"Международное признание"} em=""/></Rv>
           <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))",gap:13}}>
@@ -1498,22 +1492,11 @@ function ProductionPage({lang,dark}){
         </div>
       </section>
 
-      {/* Certs */}
-          <Rv d={.2}>
-            <div style={{background:cBg,borderRadius:20,border:"1px solid var(--b)",padding:"36px 40px",display:"flex",gap:22,flexWrap:"wrap",alignItems:"center",justifyContent:"space-between"}}>
-              <div><span className="shl">{tp.certTitle}</span><div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.3rem"}}>Соответствуем мировым стандартам</div></div>
-              <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>
-                {tp.certs.map((c,i)=>(
-                  <div key={i} style={{background:"rgba(200,37,26,.08)",borderRadius:50,padding:"8px 14px",display:"flex",alignItems:"center",gap:6}}>
-                    <Ico n="shield" s={12} c="#C8251A"/>
-                    <span style={{color:co,fontSize:".77rem",fontWeight:700,fontFamily:"'Onest',sans-serif"}}>{c}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </Rv>
         </div>
       </section>
+
+      {/* Certs — reuse CertSlider from landing */}
+      <CertSlider lang={lang} dark={dark}/>
     </div>
   );
 }
@@ -1523,8 +1506,12 @@ function Careers({preview,setPage,lang,dark}){
   const t=LANGS[lang];
   const tc=t.careers;
   const co=dark?"#F5EFE6":"#1A0A00";
-  const bg=dark?"#140800":"#FBF7F2";
-  const cBg=dark?"#1A0900":"#fff";
+  const bg=dark?"#0A0A0A":"#FBF7F2";
+  const cBg=dark?"#111":"#fff";
+  const[applyJob,setApplyJob]=useState(null);
+  const[step,setStep]=useState(1);
+  const[appForm,setAppForm]=useState({name:"",phone:"",exp:"",msg:""});
+  const[appSent,setAppSent]=useState(false);
   const icons=["award","shield","leaf","zap","phone","factory"];
   const colors=["#C8251A","#C8251A","#E8391A","#E8391A","#C8251A","#E8391A"];
 
@@ -1548,7 +1535,7 @@ function Careers({preview,setPage,lang,dark}){
         {/* Perks — full width, no quote */}
         <Rv d={.05}>
           <div style={{marginBottom:60}}>
-            <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.25rem",marginBottom:24}}>Почему выбирают Аксай</div>
+            <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.25rem",marginBottom:24}}>Почему выбирают Аксай</div>
             <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(220px,1fr))",gap:13}}>
               {tc.perks.map((p,i)=>(
                 <div key={i} style={{background:cBg,borderRadius:16,border:"1px solid var(--b)",padding:"24px 20px",display:"flex",gap:16,alignItems:"flex-start"}}>
@@ -1574,7 +1561,7 @@ function Careers({preview,setPage,lang,dark}){
                 onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-3px)";e.currentTarget.style.boxShadow="0 8px 28px rgba(26,10,0,.08)";}}
                 onMouseLeave={e=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
                 <div style={{display:"flex",alignItems:"flex-start",gap:14,marginBottom:14}}>
-                  <div style={{width:50,height:50,borderRadius:14,background:i%2===0?"rgba(200,37,26,.09)":"rgba(232,57,26,.09)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:"1.5rem"}}>{j.icon}</div>
+                  <div style={{width:50,height:50,borderRadius:14,background:i%2===0?"rgba(200,37,26,.09)":"rgba(232,57,26,.09)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,fontSize:"1.5rem"}}><Ico n={j.icon} s={22} c={i%2===0?"#C8251A":"#E8391A"}/></div>
                   <div style={{flex:1}}>
                     <div style={{display:"flex",alignItems:"center",gap:7,flexWrap:"wrap",marginBottom:5}}>
                       <span style={{fontWeight:700,fontSize:".9rem",color:co}}>{j.t[lang]||j.t.RU}</span>
@@ -1582,11 +1569,11 @@ function Careers({preview,setPage,lang,dark}){
                     </div>
                     <span style={{fontSize:".74rem",color:"var(--t3)"}}>{j.dept[lang]||j.dept.RU}</span>
                   </div>
+                  <button style={{width:36,height:36,borderRadius:"50%",background:"#C8251A",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"background .2s"}} onClick={(e)=>{e.stopPropagation();setApplyJob(j);setStep(1);setAppForm({name:"",phone:"",exp:"",msg:""});setAppSent(false);}} onMouseEnter={e=>{e.currentTarget.style.background="#E8391A";}} onMouseLeave={e=>{e.currentTarget.style.background="#C8251A";}}><Ico n="arr" s={14} c="#fff"/></button>
                 </div>
                 <p style={{fontSize:".8rem",color:"var(--t2)",lineHeight:1.58,marginBottom:16,flex:1}}>{j.desc[lang]||j.desc.RU}</p>
-                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",paddingTop:14,borderTop:"1px solid var(--b)"}}>
+                <div style={{paddingTop:14,borderTop:"1px solid var(--b)"}}>
                   <span style={{fontWeight:800,fontSize:".92rem",color:"#C8251A"}}>{j.sal}</span>
-                  <button className="btn br" style={{padding:"9px 20px",fontSize:".8rem"}}>{tc.apply} <Ico n="arr" s={12} c="#fff"/></button>
                 </div>
               </div>
             </Rv>
@@ -1596,6 +1583,83 @@ function Careers({preview,setPage,lang,dark}){
         {preview&&<Rv d={.2}><div style={{textAlign:"center",marginTop:36}}>
           <button className="btn br" onClick={()=>{setPage("careers");window.scrollTo({top:0});}}>{tc.more} <Ico n="arr" s={13} c="#fff"/></button>
         </div></Rv>}
+
+        {/* Apply Modal */}
+        {applyJob&&<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.7)",backdropFilter:"blur(8px)",zIndex:1200,display:"flex",alignItems:"center",justifyContent:"center",padding:20}} onClick={()=>setApplyJob(null)}>
+          <div style={{background:cBg,borderRadius:22,maxWidth:480,width:"100%",padding:"36px 32px",position:"relative",maxHeight:"85vh",overflowY:"auto"}} onClick={e=>e.stopPropagation()}>
+            <button onClick={()=>setApplyJob(null)} style={{position:"absolute",top:16,right:16,background:"none",border:"none",cursor:"pointer"}}><Ico n="x" s={20} c={co}/></button>
+
+            {appSent?(
+              <div style={{textAlign:"center",padding:"24px 0"}}>
+                <div style={{width:56,height:56,borderRadius:"50%",background:"rgba(34,197,94,.1)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 18px"}}><Ico n="check" s={26} c="#16a34a"/></div>
+                <div style={{fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:8}}>{lang==="KK"?"Өтінім жіберілді!":"Заявка отправлена!"}</div>
+                <p style={{color:"var(--t2)",fontSize:".85rem",marginBottom:20}}>{lang==="KK"?"HR бөлімі сізбен 2 жұмыс күн ішінде байланысады":"HR свяжется с вами в течение 2 рабочих дней"}</p>
+                <button className="btn br" onClick={()=>setApplyJob(null)}>{lang==="KK"?"Жабу":"Закрыть"}</button>
+              </div>
+            ):(
+              <>
+                <div style={{fontWeight:700,fontSize:"1.1rem",color:co,marginBottom:4}}>{applyJob.t[lang]||applyJob.t.RU}</div>
+                <div style={{fontSize:".78rem",color:"var(--t3)",marginBottom:24}}>{applyJob.dept[lang]||applyJob.dept.RU} · {applyJob.sal}</div>
+
+                {/* Step indicator */}
+                <div style={{display:"flex",gap:8,marginBottom:28}}>
+                  {[1,2,3].map(s=>(
+                    <div key={s} style={{flex:1,height:3,borderRadius:2,background:s<=step?"#C8251A":"var(--b)",transition:"background .3s"}}/>
+                  ))}
+                </div>
+
+                {step===1&&(
+                  <div>
+                    <div style={{fontSize:".88rem",fontWeight:600,color:co,marginBottom:18}}>{lang==="KK"?"Контактілер":"Контактные данные"}</div>
+                    <div style={{marginBottom:14}}>
+                      <label className="fl">{lang==="KK"?"Аты-жөні":"ФИО"}</label>
+                      <input value={appForm.name} onChange={e=>setAppForm(f=>({...f,name:e.target.value}))} placeholder={lang==="KK"?"Толық аты-жөніңіз":"Ваше полное имя"}/>
+                    </div>
+                    <div style={{marginBottom:14}}>
+                      <label className="fl">{lang==="KK"?"Телефон":"Телефон"}</label>
+                      <input type="tel" value={appForm.phone} onChange={e=>setAppForm(f=>({...f,phone:e.target.value}))} placeholder="+7 7XX XXX XX XX"/>
+                    </div>
+                    <button className="btn br" style={{width:"100%",justifyContent:"center",marginTop:8}} onClick={()=>{if(appForm.name&&appForm.phone)setStep(2);}}>{lang==="KK"?"Келесі":"Далее"} <Ico n="arr" s={13} c="#fff"/></button>
+                  </div>
+                )}
+
+                {step===2&&(
+                  <div>
+                    <div style={{fontSize:".88rem",fontWeight:600,color:co,marginBottom:18}}>{lang==="KK"?"Тәжірибе":"Опыт работы"}</div>
+                    <div style={{marginBottom:14}}>
+                      <label className="fl">{lang==="KK"?"Тәжірибе":"Стаж в отрасли"}</label>
+                      <select value={appForm.exp} onChange={e=>setAppForm(f=>({...f,exp:e.target.value}))}>
+                        <option value="">{lang==="KK"?"Таңдаңыз":"Выберите"}</option>
+                        <option value="no">{lang==="KK"?"Тәжірибесіз":"Без опыта"}</option>
+                        <option value="1-3">{lang==="KK"?"1-3 жыл":"1-3 года"}</option>
+                        <option value="3-5">{lang==="KK"?"3-5 жыл":"3-5 лет"}</option>
+                        <option value="5+">{lang==="KK"?"5+ жыл":"5+ лет"}</option>
+                      </select>
+                    </div>
+                    <div style={{display:"flex",gap:10,marginTop:18}}>
+                      <button className="btn bg" style={{flex:1,justifyContent:"center"}} onClick={()=>setStep(1)}>{lang==="KK"?"Артқа":"Назад"}</button>
+                      <button className="btn br" style={{flex:2,justifyContent:"center"}} onClick={()=>{if(appForm.exp)setStep(3);}}>{lang==="KK"?"Келесі":"Далее"} <Ico n="arr" s={13} c="#fff"/></button>
+                    </div>
+                  </div>
+                )}
+
+                {step===3&&(
+                  <div>
+                    <div style={{fontSize:".88rem",fontWeight:600,color:co,marginBottom:18}}>{lang==="KK"?"Хат":"Сопроводительное письмо"}</div>
+                    <div style={{marginBottom:14}}>
+                      <label className="fl">{lang==="KK"?"Хабарлама (міндетті емес)":"Сообщение (необязательно)"}</label>
+                      <textarea rows={4} value={appForm.msg} onChange={e=>setAppForm(f=>({...f,msg:e.target.value}))} style={{resize:"vertical"}} placeholder={lang==="KK"?"Неліктен бізде жұмыс істегіңіз келеді?":"Почему хотите работать у нас?"}/>
+                    </div>
+                    <div style={{display:"flex",gap:10,marginTop:18}}>
+                      <button className="btn bg" style={{flex:1,justifyContent:"center"}} onClick={()=>setStep(2)}>{lang==="KK"?"Артқа":"Назад"}</button>
+                      <button className="btn br" style={{flex:2,justifyContent:"center"}} onClick={()=>setAppSent(true)}>{lang==="KK"?"Жіберу":"Отправить"} <Ico n="check" s={13} c="#fff"/></button>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>}
       </div>
     </section>
   );
@@ -1606,13 +1670,17 @@ function CareersPage({lang,dark}){
   const t=LANGS[lang];
   const tc=t.careers;
   const co=dark?"#F5EFE6":"#1A0A00";
-  const bg=dark?"#0D0500":"#F5EFE6";
-  const cBg=dark?"#1A0900":"#fff";
+  const bg=dark?"#050505":"#F5EFE6";
+  const cBg=dark?"#111":"#fff";
+  const[applyJob,setApplyJob]=useState(null);
+  const[step,setStep]=useState(1);
+  const[appForm,setAppForm]=useState({name:"",phone:"",exp:"",msg:""});
+  const[appSent,setAppSent]=useState(false);
 
   return(
     <div style={{background:bg,paddingTop:68}}>
       {/* Hero banner */}
-      <section style={{background:dark?"#140800":"#1A0A00",padding:"88px 0",position:"relative",overflow:"hidden"}}>
+      <section style={{background:dark?"#0A0A0A":"#1A0A00",padding:"88px 0",position:"relative",overflow:"hidden"}}>
         <div className="grain-ov" style={{position:"absolute",inset:0,pointerEvents:"none"}}/>
         <div className="w" style={{position:"relative",zIndex:1}}>
           <Rv><SH label={tc.label} title={tc.fullTitle||tc.title} em="" sub={tc.fullSub||tc.sub} light/></Rv>
@@ -1649,24 +1717,26 @@ function CareersPage({lang,dark}){
 
           {/* All vacancies */}
           <Rv><span className="shl">{tc.vlabel}</span></Rv>
-          <div style={{display:"flex",flexDirection:"column",gap:13,marginTop:18}}>
+          <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(340px,1fr))",gap:14,marginTop:18}}>
             {JOBS.map((j,i)=>(
               <Rv key={j.id} d={i*.05}>
-                <div className="vc">
-                  <div style={{display:"flex",gap:0,alignItems:"flex-start",flexWrap:"wrap"}}>
-                    <div style={{width:50,height:50,borderRadius:14,background:"rgba(200,37,26,.08)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,marginRight:16,fontSize:"1.4rem"}}>{j.icon}</div>
-                    <div style={{flex:1,minWidth:180}}>
-                      <div style={{display:"flex",alignItems:"center",gap:7,flexWrap:"wrap",marginBottom:6}}>
-                        <span style={{fontWeight:700,fontSize:".9rem",color:co}}>{j.t[lang]||j.t.RU}</span>
-                        {j.isNew&&<span className="tg" style={{fontSize:".6rem",padding:"3px 9px"}}>Новая</span>}
-                      </div>
-                      <div style={{display:"flex",gap:14,marginBottom:8,flexWrap:"wrap"}}>
-                        <span style={{fontSize:".74rem",color:"var(--t3)"}}>{j.dept[lang]||j.dept.RU}</span>
-                        <span style={{fontSize:".82rem",fontWeight:800,color:"#C8251A"}}>{j.sal}</span>
-                      </div>
-                      <p style={{fontSize:".82rem",color:"var(--t2)",lineHeight:1.6}}>{j.desc[lang]||j.desc.RU}</p>
+                <div style={{background:cBg,borderRadius:18,border:"1px solid var(--b)",padding:"24px 22px",position:"relative",display:"flex",flexDirection:"column",height:"100%",transition:"transform .25s,box-shadow .25s"}} onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-3px)";e.currentTarget.style.boxShadow="0 8px 28px rgba(26,10,0,.08)";}} onMouseLeave={e=>{e.currentTarget.style.transform="none";e.currentTarget.style.boxShadow="none";}}>
+                  <button style={{position:"absolute",top:18,right:18,width:34,height:34,borderRadius:"50%",background:"#C8251A",border:"none",cursor:"pointer",display:"flex",alignItems:"center",justifyContent:"center",transition:"background .2s",zIndex:2}} onClick={(e)=>{e.stopPropagation();setApplyJob(j);setStep(1);setAppForm({name:"",phone:"",exp:"",msg:""});setAppSent(false);}} onMouseEnter={e=>{e.currentTarget.style.background="#E8391A";}} onMouseLeave={e=>{e.currentTarget.style.background="#C8251A";}}><Ico n="aur" s={14} c="#fff"/></button>
+                  <div style={{display:"flex",alignItems:"center",gap:14,marginBottom:16}}>
+                    <div style={{width:48,height:48,borderRadius:14,background:i%2===0?"rgba(200,37,26,.09)":"rgba(232,57,26,.09)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                      <Ico n={j.icon} s={20} c={i%2===0?"#C8251A":"#E8391A"}/>
                     </div>
-                    <button className="btn br" style={{padding:"10px 20px",fontSize:".82rem",marginLeft:"auto",flexShrink:0,alignSelf:"center",marginTop:4}}>{tc.apply} <Ico n="arr" s={12} c="#fff"/></button>
+                    <div>
+                      <div style={{display:"flex",alignItems:"center",gap:7,flexWrap:"wrap",marginBottom:4}}>
+                        <span style={{fontWeight:700,fontSize:".9rem",color:co}}>{j.t[lang]||j.t.RU}</span>
+                        {j.isNew&&<span className="tg" style={{fontSize:".59rem",padding:"3px 8px"}}>Новая</span>}
+                      </div>
+                      <span style={{fontSize:".74rem",color:"var(--t3)"}}>{j.dept[lang]||j.dept.RU}</span>
+                    </div>
+                  </div>
+                  <p style={{fontSize:".82rem",color:"var(--t2)",lineHeight:1.6,flex:1,marginBottom:16}}>{j.desc[lang]||j.desc.RU}</p>
+                  <div style={{paddingTop:14,borderTop:"1px solid var(--b)"}}>
+                    <span style={{fontWeight:800,fontSize:".92rem",color:"#C8251A"}}>{j.sal}</span>
                   </div>
                 </div>
               </Rv>
@@ -1674,6 +1744,83 @@ function CareersPage({lang,dark}){
           </div>
         </div>
       </section>
+
+        {/* Apply Modal */}
+        {applyJob&&<div style={{position:"fixed",inset:0,background:"rgba(0,0,0,.7)",backdropFilter:"blur(8px)",zIndex:1200,display:"flex",alignItems:"center",justifyContent:"center",padding:20}} onClick={()=>setApplyJob(null)}>
+          <div style={{background:cBg,borderRadius:22,maxWidth:480,width:"100%",padding:"36px 32px",position:"relative",maxHeight:"85vh",overflowY:"auto"}} onClick={e=>e.stopPropagation()}>
+            <button onClick={()=>setApplyJob(null)} style={{position:"absolute",top:16,right:16,background:"none",border:"none",cursor:"pointer"}}><Ico n="x" s={20} c={co}/></button>
+
+            {appSent?(
+              <div style={{textAlign:"center",padding:"24px 0"}}>
+                <div style={{width:56,height:56,borderRadius:"50%",background:"rgba(34,197,94,.1)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 18px"}}><Ico n="check" s={26} c="#16a34a"/></div>
+                <div style={{fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:8}}>{lang==="KK"?"Өтінім жіберілді!":"Заявка отправлена!"}</div>
+                <p style={{color:"var(--t2)",fontSize:".85rem",marginBottom:20}}>{lang==="KK"?"HR бөлімі сізбен 2 жұмыс күн ішінде байланысады":"HR свяжется с вами в течение 2 рабочих дней"}</p>
+                <button className="btn br" onClick={()=>setApplyJob(null)}>{lang==="KK"?"Жабу":"Закрыть"}</button>
+              </div>
+            ):(
+              <>
+                <div style={{fontWeight:700,fontSize:"1.1rem",color:co,marginBottom:4}}>{applyJob.t[lang]||applyJob.t.RU}</div>
+                <div style={{fontSize:".78rem",color:"var(--t3)",marginBottom:24}}>{applyJob.dept[lang]||applyJob.dept.RU} · {applyJob.sal}</div>
+
+                {/* Step indicator */}
+                <div style={{display:"flex",gap:8,marginBottom:28}}>
+                  {[1,2,3].map(s=>(
+                    <div key={s} style={{flex:1,height:3,borderRadius:2,background:s<=step?"#C8251A":"var(--b)",transition:"background .3s"}}/>
+                  ))}
+                </div>
+
+                {step===1&&(
+                  <div>
+                    <div style={{fontSize:".88rem",fontWeight:600,color:co,marginBottom:18}}>{lang==="KK"?"Контактілер":"Контактные данные"}</div>
+                    <div style={{marginBottom:14}}>
+                      <label className="fl">{lang==="KK"?"Аты-жөні":"ФИО"}</label>
+                      <input value={appForm.name} onChange={e=>setAppForm(f=>({...f,name:e.target.value}))} placeholder={lang==="KK"?"Толық аты-жөніңіз":"Ваше полное имя"}/>
+                    </div>
+                    <div style={{marginBottom:14}}>
+                      <label className="fl">{lang==="KK"?"Телефон":"Телефон"}</label>
+                      <input type="tel" value={appForm.phone} onChange={e=>setAppForm(f=>({...f,phone:e.target.value}))} placeholder="+7 7XX XXX XX XX"/>
+                    </div>
+                    <button className="btn br" style={{width:"100%",justifyContent:"center",marginTop:8}} onClick={()=>{if(appForm.name&&appForm.phone)setStep(2);}}>{lang==="KK"?"Келесі":"Далее"} <Ico n="arr" s={13} c="#fff"/></button>
+                  </div>
+                )}
+
+                {step===2&&(
+                  <div>
+                    <div style={{fontSize:".88rem",fontWeight:600,color:co,marginBottom:18}}>{lang==="KK"?"Тәжірибе":"Опыт работы"}</div>
+                    <div style={{marginBottom:14}}>
+                      <label className="fl">{lang==="KK"?"Тәжірибе":"Стаж в отрасли"}</label>
+                      <select value={appForm.exp} onChange={e=>setAppForm(f=>({...f,exp:e.target.value}))}>
+                        <option value="">{lang==="KK"?"Таңдаңыз":"Выберите"}</option>
+                        <option value="no">{lang==="KK"?"Тәжірибесіз":"Без опыта"}</option>
+                        <option value="1-3">{lang==="KK"?"1-3 жыл":"1-3 года"}</option>
+                        <option value="3-5">{lang==="KK"?"3-5 жыл":"3-5 лет"}</option>
+                        <option value="5+">{lang==="KK"?"5+ жыл":"5+ лет"}</option>
+                      </select>
+                    </div>
+                    <div style={{display:"flex",gap:10,marginTop:18}}>
+                      <button className="btn bg" style={{flex:1,justifyContent:"center"}} onClick={()=>setStep(1)}>{lang==="KK"?"Артқа":"Назад"}</button>
+                      <button className="btn br" style={{flex:2,justifyContent:"center"}} onClick={()=>{if(appForm.exp)setStep(3);}}>{lang==="KK"?"Келесі":"Далее"} <Ico n="arr" s={13} c="#fff"/></button>
+                    </div>
+                  </div>
+                )}
+
+                {step===3&&(
+                  <div>
+                    <div style={{fontSize:".88rem",fontWeight:600,color:co,marginBottom:18}}>{lang==="KK"?"Хат":"Сопроводительное письмо"}</div>
+                    <div style={{marginBottom:14}}>
+                      <label className="fl">{lang==="KK"?"Хабарлама (міндетті емес)":"Сообщение (необязательно)"}</label>
+                      <textarea rows={4} value={appForm.msg} onChange={e=>setAppForm(f=>({...f,msg:e.target.value}))} style={{resize:"vertical"}} placeholder={lang==="KK"?"Неліктен бізде жұмыс істегіңіз келеді?":"Почему хотите работать у нас?"}/>
+                    </div>
+                    <div style={{display:"flex",gap:10,marginTop:18}}>
+                      <button className="btn bg" style={{flex:1,justifyContent:"center"}} onClick={()=>setStep(2)}>{lang==="KK"?"Артқа":"Назад"}</button>
+                      <button className="btn br" style={{flex:2,justifyContent:"center"}} onClick={()=>setAppSent(true)}>{lang==="KK"?"Жіберу":"Отправить"} <Ico n="check" s={13} c="#fff"/></button>
+                    </div>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>}
     </div>
   );
 }
@@ -1682,8 +1829,8 @@ function CareersPage({lang,dark}){
 /* ═══════ REVIEWS SECTION ═══════ */
 function Reviews({lang,dark}){
   const co=dark?"#F5EFE6":"#1A0A00";
-  const cBg=dark?"#1A0900":"#fff";
-  const bg=dark?"#0D0500":"#F5EFE6";
+  const cBg=dark?"#111":"#fff";
+  const bg=dark?"#050505":"#F5EFE6";
   const stars=(n)=>{let s="";for(let i=0;i<n;i++)s+="★";return s;};
   return(
     <section style={{background:bg}} className="sec">
@@ -1708,6 +1855,11 @@ function Reviews({lang,dark}){
             </Rv>
           ))}
         </div>
+        <Rv d={.15}><div style={{textAlign:"center",marginTop:36}}>
+          <a href="https://2gis.kz/almaty/firm/9429940000836798" target="_blank" rel="noopener noreferrer" style={{textDecoration:"none"}}>
+            <button className="btn br" style={{fontSize:".86rem"}}><Ico n="send" s={14} c="#fff"/> {lang==="KK"?"Пікір қалдыру":lang==="EN"?"Leave a Review":lang==="ZH"?"留下评论":"Оставить отзыв"}</button>
+          </a>
+        </div></Rv>
       </div>
     </section>
   );
@@ -1718,8 +1870,8 @@ function B2B({preview,setPage,lang,dark}){
   const t=LANGS[lang];
   const tb=t.b2b;
   const co=dark?"#F5EFE6":"#1A0A00";
-  const bg=dark?"#140800":"#FBF7F2";
-  const cBg=dark?"#1A0900":"#fff";
+  const bg=dark?"#0A0A0A":"#FBF7F2";
+  const cBg=dark?"#111":"#fff";
   const[sent,setSent]=useState(false);
   const[form,setForm]=useState({co:"",nm:"",ph:"",em:"",bz:"",vl:""});
   const icoNames=["award","truck","pkg","zap"];
@@ -1738,7 +1890,7 @@ function B2B({preview,setPage,lang,dark}){
                 <div style={{width:44,height:44,borderRadius:12,background:`rgba(${i%2===0?"200,37,26":"232,57,26"},.09)`,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:16}}>
                   <Ico n={icoNames[i]} s={20} c={icoColors[i]}/>
                 </div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.02rem",marginBottom:9}}>{a.t}</div>
+                <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.02rem",marginBottom:9}}>{a.t}</div>
                 <p style={{color:"var(--t2)",fontSize:".82rem",lineHeight:1.62}}>{a.d}</p>
               </div>
             </Rv>
@@ -1746,9 +1898,9 @@ function B2B({preview,setPage,lang,dark}){
         </div>
 
         {/* Form + contacts — light */}
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1.1fr",gap:44,alignItems:"start"}}>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1.1fr",gap:44,alignItems:"start"}} className="contacts-grid">
           <Rv>
-            <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.25rem",marginBottom:20}}>Контакты для партнёров</div>
+            <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.25rem",marginBottom:20}}>Контакты для партнёров</div>
             {[{i:"phone",l:"Телефон B2B",v:"+7 700 330 3114"},{i:"mail",l:"Email",v:"partners@aksaynan.kz"},{i:"truck",l:"Доставка",v:"Алматы и Алматинская область"}].map((c,i)=>(
               <div key={i} style={{display:"flex",gap:12,alignItems:"flex-start",padding:"13px 0",borderBottom:"1px solid var(--b)"}}>
                 <div style={{width:36,height:36,borderRadius:9,background:"rgba(200,37,26,.09)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
@@ -1761,6 +1913,7 @@ function B2B({preview,setPage,lang,dark}){
               </div>
             ))}
             <button className="btn bg" style={{marginTop:24}}><Ico n="dl" s={13} c={co}/> {tb.price}</button>
+            <button className="btn br" style={{marginTop:10}} onClick={()=>{setPage("partners");window.scrollTo(0,0);}}><Ico n="send" s={13} c="#fff"/> {lang==="KK"?"Серіктес болу":lang==="EN"?"Become a Partner":lang==="ZH"?"成为合作伙伴":"Стать партнёром"}</button>
           </Rv>
 
           <Rv d={.1}>
@@ -1770,12 +1923,12 @@ function B2B({preview,setPage,lang,dark}){
                   <div style={{width:56,height:56,borderRadius:"50%",background:"rgba(34,197,94,.1)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 16px"}}>
                     <Ico n="check" s={24} c="#16a34a"/>
                   </div>
-                  <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:9}}>{tb.fok}</div>
-                  <button style={{background:"none",border:"none",color:"#C8251A",cursor:"pointer",fontFamily:"'Onest',sans-serif",fontWeight:700,fontSize:".84rem",marginTop:8}} onClick={()=>setSent(false)}>Отправить ещё</button>
+                  <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:9}}>{tb.fok}</div>
+                  <button style={{background:"none",border:"none",color:"#C8251A",cursor:"pointer",fontFamily:"'Gilroy',sans-serif",fontWeight:700,fontSize:".84rem",marginTop:8}} onClick={()=>setSent(false)}>Отправить ещё</button>
                 </div>
               ):(
                 <>
-                  <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:22}}>{tb.ftitle}</div>
+                  <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:22}}>{tb.ftitle}</div>
                   {[[tb.fco,"co","text"],[tb.fnm,"nm","text"],[tb.fph,"ph","tel"],[tb.fem,"em","email"]].map(([l,k,tp2])=>(
                     <div key={k} style={{marginBottom:11}}>
                       <label className="fl">{l}</label>
@@ -1810,8 +1963,8 @@ function PartnersPage({lang,dark}){
   const t=LANGS[lang];
   const tb=t.b2b;
   const co=dark?"#F5EFE6":"#1A0A00";
-  const bg=dark?"#0D0500":"#F5EFE6";
-  const cBg=dark?"#1A0900":"#fff";
+  const bg=dark?"#050505":"#F5EFE6";
+  const cBg=dark?"#111":"#fff";
   const[sent,setSent]=useState(false);
   const[form,setForm]=useState({co:"",nm:"",ph:"",em:"",bz:"",vl:""});
   const icoNames=["award","truck","pkg","zap"];
@@ -1820,10 +1973,20 @@ function PartnersPage({lang,dark}){
   return(
     <div style={{background:bg,paddingTop:68}}>
       {/* Hero banner */}
-      <section style={{background:dark?"#140800":"#1A0A00",padding:"88px 0",position:"relative",overflow:"hidden"}}>
+      <section style={{background:dark?"#0A0A0A":"#1A0A00",padding:"88px 0",position:"relative",overflow:"hidden"}}>
         <div className="grain-ov" style={{position:"absolute",inset:0,pointerEvents:"none"}}/>
         <div className="w" style={{position:"relative",zIndex:1}}>
           <Rv><SH label={tb.label} title={tb.fullTitle||tb.title} em="" sub={tb.fullSub||tb.sub} light/></Rv>
+          <div className="stat4">
+            {[{n:"2 000+",l:"партнёров"},{n:"80+",l:"тонн/сутки"},{n:"300+",l:"наименований"},{n:"13",l:"магазинов"}].map((s,i)=>(
+              <Rv key={i} d={i*.07}>
+                <div style={{background:"rgba(245,239,230,.05)",border:"1px solid rgba(245,239,230,.08)",borderRadius:16,padding:"22px 18px"}}>
+                  <div className="num" style={{fontSize:"2rem",color:i===0?"#E8391A":"#F5EFE6",lineHeight:1,marginBottom:8}}>{s.n}</div>
+                  <div style={{fontSize:".72rem",fontWeight:700,color:"rgba(245,239,230,.45)",textTransform:"uppercase",letterSpacing:".05em"}}>{s.l}</div>
+                </div>
+              </Rv>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -1838,20 +2001,43 @@ function PartnersPage({lang,dark}){
                   <div style={{width:44,height:44,borderRadius:12,background:`rgba(${i%2===0?"200,37,26":"232,57,26"},.08)`,display:"flex",alignItems:"center",justifyContent:"center",marginBottom:18}}>
                     <Ico n={icoNames[i]} s={20} c={icoColors[i]}/>
                   </div>
-                  <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.05rem",marginBottom:10}}>{a.t}</div>
+                  <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.05rem",marginBottom:10}}>{a.t}</div>
                   <p style={{color:"var(--t2)",fontSize:".83rem",lineHeight:1.65}}>{a.d}</p>
                 </div>
               </Rv>
             ))}
           </div>
 
-          {/* Partners list */}
+          {/* Sales CTA */}
+          <Rv d={.08}>
+            <div style={{textAlign:"center",marginBottom:52}}>
+              <a href="tel:+77003303114" style={{textDecoration:"none"}}>
+                <button className="btn br" style={{padding:"18px 44px",fontSize:"1.05rem",gap:10}}>
+                  <Ico n="phone" s={18} c="#fff"/> <span className="hide-mob">Связаться с </span>Отдел продаж<span className="hide-mob">: +7 700 330 31 14</span>
+                </button>
+              </a>
+            </div>
+          </Rv>
+
+          {/* Partners list — individual cards */}
           <Rv d={.1}>
-            <div style={{background:cBg,borderRadius:18,border:"1px solid var(--b)",padding:"32px 28px",marginBottom:60}}>
-              <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:20}}>Нам доверяют крупнейшие компании Казахстана</div>
-              <div style={{display:"flex",flexWrap:"wrap",gap:10}}>
-                {PARTNERS.map((p,i)=>(
-                  <span key={i} style={{background:"rgba(200,37,26,.07)",borderRadius:50,padding:"7px 16px",fontSize:".83rem",fontWeight:600,color:"#C8251A",fontFamily:"'Onest',sans-serif"}}>{p}</span>
+            <div style={{marginBottom:60}}>
+              <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.25rem",marginBottom:8}}>Нам доверяют крупнейшие компании</div>
+              <p style={{color:"var(--t2)",fontSize:".86rem",lineHeight:1.6,marginBottom:28}}>Более 2 000 оптовых и розничных партнёров по всему Казахстану</p>
+              <div style={{display:"grid",gridTemplateColumns:"repeat(auto-fill,minmax(260px,1fr))",gap:14}}>
+                {[{n:"Magnum",cat:"Розничная сеть",desc:"Крупнейшая торговая сеть Казахстана — ежедневные поставки во все точки Алматы"},{n:"Small",cat:"Розничная сеть",desc:"Продуктовые магазины у дома — свежая выпечка в шаговой доступности"},{n:"METRO",cat:"Оптовая торговля",desc:"Международная сеть оптовой торговли — партнёр с 2012 года"},{n:"Care food",cat:"HoReCa",desc:"Сервис корпоративного питания — хлебобулочные изделия для бизнес-ланчей"},{n:"АлмаСтор",cat:"Розничная сеть",desc:"Городская сеть магазинов — представлен полный ассортимент продукции Аксай"},{n:"Юбилейный",cat:"Розничная сеть",desc:"Сеть продуктовых магазинов — надёжный партнёр в премиальном сегменте"},{n:"Столичный",cat:"Розничная сеть",desc:"Региональная торговая сеть — совместное расширение географии поставок"},{n:"Дастархан",cat:"Маркетплейс",desc:"Онлайн-платформа продуктов питания — доставка Аксай прямо до двери"},{n:"Vita Bottlers",cat:"Корпоративный",desc:"Ведущий производитель напитков — совместные промо-акции и кросс-маркетинг"},{n:"Silk Alley",cat:"HoReCa",desc:"Премиальный ресторанный холдинг — эксклюзивные хлебобулочные позиции"},{n:"Nurbank",cat:"Корпоративный",desc:"Банковский сектор — корпоративные заказы для мероприятий и офисов"},{n:"Caspian University",cat:"Образование",desc:"Снабжение университетских столовых и кафетериев"},{n:"Helios",cat:"Корпоративный",desc:"Крупный промышленный холдинг — партнёрство в корпоративном питании"},{n:"French House / Beautymania",cat:"Корпоративный",desc:"Партнёрство по корпоративным подарочным наборам и мероприятиям"}].map((p,i)=>(
+                  <div key={i} style={{background:cBg,borderRadius:16,border:"1px solid var(--b)",padding:"22px 20px",transition:"transform .25s",cursor:"default"}} onMouseEnter={e=>{e.currentTarget.style.transform="translateY(-3px)";}} onMouseLeave={e=>{e.currentTarget.style.transform="none";}}>
+                    <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:12}}>
+                      <div style={{width:44,height:44,borderRadius:12,background:i%2===0?"rgba(200,37,26,.08)":"rgba(232,57,26,.08)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
+                        <span style={{fontWeight:800,fontSize:"1rem",color:i%2===0?"#C8251A":"#E8391A"}}>{p.n[0]}</span>
+                      </div>
+                      <div>
+                        <div style={{fontWeight:700,fontSize:".92rem",color:co}}>{p.n}</div>
+                        <div style={{fontSize:".68rem",fontWeight:600,color:"var(--t3)",textTransform:"uppercase",letterSpacing:".04em"}}>{p.cat}</div>
+                      </div>
+                    </div>
+                    <p style={{color:"var(--t2)",fontSize:".8rem",lineHeight:1.55}}>{p.desc}</p>
+                  </div>
                 ))}
               </div>
             </div>
@@ -1859,9 +2045,9 @@ function PartnersPage({lang,dark}){
 
           {/* Form */}
           <Rv d={.15}>
-            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:44,alignItems:"start"}}>
+            <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:44,alignItems:"start"}} className="contacts-grid">
               <div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.25rem",marginBottom:20}}>Контакты</div>
+                <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.25rem",marginBottom:20}}>Контакты</div>
                 {[{i:"phone",l:"Call-центр",v:"8-800-070-31-29"},{i:"phone",l:"Телефон B2B",v:"+7 700 330 3114"},{i:"mail",l:"Email",v:"reception@aksaynan.kz"},{i:"phone",l:"Заказные торты",v:"+7 700 330 3114"},{i:"pin",l:"Адрес",v:"г. Алматы, мкр. Аксай-2, ул. Б. Момышулы, 36а"},{i:"clk",l:"Режим работы",v:"Пн–Пт: 08:00–18:00"}].map((c,i)=>(
                   <div key={i} style={{display:"flex",gap:12,alignItems:"flex-start",padding:"12px 0",borderBottom:"1px solid var(--b)"}}>
                     <div style={{width:34,height:34,borderRadius:8,background:"rgba(200,37,26,.08)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0}}>
@@ -1873,7 +2059,7 @@ function PartnersPage({lang,dark}){
                     </div>
                   </div>
                 ))}
-                <button className="btn bg" style={{marginTop:20}}><Ico n="dl" s={13} c="#1A0A00"/> {tb.price}</button>
+                <button className="btn bg" style={{marginTop:20}}><Ico n="dl" s={13} c="var(--coal,#1A0A00)"/> {tb.price}</button>
               </div>
 
               <div style={{background:cBg,borderRadius:20,border:"1px solid var(--b)",padding:"30px"}}>
@@ -1882,12 +2068,12 @@ function PartnersPage({lang,dark}){
                     <div style={{width:56,height:56,borderRadius:"50%",background:"rgba(34,197,94,.1)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 16px"}}>
                       <Ico n="check" s={24} c="#16a34a"/>
                     </div>
-                    <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:9}}>{tb.fok}</div>
-                    <button style={{background:"none",border:"none",color:"#C8251A",cursor:"pointer",fontFamily:"'Onest',sans-serif",fontWeight:700,fontSize:".84rem"}} onClick={()=>setSent(false)}>Отправить ещё</button>
+                    <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:9}}>{tb.fok}</div>
+                    <button style={{background:"none",border:"none",color:"#C8251A",cursor:"pointer",fontFamily:"'Gilroy',sans-serif",fontWeight:700,fontSize:".84rem"}} onClick={()=>setSent(false)}>Отправить ещё</button>
                   </div>
                 ):(
                   <>
-                    <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:22}}>{tb.ftitle}</div>
+                    <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:22}}>{tb.ftitle}</div>
                     {[[tb.fco,"co","text"],[tb.fnm,"nm","text"],[tb.fph,"ph","tel"],[tb.fem,"em","email"]].map(([l,k,tp2])=>(
                       <div key={k} style={{marginBottom:12}}>
                         <label className="fl">{l}</label>
@@ -1923,8 +2109,8 @@ function PartnersPage({lang,dark}){
 /* ═══════ CERTIFICATES SLIDER ═══════ */
 function CertSlider({lang,dark}){
   const co=dark?"#F5EFE6":"#1A0A00";
-  const cBg=dark?"#1A0900":"#fff";
-  const bg=dark?"#140800":"#FBF7F2";
+  const cBg=dark?"#111":"#fff";
+  const bg=dark?"#0A0A0A":"#FBF7F2";
   const[sel,setSel]=useState(null);
   const scrollRef=useRef(null);
   const scroll=(dir)=>{if(scrollRef.current)scrollRef.current.scrollBy({left:dir*300,behavior:"smooth"});};
@@ -1941,7 +2127,7 @@ function CertSlider({lang,dark}){
           <div ref={scrollRef} style={{display:"flex",gap:14,overflowX:"auto",paddingBottom:12,scrollSnapType:"x mandatory",scrollBehavior:"smooth"}} className="hide-scrollbar">
             {CERT_NAMES.map((name,i)=>(
               <Rv key={i} d={i*.04}>
-                <div className="cert-card" onClick={()=>setSel(i)} style={{background:cBg}}>
+                <div className="cert-card" onClick={()=>setSel(i)} style={{background:cBg,height:"100%",display:"flex",flexDirection:"column"}}>
                   <div style={{height:220,overflow:"hidden",position:"relative"}}>
                     <img src={CERT_IMG["cert_"+i]} alt={name} style={{width:"100%",height:"100%",objectFit:"cover",display:"block",transition:"transform .4s"}}/>
                     <div style={{position:"absolute",inset:0,background:"linear-gradient(to top,rgba(0,0,0,.3) 0%,transparent 50%)",display:"flex",alignItems:"flex-end",padding:"12px 14px"}}>
@@ -1956,6 +2142,12 @@ function CertSlider({lang,dark}){
             ))}
           </div>
           <button onClick={()=>scroll(1)} className="cert-arrow cert-arrow-r"><Ico n="arr" s={16} c={co}/></button>
+          {/* Mobile dots */}
+          <div className="cert-dots" style={{display:"none",justifyContent:"center",gap:6,marginTop:14}}>
+            {CERT_NAMES.map((_,i)=>(
+              <button key={i} onClick={()=>{if(scrollRef.current){const cards=scrollRef.current.children;if(cards[i]){cards[i].scrollIntoView({behavior:"smooth",block:"nearest",inline:"center"});}}}} style={{width:8,height:8,borderRadius:"50%",border:"none",background:i===0?"#C8251A":"var(--b)",cursor:"pointer",padding:0,transition:"background .3s"}}/>
+            ))}
+          </div>
         </div>
       </div>
       {/* Lightbox */}
@@ -1980,8 +2172,8 @@ function Contacts({lang,dark}){
   const t=LANGS[lang];
   const tc=t.contacts;
   const co=dark?"#F5EFE6":"#1A0A00";
-  const bg=dark?"#140800":"#FBF7F2";
-  const cBg=dark?"#1A0900":"#fff";
+  const bg=dark?"#0A0A0A":"#FBF7F2";
+  const cBg=dark?"#111":"#fff";
   const[sent,setSent]=useState(false);
 
   return(
@@ -1989,7 +2181,7 @@ function Contacts({lang,dark}){
       <div className="w">
         <Rv><SH label={tc.label} title={tc.title} em="" sub={tc.sub}/></Rv>
 
-        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:44,alignItems:"start"}}>
+        <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:44,alignItems:"start"}} className="contacts-grid">
           {/* Contact info */}
           <div>
             <Rv>
@@ -2010,41 +2202,16 @@ function Contacts({lang,dark}){
           {/* Contact form */}
           <Rv d={.1}>
             <div style={{background:cBg,borderRadius:20,border:"1px solid var(--b)",padding:"30px"}}>
-              {sent?(
-                <div style={{textAlign:"center",padding:"44px 0"}}>
-                  <div style={{width:56,height:56,borderRadius:"50%",background:"rgba(34,197,94,.1)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 16px"}}>
-                    <Ico n="check" s={24} c="#16a34a"/>
-                  </div>
-                  <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:9}}>{tc.fok}</div>
-                  <button style={{background:"none",border:"none",color:"#C8251A",cursor:"pointer",fontFamily:"'Onest',sans-serif",fontWeight:700,fontSize:".84rem"}} onClick={()=>setSent(false)}>Написать ещё</button>
+              <div style={{textAlign:"center",padding:"32px 16px"}}>
+                <div style={{width:64,height:64,borderRadius:"50%",background:"rgba(200,37,26,.1)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px"}}>
+                  <Ico n="phone" s={28} c="#C8251A"/>
                 </div>
-              ):(
-                <>
-                  <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:22}}>{tc.formTitle}</div>
-                  <div style={{marginBottom:12}}>
-                    <label className="fl">{tc.fname}</label>
-                    <input type="text"/>
-                  </div>
-                  <div style={{marginBottom:12}}>
-                    <label className="fl">{tc.femail}</label>
-                    <input type="email"/>
-                  </div>
-                  <div style={{marginBottom:12}}>
-                    <label className="fl">{tc.fsubj}</label>
-                    <select>
-                      <option value="">—</option>
-                      {(tc.topics||[]).map((o,i)=><option key={i}>{o}</option>)}
-                    </select>
-                  </div>
-                  <div style={{marginBottom:12}}>
-                    <label className="fl">{tc.fmsg}</label>
-                    <textarea rows={4} style={{resize:"vertical"}}/>
-                  </div>
-                  <button className="btn br" style={{width:"100%",justifyContent:"center",padding:"12px",marginTop:6}} onClick={()=>setSent(true)}>
-                    <Ico n="send" s={13} c="#fff"/> {tc.fsend}
-                  </button>
-                </>
-              )}
+                <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.15rem",marginBottom:8}}>{lang==="KK"?"Бізге қоңырау шалыңыз":lang==="EN"?"Call Us":lang==="ZH"?"致电我们":"Позвоните нам"}</div>
+                <p style={{color:"var(--t2)",fontSize:".84rem",lineHeight:1.6,marginBottom:20}}>{lang==="KK"?"Біз демалыссыз жұмыс істейміз":lang==="EN"?"We work 7 days a week":lang==="ZH"?"我们全年无休":"Работаем без выходных"}</p>
+                <a href="tel:88000703129" style={{textDecoration:"none",display:"block"}}>
+                  <button className="btn br" style={{width:"100%",justifyContent:"center",padding:"16px 28px",fontSize:"1rem"}}><Ico n="phone" s={18} c="#fff"/> {tc.phone}</button>
+                </a>
+              </div>
             </div>
           </Rv>
         </div>
@@ -2087,7 +2254,7 @@ function Footer({setPage,lang,setLang,dark,setDark}){
             <div style={{display:"flex",alignItems:"center",gap:9,marginBottom:15}}>
               <AksayLogo s={32}/>
               <div>
-                <div style={{fontFamily:"'Playfair Display',serif",fontWeight:800,fontSize:".95rem",color:"#F5EFE6",letterSpacing:"-.02em"}}>ХБК Аксай</div>
+                <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:800,fontSize:".95rem",color:"#F5EFE6",letterSpacing:"-.02em"}}>ХБК Аксай</div>
                 <div style={{fontSize:".52rem",fontWeight:700,letterSpacing:".1em",textTransform:"uppercase",color:"rgba(245,239,230,.26)",marginTop:1}}>с 1988 года</div>
               </div>
             </div>
@@ -2141,21 +2308,21 @@ function Footer({setPage,lang,setLang,dark,setDark}){
 
 /* ═══════ NEWS PREVIEW (landing) ═══════ */
 function NewsPreview({setPage,lang,dark}){
-  const co=dark?"#F5EFE6":"#1A0A00";const cBg=dark?"#1A0900":"#fff";
+  const co=dark?"#F5EFE6":"#1A0A00";const cBg=dark?"#111":"#fff";
   const a=NEWS[0];if(!a)return null;
   return(
-    <section style={{background:dark?"#0D0500":"#F5EFE6"}} className="sec">
+    <section style={{background:dark?"#050505":"#F5EFE6"}} className="sec">
       <div className="w">
         <Rv><SH label={lang==="ZH"?"新闻":lang==="KK"?"Жаңалықтар":lang==="EN"?"News":"Новости"} title={lang==="ZH"?"最新消息":lang==="KK"?"Соңғы жаңалықтар":lang==="EN"?"Latest News":"Последние новости"} em=""/></Rv>
-        <Rv d={.08}><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20}}>
+        <Rv d={.08}><div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:20}} className="news-grid">
           <div style={{background:cBg,borderRadius:18,border:"1px solid var(--b)",padding:"26px 24px"}}>
             <div style={{display:"flex",gap:8,marginBottom:14}}><span className="tg">{a.source}</span><span style={{color:"var(--t3)",fontSize:".72rem"}}>{a.date}</span></div>
-            <h3 style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.1rem",marginBottom:12}}>{a.title[lang]||a.title.RU}</h3>
+            <h3 style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.1rem",marginBottom:12}}>{a.title[lang]||a.title.RU}</h3>
             <p style={{color:"var(--t2)",fontSize:".84rem",lineHeight:1.65,marginBottom:20}}>{a.summary[lang]||a.summary.RU}</p>
             <button className="btn br" onClick={()=>{setPage("news");window.scrollTo({top:0});}}>{lang==="ZH"?"全部新闻":lang==="KK"?"Барлық жаңалықтар":lang==="EN"?"All News":"Все новости"} <Ico n="arr" s={13} c="#fff"/></button>
           </div>
           <div style={{background:cBg,borderRadius:18,border:"1px solid var(--b)",padding:"26px 24px"}}>
-            <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:18}}><Ico n="trophy" s={18} c="#C8251A"/><span style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.02rem"}}>{lang==="ZH"?"奖项":lang==="KK"?"Марапаттар":lang==="EN"?"Awards":"Награды"}</span></div>
+            <div style={{display:"flex",alignItems:"center",gap:10,marginBottom:18}}><Ico n="trophy" s={18} c="#C8251A"/><span style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.02rem"}}>{lang==="ZH"?"奖项":lang==="KK"?"Марапаттар":lang==="EN"?"Awards":"Награды"}</span></div>
             {AWARDS.map(function(aw,i){return <div key={i} style={{display:"flex",gap:12,padding:"10px 0",borderBottom:i<AWARDS.length-1?"1px solid var(--b)":"none"}}><span className="num" style={{fontSize:"1rem",color:"#C8251A",width:40,flexShrink:0}}>{aw.y}</span><p style={{fontSize:".74rem",color:"var(--t2)",lineHeight:1.4}}>{(aw.t[lang]||aw.t.RU).substring(0,65)}...</p></div>;})}
             <button className="btn bg" style={{marginTop:14,width:"100%",justifyContent:"center"}} onClick={()=>{setPage("about");window.scrollTo({top:0});}}>{lang==="ZH"?"了解更多":lang==="KK"?"Толығырақ":lang==="EN"?"Learn More":"Подробнее"} <Ico n="arr" s={13} c={co}/></button>
           </div>
@@ -2167,14 +2334,14 @@ function NewsPreview({setPage,lang,dark}){
 
 /* ═══════ NEWS PAGE ═══════ */
 function NewsPage({lang,dark}){
-  const co=dark?"#F5EFE6":"#1A0A00";const cBg=dark?"#1A0900":"#fff";
+  const co=dark?"#F5EFE6":"#1A0A00";const cBg=dark?"#111":"#fff";
   return(
-    <div style={{background:dark?"#0D0500":"#F5EFE6",paddingTop:68}}>
+    <div style={{background:dark?"#050505":"#F5EFE6",paddingTop:68}}>
       <section style={{background:"#1A0A00",padding:"88px 0"}}><div className="w"><Rv><SH label={lang==="ZH"?"新闻":lang==="KK"?"Жаңалықтар":lang==="EN"?"News":"Новости"} title={lang==="ZH"?"新闻与事件":lang==="KK"?"Жаңалықтар мен оқиғалар":lang==="EN"?"News & Events":"Новости и события"} em="" light/></Rv></div></section>
       <section className="sec"><div className="w">
         {NEWS.map(function(a,i){return <Rv key={a.id} d={i*.08}><div style={{background:cBg,borderRadius:18,border:"1px solid var(--b)",padding:"28px 26px",marginBottom:16}}>
           <div style={{display:"flex",gap:8,marginBottom:14}}><span className="tg">{a.source}</span><span style={{color:"var(--t3)",fontSize:".72rem"}}>{a.date}</span></div>
-          <h3 style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.2rem",marginBottom:12}}>{a.title[lang]||a.title.RU}</h3>
+          <h3 style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.2rem",marginBottom:12}}>{a.title[lang]||a.title.RU}</h3>
           <p style={{color:"var(--t2)",fontSize:".9rem",lineHeight:1.7,marginBottom:20}}>{a.summary[lang]||a.summary.RU}</p>
           <a href={a.url} target="_blank" rel="noopener noreferrer" className="btn br" style={{textDecoration:"none"}}>{lang==="ZH"?"阅读全文":lang==="KK"?"Толық мақала":lang==="EN"?"Read Full Article":"Читать полную статью"} <Ico n="arr" s={13} c="#fff"/></a>
         </div></Rv>;})}
@@ -2185,7 +2352,7 @@ function NewsPage({lang,dark}){
 
 /* ═══════ MEDIA/PRESS PAGE ═══════ */
 function MediaPage({lang,dark}){
-  const co=dark?"#F5EFE6":"#1A0A00";const cBg=dark?"#1A0900":"#fff";
+  const co=dark?"#F5EFE6":"#1A0A00";const cBg=dark?"#111":"#fff";
   const[tab,setTab]=useState("photos");
   const photos=[
     {src:"Media/Photo/Открытие завода.jpeg",cap:"1988"},{src:"Media/Photo/вход кпп.jpeg",cap:"1988"},{src:"Media/Photo/набор муки.jpeg",cap:"1988"},
@@ -2197,8 +2364,23 @@ function MediaPage({lang,dark}){
   var photoLabel=lang==="ZH"?"媒体照片":lang==="KK"?"БАҚ үшін фото":lang==="EN"?"Press Photos":"Фото для СМИ";
   var reelsLabel=lang==="ZH"?"视频":lang==="KK"?"Бейне":lang==="EN"?"Videos":"Видео";
   return(
-    <div style={{background:dark?"#0D0500":"#F5EFE6",paddingTop:68}}>
-      <section style={{background:"#1A0A00",padding:"88px 0"}}><div className="w"><Rv><SH label={lang==="ZH"?"媒体":lang==="KK"?"БАҚ":lang==="EN"?"Press":"СМИ"} title={lang==="ZH"?"媒体资料":lang==="KK"?"БАҚ үшін материалдар":lang==="EN"?"Press Materials":"Для СМИ"} em="" light/></Rv></div></section>
+    <div style={{background:dark?"#050505":"#F5EFE6",paddingTop:68}}>
+      <section style={{background:dark?"#0A0A0A":"#1A0A00",padding:"88px 0",position:"relative",overflow:"hidden"}}>
+        <div className="grain-ov" style={{position:"absolute",inset:0,pointerEvents:"none"}}/>
+        <div className="w" style={{position:"relative",zIndex:1}}>
+          <Rv><SH label={lang==="ZH"?"媒体":lang==="KK"?"БАҚ":lang==="EN"?"Press":"СМИ"} title={lang==="ZH"?"媒体资料":lang==="KK"?"БАҚ үшін материалдар":lang==="EN"?"Press Materials":"Для СМИ"} em="" sub={lang==="KK"?"Фотосуреттер, бейнелер және баспасөз материалдары":"Фотографии, видео и материалы для прессы"} light/></Rv>
+          <div className="stat4">
+            {[{n:"12+",l:lang==="KK"?"фотосурет":"фотографий"},{n:"10+",l:lang==="KK"?"бейне":"видеороликов"},{n:"37",l:lang==="KK"?"жыл тарих":"лет истории"},{n:"HD",l:lang==="KK"?"сапа":"качество"}].map((s,i)=>(
+              <Rv key={i} d={i*.07}>
+                <div style={{background:"rgba(245,239,230,.05)",border:"1px solid rgba(245,239,230,.08)",borderRadius:16,padding:"22px 18px"}}>
+                  <div className="num" style={{fontSize:"2rem",color:i===0?"#E8391A":"#F5EFE6",lineHeight:1,marginBottom:8}}>{s.n}</div>
+                  <div style={{fontSize:".72rem",fontWeight:700,color:"rgba(245,239,230,.45)",textTransform:"uppercase",letterSpacing:".05em"}}>{s.l}</div>
+                </div>
+              </Rv>
+            ))}
+          </div>
+        </div>
+      </section>
       <section className="sec"><div className="w">
         <div style={{display:"flex",gap:8,marginBottom:36}}>
           <button className={"ct"+(tab==="photos"?" on":"")} onClick={function(){setTab("photos");}}>{photoLabel}</button>
@@ -2217,7 +2399,7 @@ function MediaPage({lang,dark}){
           </div>;})}
         </div>}
         <Rv d={.15}><div style={{marginTop:48,background:cBg,borderRadius:18,border:"1px solid var(--b)",padding:"28px 24px"}}>
-          <div style={{fontFamily:"'Playfair Display',serif",fontWeight:700,color:co,fontSize:"1.1rem",marginBottom:14}}>{lang==="ZH"?"媒体联系方式":lang==="KK"?"Баспасөз байланыстары":lang==="EN"?"Press Contacts":"Контакты для СМИ"}</div>
+          <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:700,color:co,fontSize:"1.1rem",marginBottom:14}}>{lang==="ZH"?"媒体联系方式":lang==="KK"?"Баспасөз байланыстары":lang==="EN"?"Press Contacts":"Контакты для СМИ"}</div>
           <div style={{display:"flex",gap:16,flexWrap:"wrap"}}><div style={{display:"flex",gap:6,alignItems:"center"}}><Ico n="mail" s={14} c="#C8251A"/><span style={{fontSize:".85rem",color:co}}>press@aksaynan.kz</span></div><div style={{display:"flex",gap:6,alignItems:"center"}}><Ico n="phone" s={14} c="#C8251A"/><span style={{fontSize:".85rem",color:co}}>+7 (727) 221-68-16</span></div></div>
         </div></Rv>
       </div></section>
@@ -2246,7 +2428,7 @@ function CartPanel({open,onClose,cart,setCart,lang,dark,onCheckout}){
       <div className={`cart-overlay${open?" open":""}`} onClick={onClose}/>
       <div className={`cart-panel${open?" open":""}`}>
         <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"18px 20px",borderBottom:"1px solid var(--b)"}}>
-          <div style={{fontFamily:"'Playfair Display',serif",fontWeight:800,fontSize:"1.2rem",color:co}}>{t.title} ({cart.length})</div>
+          <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:800,fontSize:"1.2rem",color:co}}>{t.title} ({cart.length})</div>
           <button onClick={onClose} style={{background:"none",border:"none",cursor:"pointer"}}><Ico n="x" s={20} c={co}/></button>
         </div>
         <div style={{flex:1,overflowY:"auto",padding:"10px 20px"}}>
@@ -2287,7 +2469,7 @@ function CartPanel({open,onClose,cart,setCart,lang,dark,onCheckout}){
 function CheckoutPage({cart,setCart,lang,dark,setPage}){
   const t=(LANGS[lang]||LANGS.RU).cart||{};
   const co=dark?"#F5EFE6":"#1A0A00";
-  const bg=dark?"#0D0500":"#F5EFE6";
+  const bg=dark?"#050505":"#F5EFE6";
   const total=cart.reduce((s,c)=>s+c.p*c.qty,0);
   const[delivery,setDelivery]=useState("pickup");
   const[store,setStore]=useState(STORES[0]?.id||1);
@@ -2297,7 +2479,7 @@ function CheckoutPage({cart,setCart,lang,dark,setPage}){
     <section style={{background:bg,minHeight:"60vh",display:"flex",alignItems:"center",justifyContent:"center"}} className="sec">
       <div style={{textAlign:"center",maxWidth:500}}>
         <div style={{width:72,height:72,borderRadius:"50%",background:"rgba(200,37,26,.1)",display:"flex",alignItems:"center",justifyContent:"center",margin:"0 auto 20px"}}><Ico n="check" s={36} c="#C8251A"/></div>
-        <div style={{fontFamily:"'Playfair Display',serif",fontWeight:800,fontSize:"1.4rem",color:co,marginBottom:12}}>{t.success}</div>
+        <div style={{fontFamily:"'Gilroy',sans-serif",fontWeight:800,fontSize:"1.4rem",color:co,marginBottom:12}}>{t.success}</div>
         <button className="btn br" onClick={()=>{setCart([]);setPage("home");}}>{t.back} <Ico n="arr" s={13} c="#fff"/></button>
       </div>
     </section>
@@ -2360,7 +2542,7 @@ function CheckoutPage({cart,setCart,lang,dark,setPage}){
 
 /* ═══════ MAIN APP ═══════ */
 function App(){
-  const[lang,setLang]=useState("RU");
+  const[lang,setLang]=useState("KK");
   const[dark,setDark]=useState(false);
   const[page,setPage]=useState("home");
   const[cart,setCart]=useState([]);
@@ -2380,6 +2562,7 @@ function App(){
   };
 
   useEffect(()=>{document.body.className=dark?"dk":"";},[dark]);
+  useEffect(()=>{window.scrollTo(0,0);},[page]);
 
   const sharedProps={setPage,lang,dark};
 
@@ -2429,7 +2612,6 @@ function App(){
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
-
 </script>
 </body>
 </html>
